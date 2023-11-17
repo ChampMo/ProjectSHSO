@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/main_style.css" rel="stylesheet">
+    <link href="./css/cart_style.css" rel="stylesheet">
+
+    
+    <script defer src="./js/main_script.js"></script>
+    <script defer src="./js/cart_script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Cart</title>
+    
+
+</head>
+<body>
+    <header>
+        <div class="header"  id="myheader">
+            <a class="logo" href="./main.html">
+                <div>Second Hand</div>
+                <div>Shopping Online</div>
+                <i class="fa-solid fa-handshake-simple" id="logo_hand"></i>
+            </a>
+            
+            <div class="menu" id="mymenu">
+                <a class="profileham" href="./profile.html">
+                    <div class="bordermenu">
+                        <i class="fa-solid fa-user fa-2xl"></i>
+                        <div class="inprofileham">Profile</div>
+                    </div>
+                </a>
+                <a class="inmenu" href="#menu1">
+                    <div class="bordermenu">menu 1</div>
+                </a>
+                <a class="inmenu" href="./status_order.html" id="order">
+                    <i class="fa-solid fa-receipt fa-xl" id="logo_order"></i>
+                    <div class="bordermenu">Order</div>
+                </a>
+                <a class="inmenu" href="./status_order.html" id="orderham">
+                    <div class="bordermenu">
+                        <div class="bordermenu">
+                        <i class="fa-solid fa-receipt fa-xl" id="logo_orderham"></i>
+                        Order</div>
+                    </div>
+                </a>
+                <a class="profile" href="./profile.html">
+                    <i class="fa-solid fa-user fa-2xl"></i>
+                </a>
+            </div>
+            
+            <div class="ham" id="myham" onclick="myFunction(this)">
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </div>
+        </div>
+        <nav class="search_bar" onclick="Closemenu(this)">
+            <div class="insearch_bar">
+                <input id="productCountInput" type="number" class="input1">
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ed6a53; margin-left: 11px;" id="searchimg"></i>
+                <button class="button1">Search</button>
+            </div>
+        </nav>
+        <button id="scrollToTopBtn" class="button_up" onmouseover="arrow_up(this)">
+            <i id="arrow_up" class="fa-solid fa-angle-up fa-2xl"></i>
+        </button>
+    
+    </header>
+    <div class="cart_product"  onclick="Closemenu(this)">
+        <section class="in_cart_product"  id="Iincshop">
+            <!-- <div class="shop_pro">
+                <div class="detail_shop">
+                    <label class="check_shop_pro">
+                        <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="shop_name">Name_Shop</div>
+                </div>
+                <div class="outincpro" id="Iincpro">
+                    <div class="incpro">
+                        <label class="check_pro">
+                            <input type="checkbox" class="Ccheck_pro" onclick="checkbox()">
+                            <span class="checkmark1"></span>
+                        </label>
+                        <a class="click_incpro" href="#product">
+                            <img src="images/Shirocmt.jpg" alt="Product Image">
+                            <div class="product_name">Product Name</div>
+                        </a>
+                        <div class="select_type_pro">Select Type Product</div>
+                        <div class="cost_pro">
+                            &nbsp;100
+                        </div>
+                        <div class="amount">
+                            <button class="decrement" onclick="checkbox()"> - </button>
+                            <span class="count">1</span>
+                            <button class="increment" onclick="checkbox()"> + </button>
+                        </div>
+                        <div class="all_cost_pro">
+                        </div>
+                        <div class="delete">
+                            ลบ
+                        </div> 
+                    </div>
+                </div>
+                
+            </div> -->
+            
+            
+            
+
+        </section>
+        <div class="pay">
+            
+
+            <div class="check_allproduct">
+                <div class="checkbox-wrapper-30">
+                    <span class="checkbox">
+                    <input type="checkbox" class="parent_pro" onclick="checkbox()"/>
+                    <svg>
+                        <use xlink:href="#checkbox-30" class="checkbox"></use>
+                    </svg>
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+                    <symbol id="checkbox-30" viewBox="0 0 22 22">
+                        <path fill="none" stroke="currentColor" d="M5.5,11.3L9,14.8L20.2,3.3l0,0c-0.5-1-1.5-1.8-2.7-1.8h-13c-1.7,0-3,1.3-3,3v13c0,1.7,1.3,3,3,3h13 c1.7,0,3-1.3,3-3v-13c0-0.4-0.1-0.8-0.3-1.2"/>
+                    </symbol>
+                    </svg>
+                </div>
+                <span class="amount_select">เลือกสินค้าทั้งหมด ( 0 )</span>
+            </div>
+            <div class="cost_product">
+                <span class="amount_select1">รวม ( 0 สินค้า )&nbsp;:&nbsp;฿&nbsp;0</span>
+                <span></span>
+                <button class="button_order">สั่งสินค้า</button>
+            </div>
+
+
+            <input type="number" id="productCountIn" value="2" style="font-size: 22px; position:sticky; bottom: 180px;">
+            <input type="number" id="shopCountIn" value="2" style="font-size: 22px; position:sticky; bottom: 180px;">
+            <button id="generateProducts" style="font-size: 22px; position:sticky; bottom: 180px;">สร้างสินค้า</button>
+        </div>
+            
+        
+        
+    </div>
+
+
+
+
+
+
+</body>
+</html>

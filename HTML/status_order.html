@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/main_style.css" rel="stylesheet">
+    <link href="./css/status_order_style.css" rel="stylesheet">
+
+    
+    <script defer src="./js/main_script.js"></script>
+    <script defer src="./js/status_order_script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Status Order</title>
+    
+
+</head>
+<body>
+    <header>
+        <div class="header"  id="myheader">
+            <a class="logo" href="./main.html">
+                <div>Second Hand</div>
+                <div>Shopping Online</div>
+                <i class="fa-solid fa-handshake-simple" id="logo_hand"></i>
+            </a>
+            
+            <div class="menu" id="mymenu">
+                <a class="profileham" href="./profile.html">
+                    <div class="bordermenu">
+                        <i class="fa-solid fa-user fa-2xl"></i>
+                        <div class="inprofileham">Profile</div>
+                    </div>
+                </a>
+                <a class="cartham" href="./cart.html">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                    <div class="incartham">Cart</div>
+                </a>
+                <a class="profile_order" href="./profile.html">
+                    <i class="fa-solid fa-user fa-2xl"></i>
+                    <div>Profile</div>
+                </a>
+            </div>
+            
+            <div class="ham" id="myham" onclick="myFunction(this)">
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </div>
+        </div>
+        <nav class="search_bar" onclick="Closemenu(this)">
+            <div class="insearch_bar">
+                <input id="productCountInput" type="number" class="input1">
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ed6a53; margin-left: 11px;" id="searchimg"></i>
+                <button class="button1">Search</button>
+                <a class="cart" href="./cart.html">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                </a>
+            </div>
+        </nav>
+        <button id="scrollToTopBtn" class="button_up" onmouseover="arrow_up(this)">
+            <i id="arrow_up" class="fa-solid fa-angle-up fa-2xl"></i>
+        </button>
+    
+    </header>
+    <div class="all_content_order" onclick="Closemenu(this)">
+        <div class="bg_content_order">
+            <div class="type_order">
+                <div class="bg_sending_order" id="bg_sending_order" >
+                    <div class="sending_order">
+                        คำสั่งซื้อ
+                    </div>
+                    <div class="line_left"></div>
+                </div>
+                <div class="midline"></div>
+                <div class="bg_history_order" id="bg_history_order" >
+                    <div class="history_order">
+                        ประวิติการสั่งซื้อ
+                    </div>
+                    <div class="line_right"></div>
+                </div>
+            </div>
+            <input type="number" id="productCountIn" value="2" style="font-size: 22px; position:sticky; bottom: 180px;">
+            <input type="number" id="shopCountIn" value="2" style="font-size: 22px; position:sticky; bottom: 180px;">
+            <button id="generateProducts" style="font-size: 22px; position:sticky; bottom: 180px;">สร้างสินค้า</button>
+            <div class="all_intype_order" id="Iincshop">
+                <!-- <div class="intype_order">
+                    <div class="detail_shop">
+                        <div class="shop_name">Name_Shop</div>
+                    </div>
+                    <section class="inorder" id="Iinorder">
+                        <div class="incpro">
+                            <a class="click_incpro" href="./product.html">
+                                <img src="images/Shirocmt.jpg" alt="Product Image">
+                                <div class="bg_product_name">
+                                    <div class="product_name">Product Name</div>
+                                    <div class="select_type_pro">Select Type Product</div>
+                                </div>
+                            </a>
+                            
+                            <div class="cost_pro">
+                                &nbsp;100
+                            </div>
+                            <div class="bg_amount">
+                                <div>จำนวน</div>
+                                <div class="amount">
+                                    &n bsp;1
+                                </div>
+                            </div>
+                            <div class="all_cost">
+                                <div class="all_cost_text">รวมคำสั่งซื้อ : </div>
+                                <div class="all_cost_pro">
+                                </div>
+                            </div>
+                            <button class="con_product">ยืนยันการรับสินค้า</button>
+                            <div class="status">
+                                Status
+                            </div> 
+                        </div>
+                    </section>
+                </div>  -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
