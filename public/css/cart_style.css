@@ -398,16 +398,9 @@ width: 100%;
     max-width: 100px;
     min-width: 50px;
     height: 50px;
-    
     transition: transform 0.1s;
 }
-.button_order:hover{
-    background-color: #c44d37;
-}
-.button_order:active{
-    background-color: #a33e2d;
-    transform: scale(0.9);
-}
+
 .button_order button{
     width: 100%;
     height: 100%;
@@ -420,6 +413,13 @@ width: 100%;
     font-family: 'Noto Sans Thai', sans-serif;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 
+}
+.button_order button:hover{
+    background-color: #c44d37;
+}
+.button_order button:active{
+    background-color: #a33e2d;
+    transform: scale(0.9);
 }
 
 @media screen and (max-width: 900px) {

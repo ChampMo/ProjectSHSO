@@ -397,17 +397,17 @@ html, body{
     align-items: flex-start;
     box-sizing: border-box;
 }
-
-.edit_data_address{
-    width: 300px;
-    display: none;
-    flex-wrap: wrap;
-}
 .profile_address_data{
     display: flex;
     flex-wrap: wrap;
     padding-left: 10px;
 }
+.edit_data_address{
+    width: 300px;
+    display: none;
+    flex-wrap: wrap;
+}
+
 .edit_data_address input{
     width: 300px;
     margin-bottom: 10px;
