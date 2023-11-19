@@ -1,0 +1,116 @@
+.all_width{
+    display: flex;
+    justify-content: center;
+}
+.all{
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.address{
+    background-color: rgb(249, 234, 207);
+    height:300px;
+    width: 1500px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.now_address{
+    font-size: 20px;
+    width: 850px;
+    margin-left: 20px;
+    margin-top: 20px
+}
+
+.select_address{
+    position: absolute;
+    top: 30px;
+    left: 860px;
+}
+.change_address{
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgb(242, 187, 85);
+    border: none;
+    transition-duration: 0.3s;
+    width: 120px;
+    height: 50px;
+    border-radius: 5px;
+}
+.change_address:hover{
+    background-color: rgb(249, 234, 207);
+}
+.submit{
+    background-color: rgb(178, 176, 176);
+    height: 300px;
+    width: 1500px;
+}
+.top{
+    display: flex;
+    flex-direction: row;
+}
+.left_method{
+    font-size: 20px;
+    width: 700px;
+    margin-left: 20px;
+    margin-top: 20px
+}
+.right_method{
+    display: flex;
+    flex-direction: row;
+    margin-top:20px;
+}
+
+.change_method{
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition-duration: 0.3s;
+    width: 120px;
+    height: 50px;
+    border-radius: 5px;
+}
+.change_method:hover{
+    background-color: rgb(178, 176, 176);
+}
+.mid{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+}
+.mid_left{
+    width: 700px;
+}
+.mid_right{
+    display: flex;
+    flex-direction: column;
+}
+.bot{
+    display: flex;
+    flex-direction: row;
+}
+.bot_right{
+    position: absolute;
+    top: 40px;
+    left: 860px;
+}
+.table_cost{
+    width: 300px;
+}
+
+.submit_send{
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition-duration: 0.3s;
+    width: 120px;
+    height: 50px;
+    border-radius: 5px;
+}
+.submit_send:hover{
+    background-color: rgb(178, 176, 176);
+}
