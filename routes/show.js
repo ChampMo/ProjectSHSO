@@ -38,6 +38,10 @@ router.get("/seller", (req, res) => {
     res.render(path.join(__dirname, "../views/seller.ejs"));
 });
 
+router.get("/registerseller", (req, res) => {
+    res.render(path.join(__dirname, "../views/registerseller.ejs"));
+});
+
 router.get("/pay", (req, res) => {
     res.render(path.join(__dirname, "../views/pay.ejs"));
 });
