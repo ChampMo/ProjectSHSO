@@ -1,6 +1,20 @@
 const express = require("express");
+
 const path = require("path");
 const app = express();
+
+const cookieSession = require('cookie-session');
+
+app.use(express.urlencoded({ extended: false }))
+
+app.use(cookieSession({
+  name:'session',
+  keys: ['key1','key2'],
+  maxAge: 3600 * 1000 * 24 //24hr
+}))
+
+
+
 
 class AppServer {
   constructor() {
@@ -12,34 +26,22 @@ class AppServer {
   configureExpress() {
     this.app = express();
     this.app.use(express.static(path.join(__dirname, "/public")));
-    this.app.use(express.static(path.join(__dirname, "/HTML")));
+    app.set('views', path.join(__dirname, '/views'))
+    app.set('view engine', 'ejs')
   }
 
   configureRoutes() {
-    // const showProfileRoute = require("./routes/show_profile");
+     const login = require("./routes/login");
 
-    // this.app.use("/", showProfileRoute);
+     this.app.use("/", login);
 
-    this.app.get("/", (req, res) => {
-      res.sendFile(path.join(__dirname, "/HTML/main.html"));
-    });
+     const show = require("./routes/show");
 
-    this.app.get("/cart", (req, res) => {
-      res.sendFile(path.join(__dirname, "/HTML/cart.html"));
-    });
+     this.app.use("/", show);
 
-    this.app.get("/profile", (req, res) => {
-      res.sendFile(path.join(__dirname, "/HTML/profile.html"));
-    });
+    }
 
-    this.app.get("/status_order", (req, res) => {
-      res.sendFile(path.join(__dirname, "/HTML/status_order.html"));
-    });
 
-    this.app.get("/product", (req, res) => {
-      res.sendFile(path.join(__dirname, "/HTML/product.html"));
-    });
-  }
 
   startServer() {
     const PORT = process.env.PORT || 3000;

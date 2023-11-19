@@ -184,7 +184,7 @@ function createProductBox(productId) {
     const product_box = document.createElement('a');
     product_box.className = 'inproduct';
     product_box.id = `shop${productId}`;
-    product_box.href = "./product.html";
+    product_box.href = "./product";
 
     product_box.innerHTML = `
         <div class="imgproduct_box"><img src="./images/Shirocmt.jpg"></div>

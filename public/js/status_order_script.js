@@ -157,7 +157,7 @@ function createProductElement(shopIndex, incproIndex) {
     // สร้าง HTML ภายใน .incpro
     
     incpro.innerHTML = `
-        <a class="click_incpro" href="./product.html">
+        <a class="click_incpro" href="./product.ejs">
             <img src="./images/Shirocmt.jpg" alt="Product Image">
             <div class="bg_product_name">
                 <div class="product_name">Product Name</div>
@@ -207,7 +207,7 @@ function createProductElementforselling(shopIndex, incproIndex) {
     // สร้าง HTML ภายใน .incpro
     
     incpro.innerHTML = `
-    <a class="click_incpro" href="./product.html">
+    <a class="click_incpro" href="./product.ejs">
         <img src="./images/Shirocmt.jpg" alt="Product Image">
         <div class="bg_product_name">
             <div class="product_name">Product Name</div>

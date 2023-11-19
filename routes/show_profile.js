@@ -5,15 +5,15 @@
 
 // // Serve static files from the "public" directory
 // app.use(express.static(path.join(__dirname, '../public/css')));
-// app.use(express.static(path.join(__dirname, '../HTML')));
+// app.use(express.static(path.join(__dirname, '../views')));
 
 // router.get('/product/:id', (req, res) => {
 //     const productId = req.params.id;
 
 //     // Perform logic based on productId if needed
 
-//     // Send the main.html file as the response
-//     res.sendFile(path.join(__dirname, '../HTML/main.html'));
+//     // Send the main.ejs file as the response
+//     res.sendFile(path.join(__dirname, '../views/main.ejs'));
 // });
 
 // module.exports = router;

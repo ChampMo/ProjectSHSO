@@ -52,7 +52,7 @@ function createProductElement(shopIndex, incproIndex) {
             <input type="checkbox" class="Ccheck_pro">
             <span class="checkmark1"></span>
         </label>
-        <a class="click_incpro" href="./product.html">
+        <a class="click_incpro" href="./product">
             <img src="./images/Shirocmt.jpg">
             <div class="product_name">Product Name</div>
         </a>

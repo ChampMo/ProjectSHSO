@@ -88,7 +88,7 @@ body{
 }
 
 .check_shop_pro input:checked ~ .checkmark {
-background-color: #ed6a53;
+    background-color: #ed6a53;
 }
 
 .checkmark:after {
