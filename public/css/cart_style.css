@@ -398,14 +398,7 @@ width: 100%;
     max-width: 100px;
     min-width: 50px;
     height: 50px;
-    border-radius: 3px;
-    border:1px solid #ed6a53;
-    background-color: #ed6a53;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 20px;
-    font-family: 'Noto Sans Thai', sans-serif;
-    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    
     transition: transform 0.1s;
 }
 .button_order:hover{
@@ -414,6 +407,19 @@ width: 100%;
 .button_order:active{
     background-color: #a33e2d;
     transform: scale(0.9);
+}
+.button_order button{
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    border:1px solid #ed6a53;
+    background-color: #ed6a53;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
 }
 
 @media screen and (max-width: 900px) {

@@ -51,8 +51,8 @@ function createProductElement(shopIndex, incproIndex) {
     // สร้าง HTML ภายใน .incpro
     
     incpro.innerHTML = `
-        <a class="click_incpro" href="/product.html">
-            <img src="../public/images/Shirocmt.jpg" alt="Product Image">
+        <a class="click_incpro" href="/product">
+            <img src="./images/Shirocmt.jpg" alt="Product Image">
             <div class="bg_product_name">
                 <div class="product_name">Product Name</div>
                 <div class="select_type_pro">Select Type Product</div>
@@ -72,9 +72,6 @@ function createProductElement(shopIndex, incproIndex) {
             <div class="all_cost_pro">
             </div>
         </div>
-        <div class="status">
-            Status
-        </div> 
         `;
     
 

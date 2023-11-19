@@ -114,3 +114,18 @@
 .submit_send:hover{
     background-color: rgb(178, 176, 176);
 }
+
+@media screen and (max-width: 900px) {
+    #mymenu .inmenu:nth-child(4) .bordermenu {
+        border: none;
+      }
+    .header-active{
+        min-height: 300px !important;
+    }
+    .insearch_bar{
+        width:75%;
+    }
+    .profile_order{
+        display: none;
+    }
+}
