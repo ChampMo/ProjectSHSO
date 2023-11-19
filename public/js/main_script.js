@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
     inputElement.addEventListener('focus', function() {
         insearchBarElement.classList.add('active');
         searchimg.classList.add('active');
-        searchimg(inputElement); // ส่ง inputElement ไปให้ searchimg
     });
     
     inputElement.addEventListener('blur', function() {
