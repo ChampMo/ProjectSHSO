@@ -84,7 +84,7 @@
                 <a href="./registerseller" class="side_menu">
                     <div class="info_left">สำหรับผู้ขาย</div>
                 </a>
-                <a href="#" class="contact_menu" onclick="expandContact()">
+                <a class="contact_menu" onclick="expandContact()">
                     <div class="contact_info">ติดต่อเรา</div>
                     <i class="fa-solid fa-headset fa-xl"></i>
                 </a>
@@ -116,8 +116,9 @@
                     <div class="user_profile">
                         <div class="user_pic">
                             <img src="./images/Shirocmt.jpg" alt="">
-                            <div class="edit_img">
+                            <div class="edit_img" onclick="handleFileUpload()">
                                 <i class="fa-solid fa-pen"></i>
+                                <input type="file" id="fileInput" style="display: none;" accept="image/*">
                             </div>
                         </div>
                     </div>
