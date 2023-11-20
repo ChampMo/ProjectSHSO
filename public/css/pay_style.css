@@ -1,3 +1,6 @@
+*{
+    font-family: 'Noto Sans Thai', sans-serif;
+}
 .all_width{
     display: flex;
     justify-content: center;
@@ -9,110 +12,149 @@
     align-items: center;
 }
 .address{
-    background-color: rgb(249, 234, 207);
+    position: static;
+    background-color: #ffe8c7;
     height:300px;
     width: 1500px;
     display: flex;
-    flex-direction: row;
-    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 5;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 .now_address{
     font-size: 20px;
-    width: 850px;
-    margin-left: 20px;
-    margin-top: 20px
+    width: 600px;
+    margin-bottom: 50px;
 }
-
+.now_address_text{
+    font-size: 25px;
+    margin: 20px 0 30px 10px;
+}
+.show_data_address{
+    width: 500px;
+    border-radius:10px;
+    border: 2px  solid #ffddb9;
+    background-color: #fffaf5;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.profile_address_data{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    gap: 10px;
+}
 .select_address{
-    position: absolute;
-    top: 30px;
-    left: 860px;
+    width: 150px;
+    height: 50px;
 }
 .change_address{
     font-size: 20px;
     text-decoration: none;
     cursor: pointer;
-    background-color: rgb(242, 187, 85);
+    background-color: #d4803c;
+    color: #fffaf5;
     border: none;
     transition-duration: 0.3s;
-    width: 120px;
+    width: 150px;
     height: 50px;
     border-radius: 5px;
+
 }
 .change_address:hover{
-    background-color: rgb(249, 234, 207);
+    background-color: #c16920;
 }
 .submit{
-    background-color: rgb(178, 176, 176);
-    height: 300px;
-    width: 1500px;
+    background-color: #e6ae46;
+    height: 250px;
+    width: 100%;
+    position: static;
+    z-index: 5;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-top-left-radius:10px ;
+    border-top-right-radius:10px ;
 }
 .top{
+    width: 100%;
+    height: 60px;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom:2px solid #d4803c;
+
 }
 .left_method{
-    font-size: 20px;
-    width: 700px;
-    margin-left: 20px;
-    margin-top: 20px
+    width: 50%;
+    padding-left: 100px;
+    font-size: 22px;
 }
 .right_method{
+    width: 50%;
+    font-size: 22px;
+}
+.mid_bot{
+    width: 100%;
+    height: 190px;
     display: flex;
-    flex-direction: row;
-    margin-top:20px;
-}
-
-.change_method{
-    font-size: 20px;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    transition-duration: 0.3s;
-    width: 120px;
-    height: 50px;
-    border-radius: 5px;
-}
-.change_method:hover{
-    background-color: rgb(178, 176, 176);
+    align-items: flex-start;
+    justify-content: space-between;
 }
 .mid{
+    height: 150px;
     display: flex;
-    flex-direction: row;
-    margin-top: 50px;
+
+    
 }
-.mid_left{
-    width: 700px;
-}
-.mid_right{
+.amount_all_product_title{
+    margin-left: 150px;
+    height: 50px;
+    width: 450px;
     display: flex;
     flex-direction: column;
+    margin-top: 22px;
+}
+.amount_all_product{
+    height: 50px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 22px;
+}
+.amount_all_product_title div, .amount_all_product div{
+    margin-top: 10px;
+    font-size: 22px;
 }
 .bot{
+    height: 190px;
+    margin-right: 150px;
     display: flex;
-    flex-direction: row;
+    align-items: center;
 }
-.bot_right{
-    position: absolute;
-    top: 40px;
-    left: 860px;
-}
-.table_cost{
-    width: 300px;
-}
-
 .submit_send{
-    font-size: 20px;
+    background-color: #ed6a53;
+    border:1px solid #ed6a53;
+    font-size: 22px;
     text-decoration: none;
     cursor: pointer;
     border: none;
-    transition-duration: 0.3s;
-    width: 120px;
+    transition-duration: 0.1s;
+    width: 150px;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 3px;
+    color: #fffaf5;
 }
 .submit_send:hover{
-    background-color: rgb(178, 176, 176);
+    background-color: #c44d37;
+}
+.submit_send:active{
+    background-color: #a33e2d;
+    transform: scale(0.9);
 }
 
 @media screen and (max-width: 900px) {
