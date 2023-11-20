@@ -50,6 +50,9 @@ router.get("/info_newproduct", (req, res) => {
     res.render(path.join(__dirname, "../views/info_newproduct.ejs"));
 });
 
+router.get("/buy.ejs", (req, res) => {
+    res.render(path.join(__dirname, "../views/buy.ejs"));
+});
 
 
 
