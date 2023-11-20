@@ -93,11 +93,13 @@
                 <div class="info_head">ข้อมูลสำหรับร้านค้า</div>
                 <div class="info_text_shop">รูปร้านค้า</div>
                 <div class="bg_shop_img">
-                    <button class="button_shop_img">
+                    <button class="button_shop_img" onclick="handleFileUpload()">
                         <i class="fa-solid fa-upload"></i>
                         Upload
                     </button>
-                    <div class="uploadphoto"></div>
+                    <div class="uploadphoto">
+                        <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                    </div>
                 </div>
                 <div class="info_text">ชื่อร้าน</div>
                 <input class="shop_name" placeholder="ชื่อร้านค้าของคุณ"></input>
