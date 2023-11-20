@@ -38,6 +38,26 @@ router.get('/',notLogIn, (req, res, next) => {
 })
 
 
+const notRegisterSeller = (req, res, next) => {
+    if (!req.session || !req.session.isLoggedIn) {
+        return res.render(path.join(__dirname, "../views/registerseller.ejs"));
+    }
+    next()
+}
+
+router.get('/seller',notRegisterSeller, (req, res, next) => {
+    db.query('SELECT seller_id FROM seller WHERE id = ?', [req.session.userID])
+        .then(([rows]) => {
+            res.render((path.join(__dirname, "../views/seller.ejs")),{
+                first_name: rows[0].first_name
+            })
+        })
+        .catch(err => {
+            console.error('Error executing SQL query:', err);
+            // Handle the error, e.g., by rendering an error page
+            res.render('error', { error: 'An error occurred while fetching data.' });
+        });
+})
 
 
 
