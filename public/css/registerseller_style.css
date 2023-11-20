@@ -154,3 +154,18 @@ html, body{
 .uploadphoto{
     font-size: 18px;
 }
+
+
+
+@media screen and (max-width: 900px) {
+
+    .header-active{
+        min-height: 300px !important;
+    }
+    .insearch_bar{
+        width:75%;
+    }
+    .profile_order{
+        display: none;
+    }
+}
