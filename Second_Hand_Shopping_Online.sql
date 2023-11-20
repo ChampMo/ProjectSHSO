@@ -25,6 +25,7 @@ create table Seller (
     shop_name varchar(50),
     description varchar(255),
 	foreign key (customer_id) references Customer(customer_id)
+    -- เพิ่ม สถานะของการตรวจสอบบัญชี verifile, nonverifile
 );
 
 -- 3

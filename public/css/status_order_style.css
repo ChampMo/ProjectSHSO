@@ -371,7 +371,7 @@ body{
         border: none;
       }
     .header-active{
-        min-height: 230px !important;
+        min-height: 300px !important;
     }
     .insearch_bar{
         width:75%;
