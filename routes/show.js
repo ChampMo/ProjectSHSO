@@ -46,8 +46,8 @@ router.get("/pay", (req, res) => {
     res.render(path.join(__dirname, "../views/pay.ejs"));
 });
 
-router.get("/info_newproduct", (req, res) => {
-    res.render(path.join(__dirname, "../views/info_newproduct.ejs"));
+router.get("/newproductinfo", (req, res) => {
+    res.render(path.join(__dirname, "../views/newproductinfo.ejs"));
 });
 
 

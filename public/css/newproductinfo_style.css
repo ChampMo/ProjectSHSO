@@ -62,7 +62,12 @@ html, body{
 .text_head{
     font-size: 30px;
 }
-.input_infoseller{
+.text_up1{
+    margin-top: 10px;
+    color: #ed6a53;
+    font-size: 20px;
+}
+.input_infoproduct{
     width: 900px;
     height: auto;
     margin: 20px 0 50px 0;
@@ -70,50 +75,35 @@ html, body{
     flex-direction: column;
     align-items: center;
 }
-.info_head{
-    font-size: 25px;
-    width: 500px;
-    padding: 10px 0;
-    margin: 50px 0 10px 0;
-    color: #d4803c;
-}
-.text_up1{
-    margin-top: 10px;
-    color: #ed6a53;
-    font-size: 20px;
-}
-.info_text, .info_text_shop{
+.info_text{
     font-size: 22px;
-    width: 500px;
+    width: 800px;
     padding: 10px 0;
 }
-.cart_id, .shop_name, .shop_address, .shop_description, .shop_bank, .shop_bank_id{
-    width: 500px;
+.product_name, .product_cost, .product_description{
+    width: 700px;
     height: 40px;
     font-size: 16px;
     padding-left: 10px;
     outline: none;
     border-radius: 5px;
     border: 1px solid#ecb143;
+    box-sizing: border-box;
 }
-.shop_description{
-    height: 200px;
-    padding: 10px;
-}
-.input_infoseller input:focus, .input_infoseller textarea:focus{
+.input_infoproduct input:focus, .input_infoproduct textarea:focus{
     border: 1px solid#ed6a53;
 }
-
-.info_text_shop{
-    margin-top: 0px;
+.product_description{
+    height: 150px;
+    padding: 10px;
 }
 .bg_shop_img{
-    width: 500px;
+    width: 700px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.button_shop_img{
+.button_product_img{
     padding: 7px;
     margin: 10px 0;
     border: 2px solid#d4803c;
@@ -124,21 +114,27 @@ html, body{
     font-size: 16px;
     transition-duration: 0.2s;
 }
-.button_shop_img i{
+.button_product_img i{
     transition-duration: 0.2s;
 }
-.button_shop_img:hover{
+.button_product_img:hover{
     border: 2px solid#943524;
     color: #943524;
 }
-.button_shop_img:hover > i{
+.button_product_img:hover > i{
     transform: scale(1.2);
 }
 .uploadphoto{
     font-size: 18px;
 }
+.text_up2{
+    margin-top:10px ;
+    color: #d4803c;
+}
+
+
 .submit_seller{
-    margin-top:30px ;
+    margin-top:20px ;
     width: 500px;
     height: 55px;
     font-size: 20px;
@@ -160,6 +156,7 @@ html, body{
 .submit_seller:active{
     transform: scale(0.95);
 }
+
 
 
 @media screen and (max-width: 900px) {
