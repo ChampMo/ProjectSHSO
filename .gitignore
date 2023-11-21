@@ -1,6 +1,6 @@
 .DS_Store
 *.log
 node_modules
-profile
+uploads
 route/db.js
 passdb.js

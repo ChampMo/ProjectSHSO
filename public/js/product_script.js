@@ -62,6 +62,10 @@ product_cart_button.forEach((button) => {
 const decrementButtons = document.querySelectorAll('.decrement');
 const incrementButtons = document.querySelectorAll('.increment');
 const countDisplays = document.querySelectorAll('.count');
+const quantity_products = document.getElementById('quantity_product');
+let myDataValue = parseInt(quantity_products.textContent);
+let max_qp = document.querySelector('.max_qp')
+
 // สร้างตัวแปรสำหรับจำนวน
 let count = 1;
 
@@ -69,6 +73,7 @@ decrementButtons.forEach((button) => {
   button.addEventListener('click', () => {
       if (count > 1) {
           count--;
+          max_qp.textContent = '';
           countDisplays.forEach((display) => {
             display.textContent = count;
         });
@@ -78,12 +83,17 @@ decrementButtons.forEach((button) => {
 
 incrementButtons.forEach((button) => {
   button.addEventListener('click', () => {
-      count++;
-      countDisplays.forEach((display) => {
-        display.textContent = count;
+    console.log(myDataValue)
+      if (count < myDataValue) {
+        count++;
+        max_qp.textContent = '';
+          countDisplays.forEach((display) => {
+            display.textContent = count;
+        });
+      }else {
+        max_qp.textContent = '* จำนวนสินค้าถึงขีดจำกัดแล้ว *';
+      }
     });
   });
-});
-
 //---------------------------------------
 

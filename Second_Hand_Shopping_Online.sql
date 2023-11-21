@@ -31,25 +31,26 @@ create table Seller (
 );
 
 -- 3
-create table Product (
-	product_id numeric(10) not null primary key,
-    name varchar(20),
-    detail varchar(255),
-    picture_id numeric(10),
-    price numeric(10),
-    quantity numeric(10),
-    seller_id numeric(10) not null,
-	foreign key (seller_id) references Seller(seller_id)
-);
-
--- 4
 create table Picture_product (
     picture_id numeric(10) not null primary key ,
     picture1 varchar(255),
     picture2 varchar(255),
     picture3 varchar(255),
-    picture4 varchar(255),
-	foreign key (picture_id) references Product(picture_id)
+    picture4 varchar(255)
+);
+
+
+-- 4
+create table Product (
+	product_id numeric(10) not null primary key,
+    name varchar(20),
+    detail varchar(255),
+    price numeric(10),
+    quantity numeric(10),
+    seller_id numeric(10) not null,
+    picture_id numeric(10),
+	foreign key (seller_id) references Seller(seller_id),
+    foreign key (picture_id) references Picture_product(picture_id)
 );
 
 -- 5

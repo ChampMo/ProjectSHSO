@@ -3,53 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/main_style.css" rel="stylesheet">
-    <link href="./css/product_style.css" rel="stylesheet">
+    <link href="../css/main_style.css" rel="stylesheet">
+    <link href="../css/product_style.css" rel="stylesheet">
 
-    <script defer src="./js/hamlog_script.js"></script>
-    <script defer src="./js/product_script.js"></script>
+    <script defer src="../js/hamlog_script.js"></script>
+    <script defer src="../js/product_script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Product</title>
 </head>
 <body>
     <header>
         <div class="header"  id="myheader">
-            <a class="logo" href="./main">
+            <a class="logo" href="../main">
                 <div>Second Hand</div>
                 <div>Shopping Online</div>
                 <i class="fa-solid fa-handshake-simple" id="logo_hand"></i>
             </a>
             <div class="menu" id="mymenu">
-                <a class="profile_order" href="./profile">
+                <a class="profile_order" href="../profile">
                     <i class="fa-solid fa-user fa-xl"></i>
                     <div>Profile</div>
                 </a>
-                <a class="profileham" href="./profile">
+                <a class="profileham" href="../profile">
                     <div class="bordermenu">
                         <i class="fa-solid fa-user fa-2xl"></i>
                         <div class="inprofileham">Profile</div>
                     </div>
                 </a>
-                <a class="inmenu" href="./seller">
+                <a class="inmenu" href="../seller">
                     <div class="bordermenu">
                         <i class="fa-solid fa-shop fa-xl" id="shop_icon"></i>
                         Shop
                     </div>
                 </a>
-                <a class="inmenu" href="./status_order" id="order">
+                <a class="inmenu" href="../status_order" id="order">
                     <i class="fa-solid fa-receipt fa-xl" id="logo_order"></i>
                     <div class="bordermenu">Order</div>
                 </a>
-                <a class="inmenu" href="./status_order" id="orderham">
+                <a class="inmenu" href="../status_order" id="orderham">
                     <div class="bordermenu">
                     <i class="fa-solid fa-receipt fa-xl" id="logo_orderham"></i>
                     Order</div>
                 </a>
-                <a class="cartham" href="./cart">
+                <a class="cartham" href="../cart">
                     <i class="fa-solid fa-cart-shopping fa-2xl"></i>
                     <div class="incartham">Cart</div>
                 </a>
-                <a class="login" href="#menu4" onclick="openLogin(this)">login/sing up</a>
+                <a class="login" onclick="openLogin(this)">login/sing up</a>
                 
             </div>
             
@@ -66,7 +66,7 @@
                 <input id="productCountInput" type="number" class="input1">
                 <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ed6a53; margin-left: 11px;" id="searchimg"></i>
                 <button class="button1">Search</button>
-                <a class="cart" href="./cart">
+                <a class="cart" href="../cart">
                     <i class="fa-solid fa-cart-shopping fa-2xl"></i>
                 </a>
             </div>
@@ -81,12 +81,15 @@
             <div class="content">
                 <div class="left_product">
                     <div class="picture">
+                        <% if (products && products.length > 0) { %>
+                            <% const product = products[0]; %>
                         <div>
                             <div class="showpicture">
-                                <img class="mySlides" src="./images/Shirocmt.jpg" style="width:100%">
-                                <img class="mySlides" src="./images/ShiandShi.JPG" style="width:100%">
-                                <img class="mySlides" src="././images/linedang2.jpg" style="width:100%">
-                                <img class="mySlides" src="./images/Shiboy.JPG" style="width:100%">
+                                <img class="mySlides" src="<%= product.picture1 %>" style="width:100%">
+                                <img class="mySlides" src="<%= product.picture2 %>" style="width:100%">
+                                <img class="mySlides" src="<%= product.picture3 %>" style="width:100%">
+                                <img class="mySlides" src="<%= product.picture4 %>" style="width:100%">                                
+
                             
                                 <button class="button-left" onclick="plusDivs(-1)">&#10094;</button>
                                 <button class="button-right" onclick="plusDivs(1)">&#10095;</button>
@@ -95,30 +98,47 @@
                         </div>
 
                         <div class="subpicture">
-                            <div class="sub"><img src="./images/Shirocmt.jpg" alt="" onmouseover="onmouseDivs(1)"></div>
-                            <div class="sub"><img src="./images/ShiandShi.JPG" alt="" onmouseover="onmouseDivs(2)"></div>
-                            <div class="sub"><img src="./images/linedang2.jpg" alt="" onmouseover="onmouseDivs(3)"></div>
-                            <div class="sub"><img src="./images/Shiboy.JPG" alt="" onmouseover="onmouseDivs(4)"></div>
+                            <div class="sub"><img src="<%= product.picture1 %>" alt="" onmouseover="onmouseDivs(1)"></div>
+                            <div class="sub"><img src="<%= product.picture2 %>" alt="" onmouseover="onmouseDivs(2)"></div>
+                            <div class="sub"><img src="<%= product.picture3 %>" alt="" onmouseover="onmouseDivs(3)"></div>
+                            <div class="sub"><img src="<%= product.picture4 %>" alt="" onmouseover="onmouseDivs(4)"></div>
                         </div>
                     </div>
                 </div>
                 <div class="right_product">
                     <div class="bg_right_product">
                         <div class="product_name">
-                            <p>Name of product</p>
+                            <p>
+                                <%= product.name %>
+                            </p>
                         </div>
 
                         <div class="product_price">
-                            <p>ราคา :</p>
+                            <p>
+                                <%= product.price %>
+                            </p>
                         </div>
-
-                        <div class="product_address">
-                            <p>ที่อยู่ :</p>
-                        </div>
-
+                        <% if (address && address.length > 0) { %>
+                            <% const firstAddress = address[0]; %>
+                            <div class="product_address">
+                                <div class="inproduct_address">
+                                    <div class="address_data">ที่อยู่ : </div>
+                                    <div class="address_data"><%= firstAddress.village %></div>
+                                    <div class="address_data"><%= firstAddress.no_village %></div>
+                                    <div class="address_data"><%= firstAddress.road %></div>
+                                    <div class="address_data"><%= firstAddress.sub_district %></div>
+                                    <div class="address_data"><%= firstAddress.district %></div>
+                                    <div class="address_data"><%= firstAddress.city %></div>
+                                    <div class="address_data">รหัสไปรษณีย์ <%= firstAddress.Postal_id %></div>
+                                    <div class="address_data">โทร <%= firstAddress.phone_number %></div>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <p>กรุณากรอกที่อยู่</p>
+                        <% } %>
                         <div class="product_quantity">
                             <div class="quantity">
-                                จำนวน 
+                                จำนวน
                             </div>
                             <div class="amount">
                                 <button class="decrement" > - </button>
@@ -126,10 +146,14 @@
                                 <button class="increment"> + </button>
                             </div>
                             <div class="all_quantity">
-                                มีสินค้าทั้งหมด -- ชิ้น
+                                มีสินค้าทั้งหมด <div id = "quantity_product"><%= product.quantity %></div> ชิ้น
                             </div>
-
+                            
+                            <% } else { %>
+                                <p>No product found</p>
+                            <% } %>
                         </div>
+                        <div class="max_qp"></div>
                         <div class="product_button">
                             <div class="cart_button">
                                 <button class="product_cart_button" id="product_cart_button">
@@ -148,7 +172,7 @@
             <div class="detail">
                 <div class="Shopbox">
                     <div class="picture_shop_box">
-                        <img src="./images/Shiboy.JPG">
+                        <img src="../images/Shiboy.JPG">
                     </div>
                     <div class="name_shop_box">Shop Name</div>
                     <div class="description_shop_box">Shop Description</div>

@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 html, body{
-    height: 1700px;
+    height: 1900px;
     background-color: #fffaf5;
 }
 
@@ -27,7 +27,7 @@ html, body{
 }
 .back_to_profile{
     width: 100%;
-    min-width: 700px;
+    min-width: 1000px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -59,8 +59,25 @@ html, body{
 .back_to_profile a:hover{
     transform: scale(1.1);
 }
+.text_head0{
+    font-size: 35px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 3px solid #ecb143;
+    border-bottom: 3px solid #ecb143;
+    width:850px;
+    display: flex;
+    justify-content: center;
+    background-color: #fceac8;
+}
+.text_head0 i{
+    padding:20px ;
+    color: #ed6a53;
+    rotate: 10deg;
+}
 .text_head{
     font-size: 30px;
+    margin-top: 60px;
 }
 .input_infoseller{
     width: 900px;

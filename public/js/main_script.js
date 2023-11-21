@@ -29,7 +29,7 @@ function createProductBox(productId) {
     const product_box = document.createElement('a');
     product_box.className = 'inproduct';
     product_box.id = `shop${productId}`;
-    product_box.href = "/product";  // แก้ไขไปยังรหัสไหนที่ต้องการ
+    
 
     // ส่งคำขอ GET ไปยัง server เพื่อดึงข้อมูล
     fetch(`/api/products/`)
@@ -37,6 +37,8 @@ function createProductBox(productId) {
         .then(product => {
             const name_product = product[productId].name
             const price_product = product[productId].price
+            const id_product = product[productId].product_id
+            product_box.href = `/product/${id_product}`;
             console.log(name_product)
             product_box.innerHTML = `
                     <div class="imgproduct_box"><img src="/images/Shirocmt.jpg"></div>
@@ -46,7 +48,7 @@ function createProductBox(productId) {
                     <div class="cost_product">
                         ${price_product}
                     </div>`
-                ;
+                    ;
         })
         .catch(error => {
             console.error('Error fetching product data:', error);
