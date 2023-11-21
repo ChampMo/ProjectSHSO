@@ -1,46 +1,38 @@
-
+// Assuming you are using mysql2 library
 const mysql = require('mysql2');
 
 class Database {
-    constructor() {
-        this.connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'champ',
-            database: 'Second_Hand_Shopping_Online'
-        });
-    }
+  constructor() {
+    this.connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'champ',
+      database: 'Second_Hand_Shopping_Online',
+    });
+  }
 
-    connect() {
-        this.connection.connect((err) => {
-            if (err) {
-                console.error('Error connecting to MySQL:', err);
-            } else {
-                console.log('Connected to MySQL');
-            }
-        });
-    }
+  connect() {
+    this.connection.connect(err => {
+      if (err) {
+        console.error('Error connecting to database:', err);
+        throw err;
+      }
+      console.log('Connected to database');
+    });
+  }
 
-    close() {
-        this.connection.end((err) => {
-            if (err) {
-                console.error('Error closing MySQL connection:', err);
-            } else {
-                console.log('Closed MySQL connection');
-            }
-        });
-    }
-
-    query(sql, values, callback) {
-        this.connection.query(sql, values, (err, results, fields) => {
-            if (err) {
-                console.error('Error executing MySQL query:', err);
-                callback(err, null);
-            } else {
-                callback(null, results);
-            }
-        });
-    }
+  query(sql, values) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, values, (err, results) => {
+        if (err) {
+          console.error('Error executing SQL query:', err);
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
 }
 
 module.exports = Database;

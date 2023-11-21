@@ -24,17 +24,18 @@ create table Seller (
     customer_id numeric(10),
     shop_name varchar(50),
     description varchar(255),
+    address_shop varchar(255),
+    status_seller varchar(255),
 	foreign key (customer_id) references Customer(customer_id)
-    -- เพิ่ม สถานะของการตรวจสอบบัญชี verifile, nonverifile
-    -- ที่อยู่ร้าน
+    -- สถานะของการตรวจสอบบัญชี verifile, nonverifile
 );
 
 -- 3
 create table Product (
-	product_id numeric(10) not null primary key ,
+	product_id numeric(10) not null primary key,
     name varchar(20),
     detail varchar(255),
-    picture varchar(255),
+    picture_id numeric(10),
     price numeric(10),
     quantity numeric(10),
     seller_id numeric(10) not null,
@@ -42,6 +43,16 @@ create table Product (
 );
 
 -- 4
+create table Picture_product (
+    picture_id numeric(10) not null primary key ,
+    picture1 varchar(255),
+    picture2 varchar(255),
+    picture3 varchar(255),
+    picture4 varchar(255),
+	foreign key (picture_id) references Product(picture_id)
+);
+
+-- 5
 create table Type_of_product (
 	type_id numeric(10) primary key not null,
     name varchar(50),
@@ -49,7 +60,7 @@ create table Type_of_product (
     foreign key (product_id) references Product(product_id)
 );
 
--- 5
+-- 6
 create table Order_Product(
 	order_id numeric(10),
     product_id numeric(10),
@@ -57,17 +68,18 @@ create table Order_Product(
     foreign key (product_id) references Product(product_id)
 );
 
--- 6
+-- 7
 create table Order_list(
 	order_id numeric(10) primary key not null,
 	date datetime,
 	amount numeric(10),
     customer_id numeric not null,
+    slip varchar(255)  not null,
     foreign key (order_id) references Order_Product(order_id),
     foreign key (customer_id) references Customer(customer_id)
 );
 
--- 7
+-- 8
 create table Address (
 	address_id numeric(10) not null primary key,
 	village varchar(50),
@@ -81,14 +93,14 @@ create table Address (
     foreign key (customer_id) references Customer(customer_id)
 );
 
--- 8
+-- 9
 create table Cart(
 	cart_id numeric(10) primary key not null,
 	customer_id numeric(10),
 	foreign key (customer_id) references Customer(customer_id)
 );
 
--- 9
+-- 10
 create table Cart_Product(
 	cart_id numeric(10),
     product_id numeric(10),

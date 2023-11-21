@@ -34,6 +34,10 @@ class AppServer {
 
      this.app.use("/", login);
 
+     const Show_product = require("./routes/show_product");
+
+     this.app.use("/", Show_product);
+
      const show = require("./routes/show");
 
      this.app.use("/", show);
@@ -43,7 +47,6 @@ class AppServer {
      this.app.use("/", upload);
 
     }
-
 
 
   startServer() {

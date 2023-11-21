@@ -308,7 +308,7 @@ header{
 }
 .inproduct{
     margin: 10px;
-    height: 280px;
+    height: 300px;
     width: 200px;
     background-color: #ffffff;
     border:1px solid #9d9d9d;
@@ -317,8 +317,7 @@ header{
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: space-between;
-
+    align-content: flex-start;
 }
 .imgproduct_box img{
     margin:10px;
@@ -328,15 +327,28 @@ header{
     border-radius: 5px;
 }
 .detail_product_box{
-    height: 70px;
+    height: 60px;
     width: 180px;
-    margin-bottom:10px ;
     background-color: #ffffff;
     border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: #000;
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+.cost_product{
+    width: 180px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right:5px ;
+    font-size: 22px;
+    color: #ed6a53;
+}
+.cost_product::before{
+    content: '฿';
+    padding-right: 5px;
 }
 .inproduct:hover{
     transform: scale(1.03);

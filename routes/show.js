@@ -10,9 +10,9 @@ const router = express.Router();
 const app = express();
 
 
-// router.get("/", (req, res) => {
-//     res.render(path.join(__dirname, "../views/main.ejs"));
-// });
+router.get("/", (req, res) => {
+    res.render(path.join(__dirname, "../views/main.ejs"));
+});
 
 router.get("/main", (req, res) => {
     res.render(path.join(__dirname, "../views/main.ejs"));

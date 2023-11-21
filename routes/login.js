@@ -16,27 +16,27 @@ const app = express();
 
 
 
-const notLogIn = (req, res, next) => {
-    if (!req.session || !req.session.isLoggedIn) {
-        res.render(path.join(__dirname, "../views/main.ejs"));
+// const notLogIn = (req, res, next) => {
+//     if (!req.session || !req.session.isLoggedIn) {
+//         res.render(path.join(__dirname, "../views/main.ejs"));
         
-    }
-    next()
-}
+//     }
+//     next()
+// }
 
-router.get('/',notLogIn, (req, res, next) => {
-    db.query('SELECT first_name FROM Customer WHERE id = ?', [req.session.userID])
-        .then(([rows]) => {
-            res.render((path.join(__dirname, "../views/main.ejs")),{
-                first_name: rows[0].first_name
-            })
-        })
-        .catch(err => {
-            console.error('Error executing SQL query:', err);
-            // Handle the error, e.g., by rendering an error page
-            res.render('error', { error: 'An error occurred while fetching data.' });
-        });
-})
+// router.get('/',notLogIn, (req, res, next) => {
+//     db.query('SELECT first_name FROM Customer WHERE id = ?', [req.session.userID])
+//         .then(([rows]) => {
+//             res.render((path.join(__dirname, "../views/main.ejs")),{
+//                 first_name: rows[0].first_name
+//             })
+//         })
+//         .catch(err => {
+//             console.error('Error executing SQL query:', err);
+//             // Handle the error, e.g., by rendering an error page
+//             res.render('error', { error: 'An error occurred while fetching data.' });
+//         });
+// })
 
 
 // const notRegisterSeller = (req, res, next) => {
