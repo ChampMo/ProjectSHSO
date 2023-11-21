@@ -339,7 +339,7 @@ body{
     background-color:#ed6a53 ;
     font-family: 'Noto Sans Thai', sans-serif;
     font-size: 18px;
-    transition-duration: 5s;
+    transition-duration: 0.3s;
     cursor: pointer;
 }
 .con_product:hover{
@@ -349,7 +349,7 @@ body{
     border-radius: 5px;
     border:1px solid #ed6a53;
     color: #ed6a53;
-    background-color:rgb(246, 216, 210) ;
+    background-color:rgb(255, 192, 181) ;
     font-family: 'Noto Sans Thai', sans-serif;
     font-size: 18px;
 }

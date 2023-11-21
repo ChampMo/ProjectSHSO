@@ -18,7 +18,8 @@ const app = express();
 
 const notLogIn = (req, res, next) => {
     if (!req.session || !req.session.isLoggedIn) {
-        return res.render(path.join(__dirname, "../views/login.ejs"));
+        res.render(path.join(__dirname, "../views/main.ejs"));
+        
     }
     next()
 }
