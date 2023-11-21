@@ -1,5 +1,5 @@
 .DS_Store
 *.log
 node_modules
-db.js
-/routes
+profile/
+route/db.js
