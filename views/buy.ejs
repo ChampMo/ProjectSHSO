@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main_style.css">
+    <link rel="stylesheet" href="./css/buy_style.css">
+
+    <script defer src="./js/main_script.js"></script>
+    <script defer src="./js/buy_script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Second Hand Shopping Online</title>
+</head>
+<body onload="displayAmount()">
+    <header>
+        <div class="header"  id="myheader">
+            <a class="logo" href="./main">
+                <div>Second Hand</div>
+                <div>Shopping Online</div>
+                <i class="fa-solid fa-handshake-simple" id="logo_hand"></i>
+            </a>
+            
+            <div class="menu" id="mymenu">
+                <a class="profile_order" href="./profile">
+                    <i class="fa-solid fa-user fa-xl"></i>
+                    <div>Profile</div>
+                </a>
+                <a class="profileham" href="./profile">
+                    <div class="bordermenu">
+                        <i class="fa-solid fa-user fa-2xl"></i>
+                        <img>
+                        <div class="inprofileham">Profile</div>
+                    </div>
+                </a>
+                <a class="inmenu" href="./status_order" id="order">
+                    <i class="fa-solid fa-receipt fa-xl" id="logo_order"></i>
+                    <div class="bordermenu">Order</div>
+                </a>
+                <a class="inmenu" href="./status_order" id="orderham">
+                    <div class="bordermenu">
+                        <i class="fa-solid fa-receipt fa-xl" id="logo_orderham"></i>
+                        Order
+                    </div>
+                </a>
+                <a class="cartham" href="./cart">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                    <div class="incartham">Cart</div>
+                </a>
+                
+            </div>
+            
+            <div class="ham" id="myham" onclick="myFunction(this)">
+                <div class="container">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </div>
+        </div>
+        <nav class="search_bar" onclick="Closemenu(this)" >
+            <div class="insearch_bar">
+                <input id="productCountInput" type="number" class="input1">
+                <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ed6a53; margin-left: 11px;" id="searchimg"></i>
+                <button class="button1">Search</button>
+                <a class="cart" href="./cart">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                </a>
+            </div>
+        </nav>
+        <button id="scrollToTopBtn" class="button_up" onmouseover="arrow_up(this)">
+            <i id="arrow_up" class="fa-solid fa-angle-up fa-2xl"></i>
+        </button>
+    
+    </header>
+
+    <div class="bg_all">
+        <div class="all">
+            <div class="go_back">
+                <a href="./pay">
+                    <i class="fa-solid fa-chevron-left fa-2xl"></i>
+                    <p>กลับ</p>
+                </a>
+            </div>
+            <p class="text_head">
+                ชำระเงิน
+            </p>
+            <div class="qrcode">
+                <img src="./images/Shiboy.JPG" alt="Qrcode สำหรับโอนเงิน">
+            </div>
+            <p class="text_up1">
+                (ชำระเงินแล้วกรุณากรอกข้อมูลให้ครบถ้วน)
+            </p>
+            <section class="input_info">
+                
+                <p class="info_text">จำนวนเงินที่ต้องชำระคือ: <span id="amountDisplay"></span></p>
+
+                <div class="info_text">รูปสลิปโอนเงิน</div>
+                <div class="bg_shop_img">
+                    <button class="button_slip_img" onclick="handleFileUpload()">
+                        <i class="fa-solid fa-upload"></i>
+                        Upload รูป
+                    </button>
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                    <div class="uploadphoto">
+                    </div>
+                </div>
+
+                <div class="info_text">วันที่และเวลาที่โอน </div>
+                <input class="date_time" type="datetime-local">
+            </section>
+            <button class="submit_success"><div>ยืนยันการชำระเงิน</div></button>
+            
+
+        </div>
+    </div>
+</body>
+</html>
