@@ -3,3 +3,4 @@
 node_modules
 profile
 route/db.js
+passdb.js

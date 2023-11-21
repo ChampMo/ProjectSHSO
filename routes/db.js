@@ -1,12 +1,14 @@
 // Assuming you are using mysql2 library
 const mysql = require('mysql2');
+const pass = require('../passdb')
+
 
 class Database {
   constructor() {
     this.connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'champ',
+      password: pass.password,
       database: 'Second_Hand_Shopping_Online',
     });
   }
