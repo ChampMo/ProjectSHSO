@@ -1,17 +1,7 @@
 const express = require("express");
-
 const path = require("path");
-const app = express();
-
 const cookieSession = require('cookie-session');
 
-app.use(express.urlencoded({ extended: false }))
-
-app.use(cookieSession({
-  name:'session',
-  keys: ['key1','key2'],
-  maxAge: 3600 * 1000 * 24 //24hr
-}))
 
 
 
@@ -25,9 +15,18 @@ class AppServer {
 
   configureExpress() {
     this.app = express();
+    
+    this.app.use(express.urlencoded({ extended: false }))
+
+    this.app.use(cookieSession({
+      name:'session',
+      keys: ['key1','key2'],
+      maxAge: 3600 * 1000 * 24 //24hr
+    }))
+
     this.app.use(express.static(path.join(__dirname, "/public")));
-    app.set('views', path.join(__dirname, '/views'))
-    app.set('view engine', 'ejs')
+    this.app.set('views', path.join(__dirname, '/views'))
+    this.app.set('view engine', 'ejs')
   }
 
   configureRoutes() {
@@ -38,6 +37,10 @@ class AppServer {
      const show = require("./routes/show");
 
      this.app.use("/", show);
+
+     const upload = require("./routes/upload");
+
+     this.app.use("/", upload);
 
     }
 
