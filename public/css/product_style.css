@@ -2,7 +2,7 @@
 *{
     margin: 0px;
     padding:0px;
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Exo 2', sans-serif, 'Noto Sans Thai', sans-serif;
     text-decoration: none;
 }
 body{
@@ -145,7 +145,6 @@ body{
     background-color: #fffbf5;
 }
 .product_price p{
-    font-family: 'Noto Sans Thai', sans-serif;
     color: #ed6a53;
     font-size: 40px;
 }
@@ -161,13 +160,11 @@ body{
     flex-direction: column;
 }
 .inproduct_address{
-    font-family: 'Noto Sans Thai', sans-serif;
     font-size: 22px;
     display: flex;
     flex-wrap: wrap;
 }
 .address_data{
-    font-family: 'Noto Sans Thai', sans-serif;
     font-size: 22px;
     padding: 10px;
 }
@@ -184,7 +181,6 @@ body{
 }
 .quantity{
     display: flex;
-    font-family: 'Noto Sans Thai', sans-serif;
 }
 .amount{
     width: 150px;
@@ -224,7 +220,6 @@ body{
 .all_quantity{
     color: #818181;
     font-size: 20px;
-    font-family: 'Noto Sans Thai', sans-serif;
     display: flex;
 }
 #quantity_product{
@@ -240,7 +235,6 @@ body{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-family: 'Noto Sans Thai', sans-serif;
 }
 .product_button{
     margin-top: 20px;
@@ -273,9 +267,6 @@ body{
     100% {scale: 1}
 }
 
-.product_cart_button,.product_buy_button{
-    font-family: 'Noto Sans Thai', sans-serif;
-}
 .product_cart_button i{
     margin-right: 5px;
     transition: transform 0.1s;
@@ -315,7 +306,6 @@ body{
 .product_buy_button p{
     transition: transform 0.3s;
     font-size: 21px;
-    font-family: 'Noto Sans Thai', sans-serif;
 }
 .product_buy_button:hover{
     background-color:rgb(236, 130, 111);
@@ -384,7 +374,6 @@ body{
     height: 30px;
     display: flex;
     font-size: 20px;
-    font-family: 'Noto Sans Thai', sans-serif;
 }
 .description{
     width: 100%;

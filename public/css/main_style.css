@@ -1,12 +1,10 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Exo+2:wght@500&family=Kanit:wght@700&family=Nosifer&family=Noto+Sans+Thai+Looped:wght@500&family=Noto+Sans+Thai:wght@500&family=Noto+Sans:wght@500&family=Playpen+Sans:wght@500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@500&family=Kanit:wght@700&family=Noto+Sans+Thai:wght@500&display=swap');
 
 *{
     position: relative;
     margin: 0px;
     padding:0px;
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Exo 2', sans-serif, 'Noto Sans Thai', sans-serif;
     text-decoration: none;
 }
 body{
@@ -236,7 +234,6 @@ header{
     font-size: 22px;
     position: absolute;
     left:10px;
-    font-family: 'Noto Sans Thai', sans-serif;
 }
 #searchimg{
     transition: opacity 0.1s;
@@ -472,7 +469,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Noto Sans', sans-serif;
+    
 }
 .userinputbar{
     position:absolute;
@@ -614,7 +611,6 @@ header{
     font-size: 18px;
     color:#000000;
     text-decoration: none;
-    font-family: 'Noto Sans Thai', sans-serif;
     z-index: 41;
 }
 .sign_up_click{
@@ -667,7 +663,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Noto Sans', sans-serif;
+    
 }
 .not_mail{
     position: absolute;
@@ -678,7 +674,6 @@ header{
     padding: 10px;
     padding-top: 40px;
     font-size: 18px;
-    font-family: 'Noto Sans Thai', sans-serif;
     background-color: #fffaf5;
     border-radius: 10px;
     visibility:hidden;
@@ -692,7 +687,6 @@ header{
     padding: 10px;
     padding-top: 40px;
     font-size: 18px;
-    font-family: 'Noto Sans Thai', sans-serif;
     background-color: #fffaf5;
     border-radius: 10px;
     visibility:hidden;
@@ -706,7 +700,6 @@ header{
     padding: 10px;
     padding-top: 40px;
     font-size: 18px;
-    font-family: 'Noto Sans Thai', sans-serif;
     background-color: #fffaf5;
     border-radius: 10px;
 }
@@ -968,7 +961,6 @@ header{
     font-size: 18px;
     color:#000000;
     text-decoration: none;
-    font-family: 'Noto Sans Thai', sans-serif;
     z-index: 41;
 }
 .login_click{

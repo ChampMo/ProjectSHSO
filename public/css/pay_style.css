@@ -1,5 +1,5 @@
 *{
-    font-family: 'Noto Sans Thai', sans-serif;
+    font-family: 'Exo 2', sans-serif, 'Noto Sans Thai', sans-serif;
 }
 .all_width{
     display: flex;
@@ -252,7 +252,7 @@
 .amount_all_product_title{
     margin-left: 150px;
     height: 50px;
-    width: 450px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     margin-top: 22px;

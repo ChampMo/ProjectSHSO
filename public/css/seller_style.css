@@ -1,6 +1,6 @@
 
 *{
-    font-family: 'Noto Sans Thai', sans-serif;
+    font-family: 'Exo 2', sans-serif, 'Noto Sans Thai', sans-serif;
 }
 html, body{
     height: 100%;
@@ -148,7 +148,6 @@ html, body{
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    font-family: 'Exo 2', sans-serif;
 
 }
 .del_product{
