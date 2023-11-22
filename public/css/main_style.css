@@ -134,11 +134,28 @@ header{
 }
 
 .cart:hover{
-    transform: scale(1.4);
+    transform: scale(1.6);
     color: #943524;
-    /* background-color: #c58d34; */
 }
-
+.count_order{
+    position:absolute;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    background-color: #ed6a53;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:-2px;
+    right: -7px;
+    transition: transform 0.2s;
+}
+.cart:hover > .count_order{
+    transform: scale(0.6) translateX(-20px) translateY(18px);
+    color: #943524;
+    background-color: #fff;
+}
 .profileham,.cartham{
     display: none;
 }

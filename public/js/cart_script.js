@@ -9,22 +9,9 @@ function formatNumber(num){
 // เลือก input และ button
 
 
-const generateProductsButton = document.getElementById('generateProducts');
-const shopCountIn = document.getElementById('shopCountIn');
-const Iincshop = document.getElementById('Iincshop');
 
-// เพิ่มความรอบคอบให้สร้าง .incpro
-generateProductsButton.addEventListener('click', () => {
-    // รับจำนวน .incpro จาก input
-    
-    const shopCount = parseInt(shopCountIn.value);
-    Iincshop.innerHTML = '';
 
-    // สร้าง .incpro ตามจำนวนที่ได้รับ
-    for (let j = 0; j < shopCount; j++) {
-        createshopElement(j);
-    }
-});
+
 //----ไม่เกี่ยว----
 for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
     createshopElement(j);
@@ -126,8 +113,6 @@ function createshopElement(shopIndex) {
     // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
     Iincshop.appendChild(shop_pro);
 
-    const productCountIn = document.getElementById('productCountIn');
-    const productCount = parseInt(productCountIn.value);
     for (let i = 0; i < 2; i++) {  //i < 2  --> productCount
         createProductElement(shopIndex, i);
     }

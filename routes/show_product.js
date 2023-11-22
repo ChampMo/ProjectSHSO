@@ -77,6 +77,26 @@ router.get('/product/:id', (req, res) => {
 });
 
 
+router.get('/api/count_in_cart/', (req, res) => {
+  const user_id = req.session.userId;
+  if(req.session.isLoggedIn){
+    db.query('SELECT count(Cart_Product.product_id) as amount_pro_cart FROM Cart_Product JOIN Cart ON Cart_Product.cart_id = Cart.cart_id WHERE customer_id = ? GROUP BY Cart_Product.cart_id LIMIT 1;', [user_id])
+      .then(result  => {
+        let amount_pro_cart = result[0].amount_pro_cart;
+          res.json( amount_pro_cart );
+      })
+      .catch(err => {
+          console.error('Error executing SQL query:', err);
+          res.render('error', { error: 'An error occurred while fetching data.' });
+      });
+  }else{
+    res.json( 0 );
+  }
+
+});
+
+
+
 
 
 module.exports = router;

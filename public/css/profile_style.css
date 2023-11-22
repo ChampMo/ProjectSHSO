@@ -92,7 +92,7 @@ html, body{
     width: 100%;
     display: flex;
     align-items: center;
-    margin: 0 0 20px 30px;
+    margin: 0 0 30px 30px;
     color: #d4803c;
     position: fixed;
     font-size: 20px;
@@ -540,7 +540,7 @@ html, body{
 
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .header-active{
         min-height: 510px !important;
     }
@@ -577,5 +577,8 @@ html, body{
     }
     .logout{
         visibility: visible;
+    }
+    .sidelogout{
+        display: none;
     }
 }

@@ -104,7 +104,7 @@ create table Cart(
 -- 10
 create table Cart_Product(
 	cart_id numeric(10),
-    product_id numeric(10),
+    product_id numeric(10),-- จำนวน
     primary key (cart_id,product_id),
     foreign key (cart_id) references Cart(cart_id),
     foreign key (product_id) references Product(product_id)

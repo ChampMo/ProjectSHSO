@@ -417,7 +417,7 @@ width: 100%;
     transform: scale(0.9);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     #mymenu .inmenu:nth-child(4) .bordermenu:nth-child(1) {
         border: none;
       }

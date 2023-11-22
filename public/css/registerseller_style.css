@@ -179,7 +179,7 @@ html, body{
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
 
     .header-active{
         min-height: 300px !important;
