@@ -57,3 +57,7 @@ function createProductBox(productId) {
     const productContainer = document.getElementById('productContainer');
     productContainer.appendChild(product_box);
 }
+
+
+//-----------------------------------------------------------------
+

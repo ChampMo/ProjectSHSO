@@ -34,6 +34,9 @@ html, body{
     height: 100%;
     background-color: #fff;
 }
+.logout{
+    visibility: hidden;
+}
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -85,6 +88,23 @@ html, body{
 .contact_menu i {
     transform: translateX(105px) translateY(-50px);
 }
+.sidelogout{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px 30px;
+    color: #d4803c;
+    position: fixed;
+    font-size: 20px;
+    bottom: 0;
+}
+.sidelogout i{
+    margin-right: 10px;
+}
+.sidelogout:hover{
+    color: #943524;
+}
+
 .con_all{
     position: fixed;
     width: 100%;
@@ -522,7 +542,7 @@ html, body{
 
 @media screen and (max-width: 900px) {
     .header-active{
-        min-height: 440px !important;
+        min-height: 510px !important;
     }
     .promanu{
         display: flex;
@@ -554,5 +574,8 @@ html, body{
     .contact_bg{
         border-radius: 30px;
         left: 30%;
+    }
+    .logout{
+        visibility: visible;
     }
 }

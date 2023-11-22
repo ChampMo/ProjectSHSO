@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cookieSession = require('cookie-session');
-
+const bodyParser = require('body-parser');
 
 
 
@@ -15,6 +15,8 @@ class AppServer {
 
   configureExpress() {
     this.app = express();
+
+    this.app.use(bodyParser.json());
     
     this.app.use(express.urlencoded({ extended: false }))
 

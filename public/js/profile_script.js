@@ -300,7 +300,6 @@ async function handleFileUpload() {
 }
   
 // in app.js or your client-side JavaScript file
-// in app.js or your client-side JavaScript file
 async function uploadFile() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
