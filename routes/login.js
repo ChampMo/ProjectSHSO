@@ -10,60 +10,49 @@ db.connect();
 
 
 
-
-
-
-
-
-const notLogIn = (req, res, next) => {
-    if (!req.session || !req.session.isLoggedIn) {
-        res.render(path.join(__dirname, "../views/main.ejs"), {
-            clickLoginButton: true,
-        });
-        return;
+const Login = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('main',{ success: false });
+    }else{
+        res.render('main',{ success: true });
+        next();
     }
-    next();
-};
+}
 
 
+router.get('/',Login, (req, res, next) => {
 
-router.get('/product',notLogIn, (req, res, next) => {
-    db.query('SELECT first_name FROM Customer WHERE id = ?', [req.session.userID])
-        .then(([rows]) => {
-            res.render((path.join(__dirname, "../views/main.ejs")),{
-                first_name: rows[0].first_name
-            })
-        })
-        .catch(err => {
-            console.error('Error executing SQL query:', err);
-            // Handle the error, e.g., by rendering an error page
-            res.render('error', { error: 'An error occurred while fetching data.' });
-        });
+})
+router.get('/main',Login, (req, res, next) => {
+
 })
 
 
-
-
-
+//login
 
 router.post('/api/login/', async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { email, password } = req.body;
-
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
+        const { email, password } = req.body;
         const [rows] = await db.query('SELECT * FROM Customer WHERE email = ?', [email]);
-        console.log('Database Query Result:', rows);
 
-        if (rows.length === 1 && bcrypt.compareSync(password, rows[0].password)) {
-            req.session.userId = rows[0].id;
-            req.session.username = rows[0].username;
-            res.json({ success: true });
+        if (rows.length === 0) {
+            return res.json({ success: false, error: 'Invalid username or password' });
+        }
+
+        const compare_result = await bcrypt.compare(password, rows.password);
+
+        if (compare_result) {
+            req.session.isLoggedIn = true;
+            req.session.userId = rows.customer_id;
+            return res.json({ success: true });
+            // res.redirect('/')
         } else {
-            res.json({ success: false, error: 'Invalid username or password' });
+            return res.json({ success: false, error: 'Invalid username or password' });
         }
     } catch (error) {
         console.error(error);
@@ -72,12 +61,7 @@ router.post('/api/login/', async (req, res) => {
 });
 
 
-
-
-
-
-
-
+//register
 
 router.post('/save-register', async (req, res) => {
     const { Uuserinput_sign, Uusernameinput_sign, Ppassinput_sign } = req.body;
@@ -91,7 +75,7 @@ router.post('/save-register', async (req, res) => {
             res.json({ check_mail: false });
         } else {
 
-            const saltRounds = 10;
+            const saltRounds = 12;
             const hashedPassword = await bcrypt.hash(Ppassinput_sign, saltRounds);
             // ทำการ insert ข้อมูลลงในฐานข้อมูล
 
@@ -102,7 +86,7 @@ router.post('/save-register', async (req, res) => {
             await db.query('INSERT INTO Customer (customer_id, email, username, password) VALUES (?, ?, ?, ?)', [++max_id, Uuserinput_sign, Uusernameinput_sign, hashedPassword]);
 
             console.log('Data inserted successfully');
-        res.json({ check_mail: true}) 
+            res.json({ check_mail: true}) 
         }
     } catch (err) {
         console.error('Error:', err);
@@ -111,19 +95,15 @@ router.post('/save-register', async (req, res) => {
 });
 
 
-
 router.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('/main');
-  });
-    
-
+    res.redirect("/");
+});
 
 
 
 
 module.exports = router;
-
 
 
 

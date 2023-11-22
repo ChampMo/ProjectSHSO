@@ -587,6 +587,10 @@ document.querySelector('.Loginbutton').addEventListener('click', function() {
     // ดึงค่า input จากฟอร์ม
     const email = document.getElementById('Uuserinput').value;
     const password = document.getElementById('Ppassinput').value;
+    const closeLogin = document.querySelector('.closeLogin');
+    const logout = document.querySelector('.logout');
+    const login = document.querySelector('.login');
+    const not_mail = document.querySelector('.not_mail');
 
     // ส่ง request ไปยัง server
     fetch('/api/login/', {
@@ -598,8 +602,14 @@ document.querySelector('.Loginbutton').addEventListener('click', function() {
     })
     .then(response => response.json())
     .then(data => {
-        // ทำสิ่งที่คุณต้องการกับข้อมูลที่ได้รับจาก server
-        console.log(data);
+        if (data.success) {
+            // Handle successful login (e.g., redirect, update UI, etc.)
+            window.location.href = '/';  // Redirect to the home page
+        } else {
+            // Handle unsuccessful login (e.g., display an error message)
+            not_mail.style.visibility = "visible";
+            console.log('Invalid username or password');
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -612,10 +622,10 @@ document.querySelector('.Loginbutton').addEventListener('click', function() {
 //---------------------------------------------- register
 document.querySelector('.Signinbutton').addEventListener('click', function () {
     // ดึงค่า input จากฟอร์ม
-    const Uuserinput_sign = document.getElementById('Uuserinput_sign').value;
+    const Uuserinput_sign = document.getElementById('Uuserinput_sign').value.trim();
     const Uusernameinput_sign = document.getElementById('Uusernameinput_sign').value;
-    const Ppassinput_sign = document.getElementById('Ppassinput_sign').value;
-    const Ppassinput_sign2 = document.getElementById('Ppassinput_sign2').value;
+    const Ppassinput_sign = document.getElementById('Ppassinput_sign').value.trim();
+    const Ppassinput_sign2 = document.getElementById('Ppassinput_sign2').value.trim();
     const match_mail = document.querySelector('.match_mail');
     const login_click = document.querySelector('.login_click');
     // ตรวจสอบรหัสผ่านและอีเมล
@@ -635,7 +645,6 @@ document.querySelector('.Signinbutton').addEventListener('click', function () {
                     console.log('Data inserted successfully');
                     setTimeout(() => {
                         login_click.click()
-                        
                     }, 500);
                     
                 } else {
@@ -651,10 +660,6 @@ document.querySelector('.Signinbutton').addEventListener('click', function () {
         console.log('Password mismatch or does not meet requirements');
     }
 });
-
-
-
-
 
 
 

@@ -34,28 +34,48 @@ router.get('/api/products/', (req, res) => {
     });
 });
 
+
 router.get('/product/:id', (req, res) => {
   const id_pro = req.params.id;
-
-  db.query('SELECT * FROM Product JOIN Picture_product ON Product.picture_id = Picture_product.picture_id WHERE product_id = ? LIMIT 1;', [id_pro])
-    .then(products => {
-      // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
-      db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
-      .then(address => {
-        console.log(products)
-        res.render('product',{ products, address });
+  if(req.session.isLoggedIn){
+    db.query('SELECT * FROM Product JOIN Picture_product ON Product.picture_id = Picture_product.picture_id WHERE product_id = ? LIMIT 1;', [id_pro])
+      .then(products => {
+        // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
+        db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
+        .then(address => {
+          console.log(products)
+          res.render('product',{ products, address, success: false});
+        })
+        .catch(err => {
+            console.error('Error executing SQL query:', err);
+            res.render('error', { error: 'An error occurred while fetching data.' });
+        });
       })
       .catch(err => {
           console.error('Error executing SQL query:', err);
           res.render('error', { error: 'An error occurred while fetching data.' });
       });
-    })
-    .catch(err => {
-        console.error('Error executing SQL query:', err);
-        res.render('error', { error: 'An error occurred while fetching data.' });
-    });
-    
+    }else{
+      db.query('SELECT * FROM Product JOIN Picture_product ON Product.picture_id = Picture_product.picture_id WHERE product_id = ? LIMIT 1;', [id_pro])
+      .then(products => {
+        // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
+        db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
+        .then(address => {
+          console.log(products)
+          res.render('product',{ products, address, success: true});
+        })
+        .catch(err => {
+            console.error('Error executing SQL query:', err);
+            res.render('error', { error: 'An error occurred while fetching data.' });
+        });
+      })
+      .catch(err => {
+          console.error('Error executing SQL query:', err);
+          res.render('error', { error: 'An error occurred while fetching data.' });
+      });
+    }
 });
+
 
 
 

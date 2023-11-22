@@ -10,17 +10,28 @@ const router = express.Router();
 const app = express();
 
 
-router.get("/", (req, res) => {
-    res.render(path.join(__dirname, "../views/main.ejs"));
-});
+const Login = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('main',{ success: false });
+    }else{
+        res.render('main',{ success: true });
+        next();
+    }
+}
 
-router.get("/main", (req, res) => {
-    res.render(path.join(__dirname, "../views/main.ejs"));
-});
+router.get('/',Login, (req, res, next) => {
+
+})
+router.get('/main',Login, (req, res, next) => {
+
+})
+
+
 
 router.get("/cart", (req, res) => {
     res.render(path.join(__dirname, "../views/cart.ejs"));
 });
+
 
 router.get("/profile", (req, res) => {
     res.render(path.join(__dirname, "../views/profile.ejs"));

@@ -49,7 +49,17 @@
                     <i class="fa-solid fa-cart-shopping fa-2xl"></i>
                     <div class="incartham">Cart</div>
                 </a>
-                <a class="login" onclick="openLogin(this)">login/sing up</a>
+                <% if (typeof success !== 'undefined' && success) { %>
+                    <a class="login" onclick="openLogin(this)">login/sing up</a>
+                <% } else { %>
+                    <a href="../logout_pro" class="logout">
+                        <i class="fa-solid fa-right-from-bracket fa-xl"></i>logout
+                    </a>
+                <% } %>
+                
+                
+                
+                
                 
             </div>
             
@@ -148,7 +158,6 @@
                             <div class="all_quantity">
                                 มีสินค้าทั้งหมด <div id = "quantity_product"><%= product.quantity %></div> ชิ้น
                             </div>
-                            
                             <% } else { %>
                                 <p>No product found</p>
                             <% } %>

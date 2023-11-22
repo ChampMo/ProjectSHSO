@@ -669,6 +669,20 @@ header{
     align-items: center;
     font-family: 'Noto Sans', sans-serif;
 }
+.not_mail{
+    position: absolute;
+    right: 80px;
+    top: 240px;
+    color: #ff2600;
+    height: 20px;
+    padding: 10px;
+    padding-top: 40px;
+    font-size: 18px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    background-color: #fffaf5;
+    border-radius: 10px;
+    visibility:hidden;
+}
 .match_mail{
     position: absolute;
     right: 80px;
