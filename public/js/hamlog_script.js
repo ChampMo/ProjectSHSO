@@ -573,6 +573,23 @@ function login_click() {
 
 
 
+//--------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    let count_order = document.querySelector('.count_order')  
+
+// ส่งคำขอ GET ไปยัง server เพื่อดึงข้อมูล
+fetch(`/api/count_in_cart/`)
+    .then(response => response.json())
+    .then(amount_pro_cart => {
+        console.log(amount_pro_cart)
+        count_order.innerHTML = `${amount_pro_cart} `;
+    })
+    .catch(error => {
+        console.error('Error fetching product data:', error);
+    });
+});
+
 
 
 
