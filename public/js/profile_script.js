@@ -330,6 +330,16 @@ async function uploadFile() {
   
   
 
+  document.addEventListener('DOMContentLoaded', function() {
+
+
+    const sidelogout = document.querySelector('.sidelogout').addEventListener("click",function(){
+        const relog = document.querySelector('.relog')
+        relog.style.transform = "scale(1)"
+        
+    })
+});
+
 
 
 

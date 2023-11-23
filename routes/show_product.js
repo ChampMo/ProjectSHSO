@@ -86,8 +86,7 @@ router.get('/api/count_in_cart/', (req, res) => {
           res.json( amount_pro_cart );
       })
       .catch(err => {
-          console.error('Error executing SQL query:', err);
-          res.render('error', { error: 'An error occurred while fetching data.' });
+        res.json( 0 );
       });
   }else{
     res.json( 0 );

@@ -6,7 +6,13 @@ html, body{
     height: 1500px;
     background-color: #fffaf5;
 }
-
+.header{
+    height: 80px;
+    padding-bottom: 50px;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+}
 
 .bg_all{
     display: flex;

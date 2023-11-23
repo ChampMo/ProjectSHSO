@@ -10,22 +10,7 @@ db.connect();
 
 
 
-const Login = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        res.render('main',{ success: false });
-    }else{
-        res.render('main',{ success: true });
-        next();
-    }
-}
 
-
-router.get('/',Login, (req, res, next) => {
-
-})
-router.get('/main',Login, (req, res, next) => {
-
-})
 
 
 //login
@@ -99,6 +84,7 @@ router.get('/logout', (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+
 
 
 

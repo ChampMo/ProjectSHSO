@@ -10,6 +10,7 @@ const router = express.Router();
 const app = express();
 
 
+
 const Login = (req, res, next) => {
     if(req.session.isLoggedIn){
         res.render('main',{ success: false });
@@ -19,34 +20,59 @@ const Login = (req, res, next) => {
     }
 }
 
-router.get('/',Login, (req, res, next) => {
+router.get('/', Login, (req, res, next) => {
 
 })
-router.get('/main',Login, (req, res, next) => {
+router.get('/main', Login, (req, res, next) => {
 
 })
 
-
-
-router.get("/cart", (req, res) => {
-    res.render(path.join(__dirname, "../views/cart.ejs"));
+const Login_cart = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('cart',{ success: false });
+    }else{
+        res.render('cart',{ success: true });
+        next();
+    }
+}
+router.get("/cart", Login_cart, (req, res) => {
 });
 
-
-router.get("/profile", (req, res) => {
-    res.render(path.join(__dirname, "../views/profile.ejs"));
+const Login_profile = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('profile',{ success: false });
+    }else{
+        res.render('profile',{ success: true });
+        next();
+    }
+}
+router.get("/profile", Login_profile, (req, res) => {
 });
 
-router.get("/status_order", (req, res) => {
-    res.render(path.join(__dirname, "../views/status_order.ejs"));
+const Login_status_order = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('status_order',{ success: false });
+    }else{
+        res.render('status_order',{ success: true });
+        next();
+    }
+}
+router.get("/status_order", Login_status_order , (req, res) => {
 });
 
 router.get("/product", (req, res) => {
     res.render(path.join(__dirname, "../views/product.ejs"));
 });
 
-router.get("/seller", (req, res) => {
-    res.render(path.join(__dirname, "../views/seller.ejs"));
+const Login_seller = (req, res, next) => {
+    if(req.session.isLoggedIn){
+        res.render('seller',{ success: false });
+    }else{
+        res.render('seller',{ success: true });
+        next();
+    }
+}
+router.get("/seller",Login_seller, (req, res) => {
 });
 
 router.get("/registerseller", (req, res) => {

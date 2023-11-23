@@ -399,7 +399,7 @@ body{
 
 
 @media screen and (max-width: 1000px) {
-    #mymenu .inmenu:nth-child(5) .bordermenu {
+    #mymenu .inmenu:nth-child(0) .bordermenu {
         border: none;
     }
     .header-active{

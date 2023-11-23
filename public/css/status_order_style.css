@@ -366,12 +366,16 @@ body{
         border: none;
       }
     .header-active{
-        min-height: 300px !important;
+        min-height: 370px !important;
     }
     .insearch_bar{
         width:75%;
     }
     .profile_order{
         display: none;
+    }
+    .relog{
+        top: 120px;
+        right: 200px;
     }
 }

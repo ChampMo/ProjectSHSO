@@ -421,11 +421,11 @@ width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
-    #mymenu .inmenu:nth-child(4) .bordermenu:nth-child(1) {
+    #mymenu .inmenu:nth-child(1) .bordermenu:nth-child(1) {
         border: none;
       }
     .header-active{
-        min-height: 300px !important;
+        min-height: 370px !important;
     }
     .insearch_bar{
         width:75%;
@@ -438,6 +438,9 @@ width: 100%;
     }
     #logo_orderham{
         margin-right: 10px;
+    }
+    .relog{
+        top:100px;
     }
 }
 
