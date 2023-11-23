@@ -1,11 +1,15 @@
-const Iincshop = document.getElementById('Iincshop');
+
 //-----------------------------------------------
 
 // เพิ่มความรอบคอบให้สร้าง .incpro
 //----ไม่เกี่ยว----
-for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
-    createshopElement(j);
-}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const Iincshop = document.getElementById('Iincshop');
+    for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
+        createshopElement(j);
+    }
+});
 
 //----
 
@@ -32,7 +36,6 @@ function createshopElement(shopIndex) {
     // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
     Iincshop.appendChild(all_intype_order);
     
-    const productCountIn = document.getElementById('productCountIn');
     for (let i = 0; i < 2; i++) {  // i < 2  --> productCount
         createProductElement(shopIndex, i);
     }

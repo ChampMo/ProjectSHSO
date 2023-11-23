@@ -1,8 +1,8 @@
 use Second_Hand_Shopping_Online;
 
 insert into Customer values (01,'champ','monthol','sukjinda','champ@gmail.com','2003-08-08','champ01','0810120500')
-											,(02,'peet','nawapon','sanchaisakulkij','peet@gmail.com','2003-06-23','peet01','0917451614');
-select * from Product join Picture_product where Product.picture_id = Picture_product.picture_id;
+											,(02,'peet','nawapon','sanchaisakulkij','peet@gmail.com','2003-06-23','$2b$12$RWrAF7yojyuwDVyRO7ZuIeajmD1mys90uMiL2.stxUY9LYHKFaIn6','0917451614');
+select * from Customer ;
 insert into Seller values (01,01,'SCB','1234567890','myself',01,'champchamp','happy','home','verifile');
 
 insert into Picture_product values (01,'../uploads/product_picture/Shirocmt.jpg','../uploads/product_picture/ShiandShi.JPG','../uploads/product_picture/linedang2.jpg','../uploads/product_picture/Shiboy.JPG'),
