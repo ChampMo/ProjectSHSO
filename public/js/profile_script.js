@@ -232,63 +232,7 @@ document.querySelector('.c_button').addEventListener('click', function() {
 });
 
 
-//---------------------------------------
-// function handleFileUpload() {
-//     // Trigger click on hidden file input
-//     document.getElementById('fileInput').click();
 
-//     // Listen for file input change
-//     document.getElementById('fileInput').addEventListener('change', function () {
-//         // Get the selected file
-//         const file = this.files[0];
-
-//         // Do something with the file (e.g., upload it and display)
-//         if (file) {
-//             uploadAndDisplayImage(file);
-//         }
-//     });
-// }
-
-
-// function uploadAndDisplayImage(file) {
-//     // Create a FormData object to append the file
-//     const formData = new FormData();
-//     formData.append('files', file);
-
-//     // Use AJAX or another method to send the formData to the server
-//     // In this example, we'll use the Fetch API
-//     fetch('/upload', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => {
-//         console.log(response);
-//         return response.json();
-//     })
-//     .then(data => {
-//         // Assuming the server responds with the path
-//         const path = data.path;
-
-//         // Update your logic to handle the path
-//         displayImage(path);
-//     })
-//     .catch(error => {
-//         console.error('Error uploading file:', error);
-//         // Handle the error, for example, display an error message
-//     });
-// }
-
-// function displayImage(path) {
-//     // Assuming you have an element to display the image
-//     const imgElement = document.getElementById('uploadedImage');
-
-//     // Check if the element exists before setting its properties
-//     if (imgElement) {
-//         imgElement.src = path;
-//     } else {
-//         console.error('Image element not found.');
-//     }
-// }
 
 
 //---------------------------------------
@@ -313,12 +257,11 @@ async function uploadFile() {
             body: formData,
             });
             
-  
         const result = await response.json();
     
         if (response.ok) {
             // Update the image source with the served image path
-            document.getElementById('uploadedImage').src = `./uploads/profile/${result.filePath}`;
+            document.getElementById('uploadedImage').src = `../uploads/profile/${result.profile_picture}`;
 
         } else {
             console.error('File upload failed:', result.error);
@@ -326,17 +269,16 @@ async function uploadFile() {
     } catch (error) {
       console.error('Error uploading file:', error);
     }
-  }
+}
   
   
 
-  document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
 
 
-    const sidelogout = document.querySelector('.sidelogout').addEventListener("click",function(){
+    document.querySelector('.sidelogout').addEventListener("click",function(){
         const relog = document.querySelector('.relog')
         relog.style.transform = "scale(1)"
-        
     })
 });
 

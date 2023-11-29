@@ -11,7 +11,8 @@ create table Customer (
     email varchar(50) UNIQUE not null,
     date_birth date,
     password varchar(255) not null,
-    phone_number varchar(10)
+    phone_number varchar(10),
+    profile_picture varchar(255)
 );
 
 -- 2

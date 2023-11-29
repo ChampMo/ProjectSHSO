@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 html, body{
-    height: 1900px;
+    height: 2200px;
     background-color: #fffaf5;
 }
 
@@ -99,6 +99,12 @@ html, body{
     color: #ed6a53;
     font-size: 20px;
 }
+.text_up_alert{
+    margin-top: 10px;
+    color: #ed6a53;
+    font-size: 20px;
+    visibility: hidden;
+}
 .info_text, .info_text_shop{
     font-size: 22px;
     width: 500px;
@@ -126,13 +132,43 @@ html, body{
 }
 .bg_shop_img{
     width: 500px;
+    height: 60px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: flex-end;
+}
+.bg_shop_img2{
+    height: 250px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
     align-items: center;
+}
+.boxbg{
+    position: relative;
+    height: 230px;
+    width: 230px;
+    border: 2px solid #ecb143;
+    background-color: #fffaf5;
+    border-radius: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+#up_icon{
+    position: absolute;
+    color: #ecb143;
+    transform: scale(1.5);
+    opacity: 0.7;
+}
+#uploadedProshop{
+    position: absolute;
+    height: 230px;
+    width: 230px;
+    border: none;
+    border-radius: 20px;
+    object-fit: cover;
 }
 .button_shop_img{
     padding: 7px;
-    margin: 10px 0;
     border: 2px solid#d4803c;
     background-color: #fceac8;
     border-radius: 10px;
@@ -155,7 +191,7 @@ html, body{
     font-size: 18px;
 }
 .submit_seller{
-    margin-top:30px ;
+    margin-top:10px ;
     width: 500px;
     height: 55px;
     font-size: 20px;

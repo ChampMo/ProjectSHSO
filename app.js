@@ -48,6 +48,10 @@ class AppServer {
 
      this.app.use("/", upload);
 
+     const registerseller = require("./routes/registerseller");
+
+     this.app.use("/", registerseller);
+
     }
 
 

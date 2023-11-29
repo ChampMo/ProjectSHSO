@@ -64,7 +64,7 @@
         </div>
         <nav class="search_bar" onclick="Closemenu(this)" >
             <div class="insearch_bar">
-                <input id="productCountInput" type="number" class="input1">
+                <input id="productCountInput" class="input1">
                 <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ed6a53; margin-left: 11px;" id="searchimg"></i>
                 <button class="button1">Search</button>
                 <a class="cart" href="../cart">
@@ -103,15 +103,21 @@
                 
                 <div class="info_head">ข้อมูลสำหรับร้านค้า</div>
                 <div class="info_text_shop">รูปร้านค้า</div>
+                
+                <div class="bg_shop_img2">
+                    <div class="boxbg"></div>
+                    <i class="fa-solid fa-image fa-2xl" id="up_icon"></i>
+                    <img alt="" id="uploadedProshop">
+                </div>
                 <div class="bg_shop_img">
                     <button class="button_shop_img" onclick="handleFileUpload()">
                         <i class="fa-solid fa-upload"></i>
                         Upload
                     </button>
-                    <div class="uploadphoto">
-                        <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    </div>
                 </div>
+                <div class="uploadphoto">
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="uploadFile()">
+                </div>                  
                 <div class="info_text">ชื่อร้าน</div>
                 <input class="shop_name" placeholder="ชื่อร้านค้าของคุณ"></input>
                 <div class="info_text">ที่อยู่ร้าน</div>
@@ -122,10 +128,13 @@
                 <div class="info_text">ธนาคาร</div>
                 <input class="shop_bank" placeholder="ชื่อธนาคาร"></input>
                 <div class="info_text">เลขบัญชี</div>
-                <input class="shop_bank_id" placeholder="เลขที่บัญชีของคุณ"></input>
+                <input class="shop_bank_id" placeholder="เลขที่บัญชีของคุณ" type="number"></input>
             </section>
             <p class="text_up">
                 (ระยะเวลาดำเนินการภายใน 3 วัน รายละเอียดจะถูกแจ้งทางอีเมลที่ท่านได้ลงทะเบียนไว้)
+            </p>
+            <p class="text_up_alert">
+                (กรุณากรอกข้อมูลให้ครบถ้วน)
             </p>
             <button class="submit_seller"><div>ลงทะเบียนผู้ขาย</div></button>
 
@@ -153,7 +162,68 @@
 
 
 
+ <!-- login -->
+ <a class="logout" style="display: none;">
+    <i class="fa-solid fa-right-from-bracket fa-xl"></i>logout
+</a>
+<div class="relog" style="display: none;">
+    <div class="head_relog">log out แน่นะ</div>
+    <div class="blog">
+        <a class="cancel_logout">ยกเลิก</a>
+        <a href="../logout" class="repeat_logout">ยืนยัน</a>
+    </div>
+</div>
+ <section class="prologin" id="myprologin" style="display: none;">
+    <div class="closeLogin" onclick="closeLogin(this)"></div>
+    <div class="inlog" id="Iinlog">
+        <div class="bginlog" onclick="bginlog_func(this)"></div>
+        <div class="titlelogin">LOGIN</div>
+        <div class="not_mail">อีเมลหรือรหัสผ่านไม่ถูกต้อง</div>
+        <div class="userinputbar" id="Uuserinputbar">Email</div>
+        <div class="userinputback"></div>
+        <input class="userinput" id="Uuserinput" type="text" onfocus="userinput_func(this)" required>
 
+        <div class="passinputbar" id="Ppassinputbar">Password</div>
+        <div class="passinputback"></div>
+        <input class="passinput" id="Ppassinput" type="password" onfocus="passinput_func(this)" required>
+        <i class="fa-solid fa-eye fa-xl" id="eye" onclick="eye_func(this)"></i>
+        <button type="button" class="Loginbutton">Login</button>
+        <span class="outsign_up_click">ลงทะเบียน 
+            <button class="sign_up_click" onclick="sign_up_click_func(this)">Sign up</button>
+        </span>
+    </div>
+    <div class="insign" id="Iinsign">
+        <div class="bginsign" onclick="bginsign_func(this)"></div>
+        <div class="titlesignup">SIGN UP</div>
+        <div class="match_mail">อีเมลนี้ถูกลงทะเบียนเรียบร้อยแล้ว</div>
+        <div class="check_pass">ใส่รหัสผ่านอย่างน้อย 8 ตัว</div>
+        <div class="userinputbar_sign" id="Uuserinputbar_sign">Email</div>
+        <div class="userinputback_sign"></div>
+        <input class="userinput_sign" id="Uuserinput_sign"onfocus="userinput_sign_func(this)" required>
+
+        <div class="usernameinputbar_sign" id="Uusernameinputbar_sign">Username</div>
+        <div class="usernameinputback_sign"></div>
+        <input class="usernameinput_sign" id="Uusernameinput_sign" onfocus="usernameinput_sign_func(this)">
+
+        <div class="passinputbar_sign" id="Ppassinputbar_sign">Password</div>
+        <div class="passinputback_sign"></div>
+        <input class="passinput_sign" id="Ppassinput_sign" type="password" onfocus="passinput_sign_func(this)" required>
+        <i class="fa-solid fa-eye fa-xl" id="eye_sign" onclick="eye_sign_func(this)"></i>
+
+        <div class="passinputbar_sign2" id="Ppassinputbar_sign2">Confirm&nbsp;Password</div>
+        <div class="passinputback_sign2"></div>
+        <input class="passinput_sign2" id="Ppassinput_sign2" type="password" onfocus="passinput_sign2_func(this)" required>
+        <i class="fa-solid fa-eye fa-xl" id="eye_sign2" onclick="eye_sign2_func(this)"></i>
+        <span class="matchpass" id="Mmatchpass">*กรุณากรอกรหัสผ่านให้ตรงกัน</span>
+
+        <button class="Signinbutton">Sign up</button>
+        <span class="outlogin_click">ลงชื่อเข้าใช้
+            <button class="login_click" onclick="login_click_func(this)">Login</button>
+        </span>
+    </div>
+
+</section>
+<!-- /login -->
 
 
 </body>

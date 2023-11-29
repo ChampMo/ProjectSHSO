@@ -99,9 +99,7 @@ function createshopElement(shopIndex) {
 
     // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
     Iincshop.appendChild(all_intype_order);
-    
-    const productCountIn = document.getElementById('productCountIn');
-    const productCount = parseInt(productCountIn.value);
+
     for (let i = 0; i < 2; i++) {  // i < 2  --> productCount
         createProductElement(shopIndex, i);
     }
@@ -139,7 +137,6 @@ function createshopElementforselling(shopIndex) {
 function createProductElement(shopIndex, incproIndex) {
 
     const Iincpro = document.getElementById(`shop${shopIndex}_Iincpro`);
-    const sendingOrderButton = document.getElementById('bg_sending_order');
     // สร้าง .incpro
     const incpro = document.createElement('div');
     incpro.className = 'incpro';

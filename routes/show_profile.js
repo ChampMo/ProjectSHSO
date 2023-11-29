@@ -1,19 +1,33 @@
-// const express = require('express');
-// const router = express.Router();
-// const path = require('path');
-// const app = express();
+const express = require('express');
+const multer = require('multer');
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
+const router = express.Router();
+const Database = require('../routes/db');
+const db = new Database();
+db.connect();
 
-// // Serve static files from the "public" directory
-// app.use(express.static(path.join(__dirname, '../public/css')));
-// app.use(express.static(path.join(__dirname, '../views')));
 
-// router.get('/product/:id', (req, res) => {
-//     const productId = req.params.id;
 
-//     // Perform logic based on productId if needed
 
-//     // Send the main.ejs file as the response
-//     res.sendFile(path.join(__dirname, '../views/main.ejs'));
-// });
+router.post('/profile', async (req, res) => {
 
-// module.exports = router;
+    if (req.session.isLoggedIn) {
+      // Assuming req.session.isLoggedIn contains a valid customer_id
+      await db.query('UPDATE Customer SET profile_picture = ? WHERE customer_id = ?', [filePath, req.session.userId]);
+      await db.query('SELECT profile_picture FROM Customer WHERE customer_id = ?', [ req.session.userId])
+              .then(profile_pic => {
+                const profile_picture = profile_pic[0].profile_picture;
+                res.json({ message: 'File uploaded successfully', profile_picture });
+              })
+              .catch(err => {
+                console.error('Error executing SQL query:', err);
+                res.status(500).json({ error: 'An error occurred while fetching data.' });
+              });
+    }
+
+});
+
+
+module.exports = router;
