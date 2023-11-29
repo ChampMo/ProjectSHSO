@@ -64,6 +64,7 @@ document.querySelector('.submit_seller').addEventListener('click', function () {
                     console.log('Data inserted successfully');
                     setTimeout(() => {
                         alert('Register to seller successfully!!!');
+                        window.location.href = '/';
                     }, 500);
                     
                 } else {

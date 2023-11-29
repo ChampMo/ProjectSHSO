@@ -85,11 +85,11 @@ router.post('/api/register/seller/', async (req, res) => {
         if (req.session.filename !== "") {
             // Get the max seller ID
             const maxIdResults = await db.query('SELECT MAX(seller_id) as Max_id FROM Seller LIMIT 1;');
-            const max_id = maxIdResults[0].Max_id || 0; // Default to 0 if no existing sellers
+            const max_id = maxIdResults.Max_id || 0; // Default to 0 if no existing sellers
 
             // Insert the seller data
             await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [max_id + 1, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, 'unverified']);
+                [++max_id, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, 'unverified']);
 
             console.log('Data inserted successfully');
             res.json({ check_seller: true });

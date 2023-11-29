@@ -1,7 +1,7 @@
 use Second_Hand_Shopping_Online;
 
-insert into Customer values (01,'champ','monthol','sukjinda','champ@gmail.com','2003-08-08','champ01','0810120500')
-											,(02,'peet','nawapon','sanchaisakulkij','peet@gmail.com','2003-06-23','$2b$12$RWrAF7yojyuwDVyRO7ZuIeajmD1mys90uMiL2.stxUY9LYHKFaIn6','0917451614');
+insert into Customer values (01,'champ','monthol','sukjinda','champ@gmail.com','2003-08-08','champ01','0810120500','../uploads/product_picture/Shiboy.JPG')
+											,(02,'peet','nawapon','sanchaisakulkij','peet@gmail.com','2003-06-23','$2b$12$RWrAF7yojyuwDVyRO7ZuIeajmD1mys90uMiL2.stxUY9LYHKFaIn6','0917451614','../uploads/product_picture/Shiboy.JPG');
 select * from Customer ;
 insert into Seller values (01,01,'SCB','1234567890','myself',01,'champchamp','happy','home','verifile');
 
