@@ -73,10 +73,7 @@ router.post('/upload', upload.single('profileImage'), async (req, res) => {
 
     const filePath = req.file.filename;
     console.log('File uploaded:', filePath);
-
-    const dbfilePath = path.join('..','uploads', 'profile', filePath);  // Use path.join for file paths
-    console.log('session:', req.session.userId);
-    console.log('db uploaded:', dbfilePath);
+    
     if (req.session.isLoggedIn) {
       // Assuming req.session.isLoggedIn contains a valid customer_id
       await db.query('UPDATE Customer SET profile_picture = ? WHERE customer_id = ?', [filePath, req.session.userId]);

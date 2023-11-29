@@ -40,7 +40,7 @@ async function uploadFile() {
 
 document.querySelector('.submit_seller').addEventListener('click', function () {
     // ดึงค่า input จากฟอร์ม
-    const cart_id = document.querySelector('.cart_id').value.trim();
+    const card_id = document.querySelector('.card_id').value.trim();
     const shop_name = document.querySelector('.shop_name').value;
     const shop_address = document.querySelector('.shop_address').value;
     const shop_description = document.querySelector('.shop_description').value;
@@ -48,31 +48,31 @@ document.querySelector('.submit_seller').addEventListener('click', function () {
     const shop_bank_id = document.querySelector('.shop_bank_id').value.trim();
     const text_up_alert = document.querySelector('.text_up_alert');
     // ตรวจสอบรหัสผ่านและอีเมล
-    if (cart_id != '' && shop_name != '' && shop_address != '' && shop_description != '' && shop_bank != '' && shop_bank_id != '') {
+    if (card_id != '' && shop_name != '' && shop_address != '' && shop_description != '' && shop_bank != '' && shop_bank_id != '') {
         // ส่ง request ไปยัง server
         fetch('/api/register/seller/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ cart_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id, text_up_alert }),
+            body: JSON.stringify({ card_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id }),
         })
             .then(response => response.json())
             .then(data => {
-                if (data.check_mail) {
-                    match_mail.style.visibility = "hidden";
+                if (data.check_seller) {
+                    text_up_alert.style.visibility = "hidden";
                     console.log('Data inserted successfully');
                     setTimeout(() => {
-                        login_click.click()
-                        alert('Register successfully!!!');
+                        alert('Register to seller successfully!!!');
                     }, 500);
                     
                 } else {
-                    match_mail.style.visibility = "visible";
-                    console.log('Email is already registered');
+                    text_up_alert.style.visibility = "visible";
+                    console.log('กรุณากรอกข้อมูลให้ครบถ้วน');
                 }
             })
             .catch(error => {
+                text_up_alert.style.visibility = "visible";
                 console.error('Error:', error);
                 // Handle the error, for example by displaying a user-friendly message
             });

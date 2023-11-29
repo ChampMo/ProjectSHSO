@@ -18,10 +18,10 @@ create table Customer (
 -- 2
 create table Seller (
 	seller_id numeric(10) primary key not null,
-	cart_id numeric(13) not null,
+	card_id numeric(13) not null,
 	bank varchar(20) not null,
 	bank_number numeric(20) not null,
-	picture varchar(255) not null,
+	picture varchar(255),
     customer_id numeric(10),
     shop_name varchar(50),
     description varchar(255),

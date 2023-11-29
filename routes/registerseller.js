@@ -29,7 +29,6 @@ const storage = multer.diskStorage({
         return cb(err, null);
       }
     }
-
     cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
@@ -67,7 +66,8 @@ router.post('/upload/proshop/', upload.single('profileImage'), async (req, res) 
 
     const filePath = req.file.filename;
     console.log('File uploaded:', filePath);
-
+    req.session.filename = filePath
+    console.log('session:', req.session.filename);
     // Respond to the client with the relative path
     res.status(200).json({ message: 'File uploaded successfully', filePath });
   } catch (error) {
@@ -78,40 +78,30 @@ router.post('/upload/proshop/', upload.single('profileImage'), async (req, res) 
 
 
 router.post('/api/register/seller/', async (req, res) => {
-    const { cart_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id, text_up_alert  } = req.body;
-
-    
-
-
-
+    const { card_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id } = req.body;
 
     try {
-        // ทำการ query ฐานข้อมูลเพื่อตรวจสอบว่า Uuserinput_sign มีอยู่ในฐานข้อมูลหรือไม่
-        const results = await db.query('SELECT * FROM Customer WHERE email = ?', [Uuserinput_sign]);
+        // Check if a file has been uploaded
+        if (req.session.filename !== "") {
+            // Get the max seller ID
+            const maxIdResults = await db.query('SELECT MAX(seller_id) as Max_id FROM Seller LIMIT 1;');
+            const max_id = maxIdResults[0].Max_id || 0; // Default to 0 if no existing sellers
 
-        if (results.length > 0) {
-            // อีเมลถูกลงทะเบียนแล้ว
-            res.json({ check_mail: false });
-        } else {
-
-            const saltRounds = 12;
-            const hashedPassword = await bcrypt.hash(Ppassinput_sign, saltRounds);
-            // ทำการ insert ข้อมูลลงในฐานข้อมูล
-
-            let maxIdResults = await db.query('SELECT max(customer_id) as Max_id FROM Customer limit 1;');
-            let max_id = maxIdResults[0].Max_id;
-
-            // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
-            await db.query('INSERT INTO Customer (customer_id, email, username, password) VALUES (?, ?, ?, ?)', [++max_id, Uuserinput_sign, Uusernameinput_sign, hashedPassword]);
+            // Insert the seller data
+            await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                [max_id + 1, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, 'unverified']);
 
             console.log('Data inserted successfully');
-            res.json({ check_mail: true}) 
+            res.json({ check_seller: true });
+        } else {
+            res.status(500).json({ check_seller: false, error: 'No file uploaded.' });
         }
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ check_seller: false, error: 'Internal Server Error' });
     }
 });
+
 
 
 
