@@ -82,6 +82,7 @@ router.post('/api/register/seller/', async (req, res) => {
 
     try {
         if (req.session.filename != "") {
+            let maxIdResults = await db.query('SELECT max(seller_id) as Max_id FROM Seller limit 1;');
             let max_id = maxIdResults[0].Max_id;
             let status_seller = "unverified"
             // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
@@ -91,7 +92,7 @@ router.post('/api/register/seller/', async (req, res) => {
             console.log('Data inserted successfully');
             res.json({ check_seller: true}) 
         }else{
-            res.status(500).json({check_seller: false, error: '---++----' });
+            res.status(500).json({check_seller: false, error: 'file not found' });
         }
     } catch (err) {
         console.error('Error:', err);
