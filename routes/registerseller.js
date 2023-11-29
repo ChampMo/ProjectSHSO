@@ -81,24 +81,21 @@ router.post('/api/register/seller/', async (req, res) => {
     const { card_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id } = req.body;
 
     try {
-        // Check if a file has been uploaded
-        if (req.session.filename !== "") {
-            // Get the max seller ID
-            const maxIdResults = await db.query('SELECT MAX(seller_id) as Max_id FROM Seller LIMIT 1;');
-            const max_id = maxIdResults.Max_id || 0; // Default to 0 if no existing sellers
-
-            // Insert the seller data
-            await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [++max_id, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, 'unverified']);
+        if (req.session.filename != "") {
+            let max_id = maxIdResults[0].Max_id;
+            let status_seller = "unverified"
+            // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
+            await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+                    [++max_id, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, status_seller]);
 
             console.log('Data inserted successfully');
-            res.json({ check_seller: true });
-        } else {
-            res.status(500).json({ check_seller: false, error: 'No file uploaded.' });
+            res.json({ check_seller: true}) 
+        }else{
+            res.status(500).json({check_seller: false, error: '---++----' });
         }
     } catch (err) {
         console.error('Error:', err);
-        res.status(500).json({ check_seller: false, error: 'Internal Server Error' });
+        res.status(500).json({check_seller: false, error: 'Internal Server Error' });
     }
 });
 
