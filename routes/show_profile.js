@@ -43,5 +43,26 @@ router.get("/api/profile/", (req, res) => {
   }
 });
 
+router.put("/api/profile/username", (req, res) => {
+  const userId = req.params.userId; // รับค่า userId ที่ต้องการอัพเดท
+
+  // รับข้อมูลที่ต้องการอัพเดทจาก client
+  const updatedData = {
+    // รับข้อมูลที่ต้องการอัพเดท จาก req.body หรือจากตัวแปรอื่น ๆ ที่ client ส่งมา
+    // เช่น req.body.username, req.body.email, etc.
+  };
+
+  // ทำการอัพเดทข้อมูลในฐานข้อมูล
+  db.query("UPDATE Customer SET username=? WHERE customer_id = ?", [updatedData, userId], (err, result) => {
+    if (err) {
+      console.error('Error updating data:', err);
+      res.status(500).json({ error: 'An error occurred while updating data.' });
+    } else {
+      res.status(200).json({ message: 'Data updated successfully.' });
+    }
+  });
+  
+});
+
 
 module.exports = router;

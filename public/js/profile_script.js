@@ -293,21 +293,79 @@ document.addEventListener('DOMContentLoaded', function() {
                 const username = customer.username
                 const fname = customer.first_name
                 const lname = customer.last_name
-                const birth = customer.date_birth
+                const date = customer.date_birth
                 const phone = customer.phone_number
-                const village = customer.village
-                const no_village = customer.no_village
-                const road = customer.road
-                const sub_district = customer.sub_district
-                const district = customer.district
-                const city = customer.city
-                const postal_id = customer.Postal_id
+                var village = customer.village
+                var no_village = customer.no_village
+                var road = customer.road
+                var sub_district = customer.sub_district
+                var district = customer.district
+                var city = customer.city
+                var postal_id = customer.Postal_id
                 const window = document.querySelector('.username')
+                const show_address = document.querySelector('.profile_address_data')
+                const show_user = document.getElementById('show_data_username')
+                const show_fname = document.getElementById('show_data_fname')
+                const show_lname = document.getElementById('show_data_lname')
+                const show_date = document.getElementById('show_data_date')
+                const show_phone = document.getElementById('show_data_tol')
+                if (username!='null'){
+                    show_user.value = username;
+                }
+                if (fname!='null'){
+                    show_fname.value = fname;
+                }
+                if (lname!='null'){
+                    show_lname.value = lname;
+                }
+                if (date!='null'){
+                    show_date.value = date;
+                }
+                if (phone!='null'){
+                    show_phone.value = phone;
+                }
+
+                if(village='null'){
+                    village=''
+                }
+                if(no_village='null'){
+                    no_village=''
+                }
+                if(road='null'){
+                    road=''
+                }
+                if(sub_district='null'){
+                    sub_district=''
+                }
+                if(district='null'){
+                    district=''
+                }
+                if(city='null'){
+                    city=''
+                }
+                if(postal_id='null'){
+                    postal_id=''
+                }
+                if(village==='' && (no_village==='') &&(road==='')&&(sub_district==='')&&(district==='')&&(city==='')&&(postal_id==='')){
+                    show_address.innerHTML =`<div class="add_address">กรุณากรอกที่อยู่ของท่าน</div>`
+                }
+                else{
+                    show_address.innerHTML =`
+                <div>${village}&nbsp;</div>
+                <div>${no_village}&nbsp;</div>
+                <div>${road}&nbsp;</div>
+                <div>${sub_district}&nbsp;</div>
+                <div>${district}&nbsp;</div>
+                <div>${city}&nbsp;</div>
+                <div>${postal_id}&nbsp;</div>`
+                }
+
+                
                 window.innerHTML =`
                 <div>${username}</div>
                 <div>${fname}</div>
                 <div>${lname}</div>
-                <div>${birth}</div>
+                <div>${date}</div>
                 <div>${phone}</div>
                 <div>
                     <div>${village}</div>
@@ -325,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(username);
                 console.log(fname);
                 console.log(lname);
-                console.log(birth);
+                console.log(date);
                 console.log(phone);
                 console.log(village)
                 console.log(no_village);
@@ -334,6 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(district);
                 console.log(city);
                 console.log(postal_id);
+                
                 // Proceed with manipulating the DOM or using the fetched data
             } else {
                 console.error('No data received or empty array.');
@@ -346,3 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
+function change_username(){
+
+}
