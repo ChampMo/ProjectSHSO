@@ -7,7 +7,7 @@ insert into Seller values (01,01,'SCB','1234567890','myself',01,'champchamp','ha
 									  ,(02,01,'ABC','1234567890','myself',02,'nawapon','happy','home','verifile');
 
 insert into Product values (01,'mouse','wireless',500,10,01),(02,'shirt','long' ,1000,5,01),(03,'hat','long' ,1500,10,02);
-insert into Product values (05,'shose','wireless',500,10,02);
+insert into Product values (05,'shoes','wireless',500,10,02);
 
 insert into Picture_product values (01,01,'../uploads/product_picture/Shirocmt.jpg','../uploads/product_picture/ShiandShi.JPG','../uploads/product_picture/linedang2.jpg','../uploads/product_picture/Shiboy.JPG'),
 														(02,02,'../uploads/product_picture/Shirocmt.jpg','../uploads/product_picture/ShiandShi.JPG','../uploads/product_picture/linedang2.jpg','../uploads/product_picture/Shiboy.JPG'),

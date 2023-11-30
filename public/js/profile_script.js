@@ -92,101 +92,6 @@ document.getElementById('edit_data_username_button').addEventListener('click', f
 });
 
 //---------------------------------------2
-document.addEventListener('click', function(event) {
-    let inputField = document.getElementById('show_data_fname');
-    let editButton = document.getElementById('edit_data_fname_button');
-
-    // ตรวจสอบว่าคลิกนอกปุ่มและนอก input
-    if (!inputField.contains(event.target) && event.target !== editButton) {
-        inputField.setAttribute('readonly', 'true');
-        inputField.style.border= '2px solid #dedede';
-        inputField.style.background = 'none';
-        //inputField.value = 'ค่าทีร่แก้แล้วในdb';
-    }
-});
-
-document.getElementById('edit_data_fname_button').addEventListener('click', function() {
-    let inputField = document.getElementById('show_data_fname');
-
-    // ให้ input ได้รับการ focus
-    inputField.removeAttribute('readonly');
-    inputField.focus();
-    inputField.select();
-    inputField.style.border= '2px solid #d4803c';
-    inputField.style.background = '#fffaf5';
-});
-//---------------------------------------3
-document.addEventListener('click', function(event) {
-    let inputField = document.getElementById('show_data_lname');
-    let editButton = document.getElementById('edit_data_lname_button');
-
-    // ตรวจสอบว่าคลิกนอกปุ่มและนอก input
-    if (!inputField.contains(event.target) && event.target !== editButton) {
-        inputField.setAttribute('readonly', 'true');
-        inputField.style.border= '2px solid #dedede';
-        inputField.style.background = 'none';
-        //inputField.value = 'ค่าทีร่แก้แล้วในdb';
-    }
-});
-
-document.getElementById('edit_data_lname_button').addEventListener('click', function() {
-    let inputField = document.getElementById('show_data_lname');
-
-    // ให้ input ได้รับการ focus
-    inputField.removeAttribute('readonly');
-    inputField.focus();
-    inputField.select();
-    inputField.style.border= '2px solid #d4803c';
-    inputField.style.background = '#fffaf5';
-});
-//---------------------------------------4
-document.addEventListener('click', function(event) {
-    let inputField = document.getElementById('show_data_date');
-    let editButton = document.getElementById('edit_data_date_button');
-
-    // ตรวจสอบว่าคลิกนอกปุ่มและนอก input
-    if (!inputField.contains(event.target) && event.target !== editButton) {
-        inputField.setAttribute('readonly', 'true');
-        inputField.style.border= '2px solid #dedede';
-        inputField.style.background = 'none';
-        //inputField.value = 'ค่าทีร่แก้แล้วในdb';
-    }
-});
-
-document.getElementById('edit_data_date_button').addEventListener('click', function() {
-    let inputField = document.getElementById('show_data_date');
-
-    // ให้ input ได้รับการ focus
-    inputField.removeAttribute('readonly');
-    inputField.focus();
-    inputField.select();
-    inputField.style.border= '2px solid #d4803c';
-    inputField.style.background = '#fffaf5';
-});
-//---------------------------------------5
-document.addEventListener('click', function(event) {
-    let inputField = document.getElementById('show_data_tol');
-    let editButton = document.getElementById('edit_data_tol_button');
-
-    // ตรวจสอบว่าคลิกนอกปุ่มและนอก input
-    if (!inputField.contains(event.target) && event.target !== editButton) {
-        inputField.setAttribute('readonly', 'true');
-        inputField.style.border= '2px solid #dedede';
-        inputField.style.background = 'none';
-        //inputField.value = 'ค่าทีร่แก้แล้วในdb';
-    }
-});
-
-document.getElementById('edit_data_tol_button').addEventListener('click', function() {
-    let inputField = document.getElementById('show_data_tol');
-
-    // ให้ input ได้รับการ focus
-    inputField.removeAttribute('readonly');
-    inputField.focus();
-    inputField.select();
-    inputField.style.border= '2px solid #d4803c';
-    inputField.style.background = '#fffaf5';
-});
 
 //---------------------------------------
 
@@ -283,6 +188,7 @@ async function uploadFile() {
 });
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
     fetch(`/api/profile/`)
         .then(response => response.json())
@@ -324,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (phone!='null'){
                     show_phone.value = phone;
                 }
-
                 if(village='null'){
                     village=''
                 }
@@ -359,7 +264,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div>${city}&nbsp;</div>
                 <div>${postal_id}&nbsp;</div>`
                 }
-
                 
                 window.innerHTML =`
                 <div>${username}</div>
@@ -376,10 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div>${city}</div>
                     <div>${postal_id}</div>
                 </div>
-
                 `;
-
-
                 console.log(username);
                 console.log(fname);
                 console.log(lname);
@@ -404,7 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Handle the error or display a message to the user
         });
 });
-
 function change_username(){
-
 }
+
