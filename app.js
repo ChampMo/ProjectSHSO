@@ -56,6 +56,14 @@ class AppServer {
 
      this.app.use("/", show_cart);
 
+     const profile = require("./routes/show_profile")
+
+     this.app.use("/", profile);
+
+     const show_profile = require("./routes/show_profile");
+
+     this.app.use("/", show_profile);
+
     }
 
 
