@@ -302,6 +302,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 const district = customer.district
                 const city = customer.city
                 const postal_id = customer.Postal_id
+                const window = document.querySelector('.username')
+                window.innerHTML =`
+                <div>${username}</div>
+                <div>${fname}</div>
+                <div>${lname}</div>
+                <div>${birth}</div>
+                <div>${phone}</div>
+                <div>
+                    <div>${village}</div>
+                    <div>${no_village}</div>
+                    <div>${road}</div>
+                    <div>${sub_district}</div>
+                    <div>${district}</div>
+                    <div>${city}</div>
+                    <div>${postal_id}</div>
+                </div>
+
+                `;
 
 
                 console.log(username);
