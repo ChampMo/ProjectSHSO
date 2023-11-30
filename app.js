@@ -52,6 +52,10 @@ class AppServer {
 
      this.app.use("/", registerseller);
 
+     const show_cart = require("./routes/show_cart");
+
+     this.app.use("/", show_cart);
+
     }
 
 

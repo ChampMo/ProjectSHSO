@@ -9,19 +9,65 @@ function formatNumber(num){
 // เลือก input และ button
 
 
+function getcreateshopElement() {
+    // Clear existing product containers
+    Iincshop.innerHTML = '';
 
+    // Fetch total product count from the server
+    fetch(`/api/count_shop/`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(totalShop => {
+        console.log(totalShop);
+        if (totalShop > 0) {
+            for (let i = 0; i < totalShop; i++) {
+                createshopElement(i);
+            }
+        } else {
+            console.log('No shops available.');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching shop data:', error);
+    });
 
-
-//----ไม่เกี่ยว----
-for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
-    createshopElement(j);
 }
+getcreateshopElement();
 
-function generateUniqueId() {
-    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+//-----------------------------------------------
+
+function createshopElement(shopIndex) {
+    // สร้าง .shop_pro
+    const shop_pro = document.createElement('div');
+    shop_pro.className = 'shop_pro';
+    shop_pro.id = `shop${shopIndex}`;
+
+    // สร้าง HTML ภายใน .shop_pro
+
+    shop_pro.innerHTML = `
+    <div class="detail_shop">
+        <label class="check_shop_pro">
+            <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
+            <span class="checkmark"></span>
+        </label>
+        <div class="shop_name">Name_Shop</div>
+    </div>
+    <div class="outincpro"  id="shop${shopIndex}_Iincpro">
+        
+    </div>
+    `;
+
+    // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
+    Iincshop.appendChild(shop_pro);
+
+    for (let i = 0; i < 2; i++) {  //i < 2  --> productCount
+        createProductElement(shopIndex, i);
+    }
 }
-//----
-
 //-----------------------------------------------
 
 function createProductElement(shopIndex, incproIndex) {
@@ -31,6 +77,7 @@ function createProductElement(shopIndex, incproIndex) {
     const incpro = document.createElement('div');
     incpro.className = 'incpro';
     incpro.id = `shop${shopIndex}_incpro${incproIndex}`;
+    
 
     // สร้าง HTML ภายใน .incpro
 
@@ -87,36 +134,7 @@ function createProductElement(shopIndex, incproIndex) {
     checkbox();
 }
 
-//-----------------------------------------------
 
-function createshopElement(shopIndex) {
-    // สร้าง .shop_pro
-    const shop_pro = document.createElement('div');
-    shop_pro.className = 'shop_pro';
-    shop_pro.id = `shop${shopIndex}`;
-
-    // สร้าง HTML ภายใน .shop_pro
-
-    shop_pro.innerHTML = `
-    <div class="detail_shop">
-        <label class="check_shop_pro">
-            <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
-            <span class="checkmark"></span>
-        </label>
-        <div class="shop_name">Name_Shop</div>
-    </div>
-    <div class="outincpro"  id="shop${shopIndex}_Iincpro">
-        
-    </div>
-    `;
-
-    // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
-    Iincshop.appendChild(shop_pro);
-
-    for (let i = 0; i < 2; i++) {  //i < 2  --> productCount
-        createProductElement(shopIndex, i);
-    }
-}
 //-----------------------------------------------
 
 

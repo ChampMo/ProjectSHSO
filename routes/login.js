@@ -69,6 +69,8 @@ router.post('/save-register', async (req, res) => {
 
             // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
             await db.query('INSERT INTO Customer (customer_id, email, username, password) VALUES (?, ?, ?, ?)', [++max_id, Uuserinput_sign, Uusernameinput_sign, hashedPassword]);
+            await db.query('INSERT INTO Cart (cart_id, customer_id) VALUES (?,?)',[max_id,max_id])
+            await db.query('INSERT INTO Address (address_id, customer_id) VALUES (?,?)',[max_id,max_id])
 
             console.log('Data inserted successfully');
             res.json({ check_mail: true}) 

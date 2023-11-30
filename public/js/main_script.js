@@ -13,7 +13,9 @@ function createProductElements() {
         .then(response => response.json())
         .then(totalProducts => {
             // Create product boxes based on the total count
+            console.log(totalProducts)
             for (let i = 0; i < totalProducts; i++) {
+                
                 createProductBox(i);
             }
         })
