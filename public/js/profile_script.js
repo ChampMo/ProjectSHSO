@@ -283,6 +283,48 @@ async function uploadFile() {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    fetch(`/api/profile/`)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                const customer = data[0];
+                // Access the properties based on the structure of the data received
+                const username = customer.username
+                const fname = customer.first_name
+                const lname = customer.last_name
+                const birth = customer.date_birth
+                const phone = customer.phone_number
+                const village = customer.village
+                const no_village = customer.no_village
+                const road = customer.road
+                const sub_district = customer.sub_district
+                const district = customer.district
+                const city = customer.city
+                const postal_id = customer.Postal_id
 
 
+                console.log(username);
+                console.log(fname);
+                console.log(lname);
+                console.log(birth);
+                console.log(phone);
+                console.log(village)
+                console.log(no_village);
+                console.log(road);
+                console.log(sub_district);
+                console.log(district);
+                console.log(city);
+                console.log(postal_id);
+                // Proceed with manipulating the DOM or using the fetched data
+            } else {
+                console.error('No data received or empty array.');
+                // Handle the case where no data is received or the array is empty
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Handle the error or display a message to the user
+        });
+});
 
