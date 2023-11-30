@@ -1,6 +1,6 @@
 create schema Second_Hand_Shopping_Online;
 use Second_Hand_Shopping_Online;
--- drop schema Second_Hand_Shopping_Online;
+#drop schema Second_Hand_Shopping_Online;
 
 -- 1
 create table Customer (
@@ -32,16 +32,6 @@ create table Seller (
 );
 
 -- 3
-create table Picture_product (
-    picture_id numeric(10) not null primary key ,
-    picture1 varchar(255),
-    picture2 varchar(255),
-    picture3 varchar(255),
-    picture4 varchar(255)
-);
-
-
--- 4
 create table Product (
 	product_id numeric(10) not null primary key,
     name varchar(20),
@@ -49,9 +39,19 @@ create table Product (
     price numeric(10),
     quantity numeric(10),
     seller_id numeric(10) not null,
-    picture_id numeric(10),
-	foreign key (seller_id) references Seller(seller_id),
-    foreign key (picture_id) references Picture_product(picture_id)
+	foreign key (seller_id) references Seller(seller_id)
+);
+
+-- 4
+
+create table Picture_product (
+    picture_id numeric(10) not null primary key ,
+    product_id numeric(10) not null,
+    picture1 varchar(255),
+    picture2 varchar(255),
+    picture3 varchar(255),
+    picture4 varchar(255),
+    foreign key (product_id) references Product(product_id)
 );
 
 -- 5
@@ -105,7 +105,8 @@ create table Cart(
 -- 10
 create table Cart_Product(
 	cart_id numeric(10),
-    product_id numeric(10),-- จำนวน
+    product_id numeric(10),
+    product_amount numeric(10),
     primary key (cart_id,product_id),
     foreign key (cart_id) references Cart(cart_id),
     foreign key (product_id) references Product(product_id)

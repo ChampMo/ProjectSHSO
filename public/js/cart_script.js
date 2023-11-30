@@ -9,75 +9,112 @@ function formatNumber(num){
 // เลือก input และ button
 
 
-function getcreateshopElement() {
-    // Clear existing product containers
-    Iincshop.innerHTML = '';
+async function getcreateshopElement() {
 
-    // Fetch total product count from the server
-    fetch(`/api/count_shop/`)
-    .then(response => {
+    let shop_pro = document.querySelectorAll('.shop_pro');
+    
+    
+
+    try {
+        // Fetch total product count from the server
+        const response = await fetch(`/api/count_shop/`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-    })
-    .then(totalShop => {
-        console.log(totalShop);
-        if (totalShop > 0) {
-            for (let i = 0; i < totalShop; i++) {
-                createshopElement(i);
-            }
-        } else {
-            console.log('No shops available.');
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching shop data:', error);
-    });
 
+        const data = await response.json();
+
+        for (const item of data) {
+            const product_id = item.product_id;
+            const seller_id = item.seller_id;
+
+            console.log("A1",seller_id, product_id);
+
+            if (shop_pro.length > 0) {
+                let foundMatch = false;
+            
+                shop_pro.forEach(element => {
+                    console.log('element',element.id);
+            
+                    if (shop_pro && shop_pro.id === element.id) {
+                        createProductElement(seller_id, product_id);
+                        foundMatch = true;
+                    }
+                });
+            
+                if (!foundMatch) {
+                    createshopElement(seller_id, product_id);
+                }
+            } else {
+                createshopElement(seller_id, product_id);
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching shop data:', error);
+    }
 }
-getcreateshopElement();
+
+document.addEventListener('DOMContentLoaded', function () {
+    getcreateshopElement();
+});
 
 //-----------------------------------------------
 
-function createshopElement(shopIndex) {
-    // สร้าง .shop_pro
-    const shop_pro = document.createElement('div');
-    shop_pro.className = 'shop_pro';
-    shop_pro.id = `shop${shopIndex}`;
+async function createshopElement(shopIndex, product_id) {
+    // Declare shop_pro here
+    const Iincshop = document.getElementById("Iincshop")
 
-    // สร้าง HTML ภายใน .shop_pro
+    try {
+        // สร้าง .shop_pro
+        shop_pro = document.createElement('div');
+        shop_pro.className = 'shop_pro';
+        shop_pro.id = `shop${shopIndex}`;
 
-    shop_pro.innerHTML = `
-    <div class="detail_shop">
-        <label class="check_shop_pro">
-            <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
-            <span class="checkmark"></span>
-        </label>
-        <div class="shop_name">Name_Shop</div>
-    </div>
-    <div class="outincpro"  id="shop${shopIndex}_Iincpro">
-        
-    </div>
-    `;
+        // สร้าง HTML ภายใน .shop_pro
+        const shopResponse = await fetch(`/api/shop/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ shopIndex }),
+        });
 
-    // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
-    Iincshop.appendChild(shop_pro);
+        const shop_name = await shopResponse.json();
 
-    for (let i = 0; i < 2; i++) {  //i < 2  --> productCount
-        createProductElement(shopIndex, i);
+        // Assuming shop_pro is available in the global scope
+        shop_pro.innerHTML = `
+            <div class="detail_shop">
+                <label class="check_shop_pro">
+                    <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="shop_name">${shop_name}</div>
+            </div>
+            <div class="outincpro"  id="shop${shopIndex}_Iincpro">
+                
+            </div>
+        `;
+
+        console.log(shopIndex);
+        // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
+        Iincshop.appendChild(shop_pro);
+        createProductElement(shopIndex, product_id);
+    } catch (error) {
+        console.error('Error fetching product data:', error);
     }
 }
+
 //-----------------------------------------------
 
 function createProductElement(shopIndex, incproIndex) {
 
+    const shopcontain = document.getElementById(`shop${shopIndex}`);
     const Iincpro = document.getElementById(`shop${shopIndex}_Iincpro`);
     // สร้าง .incpro
     const incpro = document.createElement('div');
     incpro.className = 'incpro';
     incpro.id = `shop${shopIndex}_incpro${incproIndex}`;
-    
+
 
     // สร้าง HTML ภายใน .incpro
 
@@ -106,6 +143,7 @@ function createProductElement(shopIndex, incproIndex) {
     // นำ .incpro มาแทรกในเอลิเมนต์ของหน้าเว็บ
     
     Iincpro.appendChild(incpro);
+    shopcontain.appendChild(Iincpro);
 
     const decrementButtons = document.querySelectorAll(`#${incpro.id} .decrement`);
     const incrementButtons = document.querySelectorAll(`#${incpro.id} .increment`);

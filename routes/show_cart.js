@@ -9,19 +9,46 @@ const db = new Database();
 db.connect();
 
 
-router.get('/api/count_shop/', (req, res) => {
+router.get('/api/count_shop/', async (req, res) => {
     // Assuming req.session.userID exists and is valid
-  
-    db.query('SELECT count(DISTINCT seller_id) AS totalShop FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?;',req.session.userId)
-      .then(count_shop => {
-        const totalShop = count_shop[0].totalShop;
-        res.json(totalShop);
-      })
-      .catch(err => {
+
+    try {
+        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?;', req.session.userId);
+
+        // Extract product_id and seller_id from each row in the result
+        const data = count_shop.map(row => ({
+            product_id: row.product_id,
+            seller_id: row.seller_id
+        }));
+
+        // Log each product_id in the array
+        data.forEach(item => {
+            console.log(item.product_id);
+        });
+
+        // Send the response as an array of objects
+        res.json(data);
+    } catch (err) {
         console.error('Error executing SQL query:', err);
         res.status(500).json({ error: 'An error occurred while fetching data.' });
-    });
+    }
 });
+
+router.post('/api/shop/', async (req, res) => {
+    // Assuming req.session.userID exists and is valid
+    const { shopIndex } = req.body;
+
+    try {
+        const shop_name = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ?;', [req.session.userId, shopIndex]);
+
+        // Assuming the result is an array of products
+        res.json(shop_name);
+    } catch (err) {
+        console.error('Error executing SQL query:', err);
+        res.render('error', { error: 'An error occurred while fetching data.' });
+    }
+});
+
 
 router.get('/api/count_shopgege/', (req, res) => {
     const id_pro = req.params.id;
