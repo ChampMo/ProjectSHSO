@@ -60,7 +60,9 @@ class AppServer {
 
      this.app.use("/", profile);
 
+     const show_profile = require("./routes/show_profile");
 
+     this.app.use("/", show_profile);
 
     }
 
