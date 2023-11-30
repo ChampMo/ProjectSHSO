@@ -288,7 +288,7 @@ body{
 .pay{
     position:sticky;
     bottom:0px;
-    background-color: #e6ae46;
+    background-color: #ecb143;
     height: 180px;
     width: 90%;
     max-width: 1500px;
@@ -378,6 +378,7 @@ width: 100%;
 .check_allproduct span{
     font-size: 22px;
 }
+
 .cost_product{
     width: 60%;
     display: flex;
@@ -385,6 +386,19 @@ width: 100%;
     justify-content: flex-end;
     align-items: center;
     margin-right: 50px;
+}
+.cost_product::before{
+    content: '';
+}
+.amount_select1{
+    height: 60px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffdfb1;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .cost_product span{
     font-size: 22px;

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //-----------------------------------------------
 
-async function createshopElement(shopIndex, product_id) {
+async function createshopElement(seller_id, product_id) {
     // Declare shop_pro here
     const Iincshop = document.getElementById("Iincshop")
 
@@ -65,7 +65,7 @@ async function createshopElement(shopIndex, product_id) {
         // สร้าง .shop_pro
         let shop_pro = document.createElement('div');
         shop_pro.className = 'shop_pro';
-        shop_pro.id = `shop${shopIndex}`;
+        shop_pro.id = `shop${seller_id}`;
         
         // สร้าง HTML ภายใน .shop_pro
         const shopResponse = await fetch(`/api/shop/`, {
@@ -73,7 +73,7 @@ async function createshopElement(shopIndex, product_id) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ shopIndex }),
+            body: JSON.stringify({ seller_id }),
         });
 
         const shop_name = await shopResponse.json();
@@ -86,7 +86,7 @@ async function createshopElement(shopIndex, product_id) {
                 </label>
                 <div class="shop_name">${shop_name[0].shop_name}</div>
             </div>
-            <div class="outincpro"  id="shop${shopIndex}_Iincpro">
+            <div class="outincpro"  id="shop${seller_id}_Iincpro">
                 
             </div>
         `;
@@ -95,7 +95,7 @@ async function createshopElement(shopIndex, product_id) {
         Iincshop.appendChild(shop_pro);
 
         
-        await createProductElement(shopIndex, product_id);
+        await createProductElement(seller_id, product_id);
         
         
     } catch (error) {
@@ -105,111 +105,119 @@ async function createshopElement(shopIndex, product_id) {
 
 //-----------------------------------------------
 
-async function createProductElement(shopIndex, incproIndex) {
+async function createProductElement(seller_id, product_id) {
 
-    const Iincpro = document.getElementById(`shop${shopIndex}_Iincpro`);
-    // สร้าง .incpro
-    const incpro = document.createElement('div');
-    incpro.className = 'incpro';
-    incpro.id = `shop${shopIndex}_incpro${incproIndex}`;
 
     // สร้าง HTML ภายใน .incpro
-
-    incpro.innerHTML = `
-        <label class="check_pro">
-            <input type="checkbox" class="Ccheck_pro">
-            <span class="checkmark1"></span>
-        </label>
-        <a class="click_incpro" href="./product">
-            <img src="./images/Shirocmt.jpg">
-            <div class="product_name">Product Name</div>
-        </a>
-        <div class="select_type_pro">Select Type Product</div>
-        <div class="cost_pro">
-            &nbsp;100
-        </div>
-        <div class="amount">
-            <button class="decrement"> - </button>
-            <span class="count">1</span>
-            <button class="increment"> + </button>
-        </div>
-        <div class="all_cost_pro"></div>
-        <div class="delete">ลบ</div>
-    `;
-
-    // นำ .incpro มาแทรกในเอลิเมนต์ของหน้าเว็บ
-    
-    Iincpro.appendChild(incpro);
-
-    const decrementButtons = document.querySelectorAll(`#${incpro.id} .decrement`);
-    const incrementButtons = document.querySelectorAll(`#${incpro.id} .increment`);
-
-    // สร้างตัวแปรสำหรับจำนวน
-    let count = 1;
-
-    // เมื่อคลิก "decrement" หรือ "increment" ใน incpro ใหม่ ให้เรียก amount_pro(incpro.id)
-    decrementButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            if (count > 1) {
-                count--;
-                updateCostProduct(incpro.id, count);
-            }
+    try {
+        // สร้าง .shop_pro
+        const Iincpro = document.getElementById(`shop${seller_id}_Iincpro`);
+        // สร้าง .incpro
+        const incpro = document.createElement('div');
+        incpro.className = 'incpro';
+        incpro.id = `shop${seller_id}_incpro${product_id}`;
+        
+        // สร้าง HTML ภายใน .shop_pro
+        const shopResponse = await fetch(`/api/cart_product/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ product_id }),
         });
-    });
-    
-    incrementButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            count++;
-            updateCostProduct(incpro.id, count);
-        });
-    });
+        const product_info_cart = await shopResponse.json();
+        const name = product_info_cart[0].name
+        const price = product_info_cart[0].price
+        const product_amount = product_info_cart[0].product_amount
+        const picture1 = product_info_cart[0].picture1
+        
+        // Assuming shop_pro is available in the global scope
+        incpro.innerHTML = `
+                <label class="check_pro">
+                    <input type="checkbox" class="Ccheck_pro">
+                    <span class="checkmark1"></span>
+                </label>
+                <a class="click_incpro" href="/product/${product_id}">
+                    <img src="${picture1}">
+                    <div class="product_name">${name}</div>
+                </a>
+                <div class="select_type_pro">Select Type Product</div>
+                <div class="cost_pro">
+                    &nbsp;${price}
+                </div>
+                <div class="amount">
+                    <button class="decrement"> - </button>
+                    <span class="count">${product_amount}</span>
+                    <button class="increment"> + </button>
+                </div>
+                <div class="all_cost_pro"></div>
+                <div class="delete">ลบ</div>
+            `;
+        
+        Iincpro.appendChild(incpro);
 
-    amount_pro(incpro.id, decrementButtons, incrementButtons, count);
-    checkbox();
+
+
+        amount_pro(incpro.id, product_amount, product_id);
+        checkbox();
+        
+    } catch (error) {
+        console.error('Error fetching product data:', error);
+    }
 }
-
-
 //-----------------------------------------------
 
 
 
 
 
-function amount_pro(incproId, decrementButtons, incrementButtons, count) {
+async function amount_pro(incproId, count, product_id) {
+    const decrementButtons = document.querySelectorAll(`#${incproId} .decrement`);
+    const incrementButtons = document.querySelectorAll(`#${incproId} .increment`);
     
     const countDisplays = document.querySelectorAll(`#${incproId} .count`);
     const Ccost_pro = document.querySelector(`#${incproId} .cost_pro`);
     const all_cost_pro = document.querySelector(`#${incproId} .all_cost_pro`);
     
 
-    updateCostProduct(incproId);
+    updateCostProduct(incproId, count);
 
     decrementButtons.forEach((button) => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             if (count > 1) {
-                count--;
-                updateCostProduct(incproId, count);
+                const shopResponse = await fetch(`/api/cart_count_decrement/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ product_id }),
+                });
+                
+                const countd = await shopResponse.json();
+                const countdd =countd.countd
+                updateCostProduct(incproId, countdd);
             }
         });
     });
 
     incrementButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            count++;
-            updateCostProduct(incproId, count);
+        button.addEventListener('click', async () => {
+            const shopResponse = await fetch(`/api/cart_count_increment/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_id }),
+            });
+            
+            const counti = await shopResponse.json();
+            const countii =counti.counti
+            updateCostProduct(incproId, countii);
         });
     });
 
 
-    function updateCostProduct(incproId) {
-        const cost = parseInt(Ccost_pro.textContent.replace('฿ ', ''));
-        const cost_product = count * cost;
 
-        countDisplays.forEach((display) => {
-            display.textContent = count;
-        });
-        all_cost_pro.textContent = ' ฿ ' + formatNumber(cost_product);
-    }
 }
 // ประกาศ updateCostProduct ให้เป็นฟังก์ชันในขอบเขตระดับสูงที่สามารถเรียกใช้ได้ทั่วไป
 function updateCostProduct(incproId, count) {
