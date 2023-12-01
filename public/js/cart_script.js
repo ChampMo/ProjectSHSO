@@ -134,7 +134,7 @@ async function createProductElement(seller_id, product_id) {
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <label class="check_pro">
-                    <input type="checkbox" class="Ccheck_pro">
+                    <input type="checkbox" class="Ccheck_pro" id="Ccheck_pro${product_id}">
                     <span class="checkmark1"></span>
                 </label>
                 <a class="click_incpro" href="/product/${product_id}">
@@ -149,6 +149,7 @@ async function createProductElement(seller_id, product_id) {
                     <button class="decrement"> - </button>
                     <span class="count">${product_amount}</span>
                     <button class="increment"> + </button>
+                    <div class="maxq" id="maxq${product_id}">*ของถึงจำนวนจำกัดแล้ว</div>
                 </div>
                 <div class="all_cost_pro"></div>
                 <div class="delete">ลบ</div>
@@ -174,17 +175,25 @@ async function createProductElement(seller_id, product_id) {
 async function amount_pro(incproId, count, product_id) {
     const decrementButtons = document.querySelectorAll(`#${incproId} .decrement`);
     const incrementButtons = document.querySelectorAll(`#${incproId} .increment`);
-    
-    const countDisplays = document.querySelectorAll(`#${incproId} .count`);
-    const Ccost_pro = document.querySelector(`#${incproId} .cost_pro`);
-    const all_cost_pro = document.querySelector(`#${incproId} .all_cost_pro`);
+    const maxqId = `maxq${product_id}`;
+    const maxq = document.getElementById(maxqId)
+
     
 
     updateCostProduct(incproId, count);
 
     decrementButtons.forEach((button) => {
         button.addEventListener('click', async () => {
-            if (count > 1) {
+            const shopResponse = await fetch(`/api/cart_product/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_id }),
+            });
+            const product_info_cart = await shopResponse.json();
+            const product_amount = product_info_cart[0].product_amount
+            if (product_amount > 1) {
                 const shopResponse = await fetch(`/api/cart_count_decrement/`, {
                     method: 'POST',
                     headers: {
@@ -192,7 +201,8 @@ async function amount_pro(incproId, count, product_id) {
                     },
                     body: JSON.stringify({ product_id }),
                 });
-                
+
+                maxq.style.display = "none";
                 const countd = await shopResponse.json();
                 const countdd =countd.countd
                 updateCostProduct(incproId, countdd);
@@ -209,9 +219,16 @@ async function amount_pro(incproId, count, product_id) {
                 },
                 body: JSON.stringify({ product_id }),
             });
-            
+        
             const counti = await shopResponse.json();
-            const countii =counti.counti
+            const countii = counti.counti
+            const bucount = counti.bucount
+            console.log(bucount)
+            if (!bucount){
+                maxq.style.display = "flex";
+            }else{
+                maxq.style.display = "none";
+            }
             updateCostProduct(incproId, countii);
         });
     });
@@ -252,38 +269,64 @@ function checkbox() {
         const childCheckboxes = shop_pro.querySelectorAll('.Ccheck_pro');
         const decrement = shop_pro.querySelectorAll('.decrement');
         const increment = shop_pro.querySelectorAll('.increment');
+        const parentCheckboxforpro = document.querySelectorAll('.Ccheck_shop_pro');
+        const childCheckboxesforpro = document.querySelectorAll('.Ccheck_pro');
+        
 
         // กำหนดการทำงานเมื่อคลิกที่ปุ่ม decrement
         decrement.forEach((button) => {
             button.addEventListener('click', function () {
-                updateAmountSelect(childCheckboxes);
+                updateAmountSelect();
             });
         });
 
         // กำหนดการทำงานเมื่อคลิกที่ปุ่ม increment
         increment.forEach((button) => {
             button.addEventListener('click', function () {
-                updateAmountSelect(childCheckboxes);
+                updateAmountSelect();
             });
         });
 
-        // กำหนดการทำงานเมื่อเปลี่ยนสถานะของ parentCheckbox
         parentCheckbox.addEventListener('change', function () {
+            const allChecked = [...parentCheckboxforpro].every((checkbox) => checkbox.checked)
+            
             childCheckboxes.forEach((checkbox) => {
+
                 checkbox.checked = parentCheckbox.checked;
+                updateAmountSelect();
             });
-            updateAmountSelect(childCheckboxes);
+
+            if (allChecked) {
+                // Assuming parent_pro is a checkbox
+                const parent_pro = document.querySelector('.parent_pro');
+                parent_pro.checked = true;
+            } else {
+                const parent_pro = document.querySelector('.parent_pro');
+                parent_pro.checked = false;
+            }
+        
+            updateAmountSelect();
         });
 
-        // กำหนดการทำงานเมื่อเปลี่ยนสถานะของ childCheckboxes
-        childCheckboxes.forEach((child) => {
+        childCheckboxesforpro.forEach((child) => {
             child.addEventListener('change', function () {
-                const allChecked = [...childCheckboxes].every((checkbox) => checkbox.checked);
-                parentCheckbox.checked = allChecked;
-                updateAmountSelect(childCheckboxes);
+                const allCheckedp = [...childCheckboxes].every((checkbox) => checkbox.checked);
+                parentCheckbox.checked = allCheckedp;
+
+                const allChecked = [...childCheckboxesforpro].every((checkbox) => checkbox.checked);
+
+                if (allChecked) {
+                    const parent_pro = document.querySelector('.parent_pro');
+                    parent_pro.checked = true;
+                } else {
+                    const parent_pro = document.querySelector('.parent_pro');
+                    parent_pro.checked = false;
+                }
+
+                updateAmountSelect();
             });
         });
-        
+
         const parent_pro = document.querySelectorAll('.parent_pro');
         parent_pro.forEach((parent) => {
             parent.addEventListener('click', function () {
@@ -291,47 +334,56 @@ function checkbox() {
                     checkbox.checked = parent.checked;
                 });
                 parentCheckbox.checked = parent.checked;
-                updateAmountSelect(childCheckboxes);
+                updateAmountSelect();
             });
         });  
     });
 }
 //-----------------------------------------------
 
-function updateAmountSelect() {
-    const amount_select = document.querySelector('.amount_select');
-    const amount_select1 = document.querySelector('.amount_select1');
+async function updateAmountSelect() {
+    try {
+        let checkedIds = [];
 
-    let all_cost_select = 0;
-    let totalNumberOfCheckedChildCheckboxes = 0;
+        let checkProElements = document.querySelectorAll('.Ccheck_pro');
 
-    const shop_pros = document.querySelectorAll('.shop_pro');
-    
-    shop_pros.forEach((shop_pro) => {
-        const parentCheckbox = shop_pro.querySelector('.Ccheck_shop_pro');
-        const childCheckboxes = shop_pro.querySelectorAll('.Ccheck_pro');
-        const checkedChildCheckboxes = Array.from(childCheckboxes).filter((checkbox) => checkbox.checked);
-
-        totalNumberOfCheckedChildCheckboxes += checkedChildCheckboxes.length;
-
-        all_cost_select += Array.from(checkedChildCheckboxes).reduce((total, checkbox) => {
-            const incpro = checkbox.closest('.incpro');
-            if (incpro) {
-                const cost = parseInt(incpro.querySelector('.cost_pro').textContent.replace('฿ ', ''));
-                const count = parseInt(incpro.querySelector('.count').textContent);
-                return total + (cost * count);
+        await Promise.all(Array.from(checkProElements).map(async (element) => {
+            if (element.checked) {
+                let productId = parseInt(element.id.replace("Ccheck_pro", ""));
+                checkedIds.push(productId);
             }
-            return total;
-        }, 0);
-    });
+        }));
 
-    amount_select.textContent = 'เลือกสินค้าทั้งหมด ( ' + totalNumberOfCheckedChildCheckboxes + ' ) ';
-    amount_select1.textContent = 'รวม ( ' + totalNumberOfCheckedChildCheckboxes + ' สินค้า ) : ' + '฿ ' + formatNumber(all_cost_select);
+        if (checkedIds.length >= 0) {
+            const response = await fetch(`/api/check_produck/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ checkedIds }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch data from the server');
+            }
+
+            const check_cost = await response.json();
+            const amount_select = document.querySelector('.amount_select');
+            const amount_select1 = document.querySelector('.amount_select1');
+
+            amount_select.textContent = 'เลือกสินค้าทั้งหมด ( ' + checkedIds.length + ' ) ';
+            amount_select1.textContent = 'รวม ( ' + checkedIds.length + ' สินค้า ) : ' + '฿ ' + formatNumber(check_cost.check_cost);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        // Handle the error, for example by displaying a user-friendly message
+    }
 }
 
+
+
+
 //-----------------------------------------------
-
-
 
 
 

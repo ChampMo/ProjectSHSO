@@ -268,6 +268,15 @@ body{
 .decrement:hover,.increment:hover{
     background-color: #ffca7b;
 }
+.maxq{
+    position: absolute;
+    top:50px;
+    width: 200px;
+    display: none;
+    justify-content: center;
+    color: #ed6a53;
+    font-size: 16px;
+}
 .all_cost_pro{
     width: 100px;
     margin:10px 30px;
