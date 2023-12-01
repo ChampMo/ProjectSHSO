@@ -67,29 +67,110 @@ function borderpassout3(){
 }
 //---------------------------------------1
 
-document.addEventListener('click', function(event) {
-    let inputField = document.getElementById('show_data_username');
-    let editButton = document.getElementById('edit_data_username_button');
-
-    // ตรวจสอบว่าคลิกนอกปุ่มและนอก input
-    if (!inputField.contains(event.target) && event.target !== editButton) {
-        inputField.setAttribute('readonly', 'true');
-        inputField.style.border= '2px solid #dedede';
-        inputField.style.background = 'none';
-        //inputField.value = 'ค่าทีร่แก้แล้วในdb';
-    }
-});
-
 document.getElementById('edit_data_username_button').addEventListener('click', function() {
-    let inputField = document.getElementById('show_data_username');
+    let edit_address_button = document.getElementById('edit_data_username_button');
+    let xc_button = document.querySelector('.xc_button_all');
+    let change_username = document.getElementById('show_data_username');
+    let change_fname = document.getElementById('show_data_fname');
+    let change_lname = document.getElementById('show_data_lname');
+    let change_date = document.getElementById('show_data_date');
+    let change_tol = document.getElementById('show_data_tol');
 
     // ให้ input ได้รับการ focus
-    inputField.removeAttribute('readonly');
-    inputField.focus();
-    inputField.select();
-    inputField.style.border= '2px solid #d4803c';
-    inputField.style.background = '#fffaf5';
+    edit_address_button.style.display = 'none';
+    xc_button.style.display = 'flex';
+    change_username.removeAttribute('readonly');
+    change_username.focus();
+    change_username.select();
+    change_username.style.border= '2px solid #d4803c';
+    change_username.style.background = '#fffaf5';
+    change_fname.removeAttribute('readonly');
+    change_fname.focus();
+    change_fname.select();
+    change_fname.style.border= '2px solid #d4803c';
+    change_fname.style.background = '#fffaf5';
+    change_lname.removeAttribute('readonly');
+    change_lname.focus();
+    change_lname.select();
+    change_lname.style.border= '2px solid #d4803c';
+    change_lname.style.background = '#fffaf5';
+    change_date.removeAttribute('readonly');
+    change_date.focus();
+    change_date.select();
+    change_date.style.border= '2px solid #d4803c';
+    change_date.style.background = '#fffaf5';
+    change_tol.removeAttribute('readonly');
+    change_tol.focus();
+    change_tol.select();
+    change_tol.style.border= '2px solid #d4803c';
+    change_tol.style.background = '#fffaf5';
 });
+
+document.querySelector('.x_button_all').addEventListener('click', function() {
+    let edit_address_button = document.getElementById('edit_data_username_button');
+    let xc_button = document.querySelector('.xc_button_all');
+    let change_username = document.getElementById('show_data_username');
+    let change_fname = document.getElementById('show_data_fname');
+    let change_lname = document.getElementById('show_data_lname');
+    let change_date = document.getElementById('show_data_date');
+    let change_tol = document.getElementById('show_data_tol');
+
+    change_username.setAttribute('readonly', 'true');
+    change_username.style.border= '2px solid #dedede';
+    change_username.style.background = 'none';
+    change_fname.setAttribute('readonly', 'true');
+    change_fname.style.border= '2px solid #dedede';
+    change_fname.style.background = 'none';
+    change_lname.setAttribute('readonly', 'true');
+    change_lname.style.border= '2px solid #dedede';
+    change_lname.style.background = 'none';
+    change_date.setAttribute('readonly', 'true');
+    change_date.style.border= '2px solid #dedede';
+    change_date.style.background = 'none';
+    change_tol.setAttribute('readonly', 'true');
+    change_tol.style.border= '2px solid #dedede';
+    change_tol.style.background = 'none';
+
+    // ให้ input ได้รับการ focus
+    edit_address_button.style.display = 'flex';
+    xc_button.style.display = 'none';
+    load_data();
+    console.log("เปลี่ยนข้อมูลไม่สำเร็จ")
+});
+// ถ้าถูกบันทึกใน db และนำข้อมูลมาโช
+document.querySelector('.c_button_all').addEventListener('click', function() {
+
+    let edit_address_button = document.getElementById('edit_data_username_button');
+    let xc_button = document.querySelector('.xc_button_all');
+    let change_username = document.getElementById('show_data_username');
+    let change_fname = document.getElementById('show_data_fname');
+    let change_lname = document.getElementById('show_data_lname');
+    let change_date = document.getElementById('show_data_date');
+    let change_tol = document.getElementById('show_data_tol');
+
+    change_username.setAttribute('readonly', 'true');
+    change_username.style.border= '2px solid #dedede';
+    change_username.style.background = 'none';
+    change_fname.setAttribute('readonly', 'true');
+    change_fname.style.border= '2px solid #dedede';
+    change_fname.style.background = 'none';
+    change_lname.setAttribute('readonly', 'true');
+    change_lname.style.border= '2px solid #dedede';
+    change_lname.style.background = 'none';
+    change_date.setAttribute('readonly', 'true');
+    change_date.style.border= '2px solid #dedede';
+    change_date.style.background = 'none';
+    change_tol.setAttribute('readonly', 'true');
+    change_tol.style.border= '2px solid #dedede';
+    change_tol.style.background = 'none';
+
+    // ให้ input ได้รับการ focus
+    edit_address_button.style.display = 'flex';
+    xc_button.style.display = 'none';
+    updateProfile(change_username.value,change_fname.value,change_lname.value,change_date.value,change_tol.value);
+
+});
+
 
 //---------------------------------------2
 
@@ -188,8 +269,7 @@ async function uploadFile() {
 });
 
 
-
-document.addEventListener('DOMContentLoaded', function() {
+function load_data(){
     fetch(`/api/profile/`)
         .then(response => response.json())
         .then(data => {
@@ -200,14 +280,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const fname = customer.first_name
                 const lname = customer.last_name
                 const date = customer.date_birth
+                const date_format = new Date(date).toLocaleDateString('en-GB');
+                console.log(date_format)
+
                 const phone = customer.phone_number
-                var village = customer.village
-                var no_village = customer.no_village
-                var road = customer.road
-                var sub_district = customer.sub_district
-                var district = customer.district
-                var city = customer.city
-                var postal_id = customer.Postal_id
+                let village = customer.village
+                let no_village = customer.no_village
+                let road = customer.road
+                let sub_district = customer.sub_district
+                let district = customer.district
+                let city = customer.city
+                let postal_id = customer.Postal_id
                 const window = document.querySelector('.username')
                 const show_address = document.querySelector('.profile_address_data')
                 const show_user = document.getElementById('show_data_username')
@@ -225,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     show_lname.value = lname;
                 }
                 if (date!='null'){
-                    show_date.value = date;
+                    show_date.value = date_format;
                 }
                 if (phone!='null'){
                     show_phone.value = phone;
@@ -269,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div>${username}</div>
                 <div>${fname}</div>
                 <div>${lname}</div>
-                <div>${date}</div>
+                <div>${date_format}</div>
                 <div>${phone}</div>
                 <div>
                     <div>${village}</div>
@@ -281,18 +364,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div>${postal_id}</div>
                 </div>
                 `;
-                console.log(username);
-                console.log(fname);
-                console.log(lname);
-                console.log(date);
-                console.log(phone);
-                console.log(village)
-                console.log(no_village);
-                console.log(road);
-                console.log(sub_district);
-                console.log(district);
-                console.log(city);
-                console.log(postal_id);
                 
                 // Proceed with manipulating the DOM or using the fetched data
             } else {
@@ -304,7 +375,44 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching data:', error);
             // Handle the error or display a message to the user
         });
-});
-function change_username(){
 }
+document.addEventListener('DOMContentLoaded', function() {
+    load_data();
+});
 
+// เรียกใช้ฟังก์ชันเมื่อเกิดการกดปุ่มหรือเหตุการณ์ที่ต้องการอัพเดท username
+
+
+function updateProfile(newUsername, newFname, newLname, newDate, newTol){
+
+    const updatedData = {
+      username: newUsername,
+      fname: newFname,
+      lname: newLname,
+      date: newDate,
+      tol: newTol
+      // สามารถเพิ่มข้อมูลอื่น ๆ ที่ต้องการอัปเดตได้ใน object นี้ตามต้องการ
+    };
+    fetch('/api/profile/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedData)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(result => {
+      console.log(result); // แสดงผลลัพธ์ที่ได้จากการอัพเดต
+      // ทำสิ่งที่ต้องการเมื่ออัพเดตข้อมูลสำเร็จ
+    })
+    .catch(error => {
+      console.error('Error updating data:', error);
+      // จัดการข้อผิดพลาด เช่น แสดงข้อความว่ามีปัญหาในการอัพเดท
+    });
+    load_data()
+}

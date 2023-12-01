@@ -32,7 +32,9 @@ router.get("/api/profile/", (req, res) => {
     db.query("SELECT * FROM Customer JOIN Address ON Customer.customer_id = Address.customer_id WHERE Customer.customer_id = ?", [req.session.userId])
       .then(data => {
         // Assuming data is an array of objects containing Customer and Address details
+        console.log(data);
         res.json(data);
+
       })
       .catch(err => {
         console.error('Error executing SQL query:', err);
@@ -43,26 +45,35 @@ router.get("/api/profile/", (req, res) => {
   }
 });
 
-router.put("/api/profile/username", (req, res) => {
-  const userId = req.params.userId; // รับค่า userId ที่ต้องการอัพเดท
 
-  // รับข้อมูลที่ต้องการอัพเดทจาก client
-  const updatedData = {
-    // รับข้อมูลที่ต้องการอัพเดท จาก req.body หรือจากตัวแปรอื่น ๆ ที่ client ส่งมา
-    // เช่น req.body.username, req.body.email, etc.
-  };
-
-  // ทำการอัพเดทข้อมูลในฐานข้อมูล
-  db.query("UPDATE Customer SET username=? WHERE customer_id = ?", [updatedData, userId], (err, result) => {
-    if (err) {
-      console.error('Error updating data:', err);
-      res.status(500).json({ error: 'An error occurred while updating data.' });
-    } else {
-      res.status(200).json({ message: 'Data updated successfully.' });
-    }
-  });
-  
+router.post("/api/profile/", (req, res) => {
+  if (req.session.isLoggedIn) {
+    const updatedData = req.body; // รับข้อมูลที่ถูกส่งมาจาก frontend
+    const updateusername = updatedData.username
+    const updatefname = updatedData.fname
+    const updatelname = updatedData.lname
+    const updatedate = updatedData.date
+    const updatetol = updatedData.tol
+    // ตัวอย่างการอัพเดทข้อมูลในฐานข้อมูลโดยใช้ parameterized query
+    db.query("UPDATE Customer SET username = ? WHERE customer_id = ?", [updateusername, req.session.userId])
+    db.query("UPDATE Customer SET first_name = ? WHERE customer_id = ?", [updatefname, req.session.userId])
+    db.query("UPDATE Customer SET last_name = ? WHERE customer_id = ?", [updatelname, req.session.userId])
+    db.query("UPDATE Customer SET date_birth = ? WHERE customer_id = ?", [updatedate, req.session.userId])
+    db.query("UPDATE Customer SET phone_number = ? WHERE customer_id = ?", [updatetol, req.session.userId])
+      .then(updateData => {
+        res.json(updateData);
+      })
+      .catch(err => {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while updating data.' });
+      });
+  } else {
+    res.status(401).json({ error: 'User is not logged in.' });
+  }
 });
+
+
+
 
 
 module.exports = router;
