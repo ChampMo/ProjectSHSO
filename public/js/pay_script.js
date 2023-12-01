@@ -179,7 +179,6 @@ async function cost_pay_produck(){
         const data = await response.json();
 
         const allcost = parseInt(data.check_cost) + parseInt( data.cost_car);
-        console.log(data.cost_car)
         cost_product2.innerHTML = `${formatNumber(data.check_cost)}  ฿`;
         cost_car.innerHTML = `${formatNumber(data.cost_car)}  ฿`;
         cost_allcp.innerHTML = `${formatNumber(allcost)}  ฿`;
@@ -188,9 +187,41 @@ async function cost_pay_produck(){
     } catch (error) {
         console.error('Error fetching shop data:', error);
     }
+    const village = document.querySelector(".village")
+    const no_village = document.querySelector(".no_village")
+    const road = document.querySelector(".road")
+    const sub_district = document.querySelector(".sub_district")
+    const district = document.querySelector(".district")
+    const city = document.querySelector(".city")
+    const Postal_id = document.querySelector(".Postal_id")
+
+    try {
+        // Fetch total product count from the server
+        const response = await fetch(`/api/address_pay/`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const address = await response.json();
+
+        village.innerHTML = `${address.village}`;
+        no_village.innerHTML = `${address.no_village}`;
+        road.innerHTML = `${address.road}`;
+        sub_district.innerHTML = `${address.sub_district}`;
+        district.innerHTML = `${address.district}`;
+        city.innerHTML = `${address.city}`;
+        Postal_id.innerHTML = `${address.Postal_id}`;
+
+
+    } catch (error) {
+        console.error('Error fetching shop data:', error);
+    }
+
+
+
+
+
 }
-
-
 
 
 

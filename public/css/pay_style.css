@@ -70,6 +70,7 @@
 }
 .show_data_address{
     width: 500px;
+    min-height: 120px;
     border-radius:10px;
     border: 2px  solid #ffddb9;
     background-color: #fffaf5;

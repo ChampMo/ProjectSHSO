@@ -17,8 +17,6 @@ router.get('/api/count_order/', async (req, res) => {
 
                 if (count_shop.length > 0) {
                     seller_id.push(parseInt(count_shop[0].seller_id));
-                    console.log(seller_id);
-                    console.log(product_id);
                 } else {
                     console.log(`No seller_id found for product_id ${element}`);
                 }
@@ -80,10 +78,20 @@ router.get('/api/cost_pay_produck/', async (req, res) => {
 
 
 
+router.get('/api/address_pay/', async (req, res) => {
+    try {
 
-
-
-
+            try {
+                const address = await db.query('SELECT * FROM Customer NATURAL JOIN Address WHERE customer_id = ?;', [req.session.userId]);
+                res.json(address[0])
+            } catch (error) {
+                console.error('Error executing SQL query:', error);
+            }
+    } catch (err) {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+    }
+});
 
 
 
@@ -199,7 +207,6 @@ router.post('/api/cart_count_increment/', async (req, res) => {
         let beforecounti = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
         let bbeforecounti = parseInt(beforecounti[0].product_amount)
         const qquantity = parseInt(beforecounti[0].quantity)
-        console.log(bbeforecounti,qquantity)
         if (bbeforecounti < qquantity){
             await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforecounti, req.session.userId, product_id]);
             let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
@@ -227,7 +234,6 @@ router.post('/api/check_produck/', async (req, res) => {
             check_cost += parseInt(one_cost[0].one_cost);
         }));
         req.session.checkProduct = checkedIds;
-        console.log(req.session.checkProduct)
         res.json({ check_cost });
     } catch (err) {
         console.error('Error executing SQL query:', err);
