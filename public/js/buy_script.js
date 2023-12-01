@@ -3,44 +3,6 @@ function formatNumber(num){
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
 }
 
-
-function handleFileUpload() {
-    // Trigger click on hidden file input
-    document.getElementById('fileInput').click();
-
-    // Listen for file input change
-    document.getElementById('fileInput').addEventListener('change', function() {
-        // Get the selected file
-        const file = this.files[0];
-
-        // Do something with the file (e.g., upload it)
-        if (file) {
-            uploadFile(file);
-        }
-    });
-}
-
-function uploadFile(file) {
-    // You can implement your file upload logic here
-    console.log('Uploading file:', file.name);
-    // Add your code to handle the file upload, e.g., using AJAX or FormData
-    // Example:
-    // const formData = new FormData();
-    // formData.append('file', file);
-    // Use AJAX or another method to send the formData to the server
-}
-
-function displayAmount() {
-    // สมมติว่าคำนวณจำนวนเงินแล้วเก็บไว้ในตัวแปร amount
-    // เช่น ให้ amount เป็นตัวอย่างจำนวนเงินที่คำนวณได้
-    var amount = 500; // ตัวอย่างจำนวนเงินที่คำนวณได้
-
-    // ใช้ JavaScript เพื่อรับข้อมูลและแสดงในส่วนของ HTML
-    document.getElementById('amountDisplay').innerHTML = `${amount}   บาท`;
-  }
-
-
-  
 async function cost_pay_produck(){
     const cost_allcp = document.getElementById("amountDisplay")
 
@@ -62,3 +24,110 @@ async function cost_pay_produck(){
 }
 
 cost_pay_produck();
+
+
+
+
+
+
+async function handleFileUpload() {
+    document.getElementById('fileInput').click();
+}
+
+async function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    const formData = new FormData();
+    formData.append('slipImage', file);
+  
+    try {
+        const response = await fetch('/upload/silp/', {
+            method: 'POST',
+            body: formData,
+            });
+            
+  
+        const result = await response.json();
+    
+        if (response.ok) {
+            // Update the image source with the served image path
+            document.querySelector('.uploadphoto').style.visibility = 'visible';
+            document.querySelector('.uploadphoto').src = `./uploads/slip/${result.filePath}`;
+
+        } else {
+            console.error('File upload failed:', result.error);
+        }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+}
+
+
+
+document.querySelector('.submit_success').addEventListener('click', function () {
+
+    const date_time_slip = document.querySelector('.date_time').value;
+    const check_slip = document.querySelector('.check_slip');
+
+    if (date_time_slip != '') {
+        // ส่ง request ไปยัง server
+        fetch('/api/create/order/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ date_time_slip }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.check_slip) {
+                    check_slip.style.visibility = "hidden";
+                    console.log('Data inserted successfully');
+                    setTimeout(() => {
+                        alert('Your order is successfully!!!');
+                        window.location.href = '/';
+                    }, 500);
+                    
+                } else {
+                    check_slip.style.visibility = "visible";
+                    console.log('กรุณากรอกข้อมูลให้ครบถ้วน');
+                }
+            })
+            .catch(error => {
+                check_slip.style.visibility = "visible";
+                console.error('Error:', error);
+                // Handle the error, for example by displaying a user-friendly message
+            });
+    } else {
+        check_slip.style.visibility = "visible";
+        console.log('กรุณากรอกข้อมูลให้ครบถ้วน');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

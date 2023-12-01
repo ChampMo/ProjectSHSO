@@ -82,17 +82,14 @@ router.get("/registerseller", (req, res) => {
 
 
 router.get("/pay", (req, res) => {
-    if (parseInt(req.session.checkProduct) > 0) {
-        res.render(path.join(__dirname, "../views/pay.ejs"));
-    } else {
-        return;
-    }
+    res.render(path.join(__dirname, "../views/pay.ejs"));
 });
 router.get("/newproductinfo", (req, res) => {
     res.render(path.join(__dirname, "../views/newproductinfo.ejs"));
 });
 
 router.get("/buy", (req, res) => {
+    
     res.render(path.join(__dirname, "../views/buy.ejs"));
 });
 

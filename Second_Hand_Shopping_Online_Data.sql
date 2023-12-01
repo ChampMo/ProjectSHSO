@@ -16,9 +16,9 @@ insert into Picture_product values
 (05,05,'../uploads/product_picture/Shirocmt.jpg','../uploads/product_picture/ShiandShi.JPG','../uploads/product_picture/linedang2.jpg','../uploads/product_picture/Shiboy.JPG');									
 insert into Type_of_product values (01,'electronic',01),(02,'clothes',02);
 
-insert into Order_Product values (01,02);
+insert into Order_Product values (01,01);
 
-insert into Order_list values (01,'2023-11-14 04:34:33',2000,01,'slip');
+insert into Order_list values (01,02,'2023-11-14 04:34:33',2000,'slip','finish');
 
 insert into Address values (01,'123/123','5','-','บางมด','ทุ่งครุ','Bangkok',10140,01)
 											,(02,'555/555','1','-','บางปะกอก','ราษฎร์บูรณะ','Bangkok',10140,02);

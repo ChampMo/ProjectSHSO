@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Second Hand Shopping Online</title>
 </head>
-<body onload="displayAmount()">
+<body>
     <header>
         <div class="header"  id="myheader">
             <a class="logo">
@@ -55,14 +55,13 @@
                         <i class="fa-solid fa-upload"></i>
                         Upload รูป
                     </button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <div class="uploadphoto">
-                    </div>
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*"  onchange="uploadFile()">
                 </div>
-
+                <img class="uploadphoto" src="">
                 <div class="info_text">วันที่และเวลาที่โอน </div>
                 <input class="date_time" type="datetime-local">
             </section>
+            <div class="check_slip">*กรุณากรอกข้อมูลให้ครบถ้วน</div>
             <button class="submit_success"><div>ยืนยันการชำระเงิน</div></button>
             
 

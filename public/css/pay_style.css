@@ -290,6 +290,7 @@
     align-items: center;
     justify-content: flex-start;
     border-bottom:2px solid #d4803c;
+    position: relative;
 
 }
 .left_method{
@@ -344,9 +345,17 @@
     align-items: flex-end;
     justify-content: space-around;
 }
-.amount_all_product_title div, .cost_product2, .cost_car{
+.amount_all_product_title div{
     margin: 0 10px;
     font-size: 22px;
+    width: 300px;
+}
+.cost_product2, .cost_car{
+    margin: 0 10px;
+    font-size: 22px;
+    width: 300px;
+    display: flex;
+    justify-content: flex-end;
 }
 .cost_allcp{
     font-size: 25px;
@@ -372,6 +381,9 @@
     border-radius: 3px;
     color: #fffaf5;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .submit_send:hover{
     background-color: #c44d37;
@@ -380,6 +392,28 @@
     background-color: #a33e2d;
     transform: scale(0.9);
 }
+.plsadd{
+     position: absolute; 
+     top: 0px;
+
+   
+    right: 0px;
+    width: 300px;
+    background-color: #ffeed7;
+    padding: 7px 20px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 20px;
+    color: #ed6a53;
+    font-size: 18px;
+    display: flex;
+    border:5px solid #fcc153;
+    border-left: 0px;
+    border-bottom: 0px;
+    justify-content: center; 
+    visibility: hidden;
+}
+
+
 
 @media screen and (max-width: 1000px) {
     #mymenu .inmenu:nth-child(3) .bordermenu {

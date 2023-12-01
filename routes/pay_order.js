@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
+const util = require('util');
 const Database = require('../routes/db');
 const db = new Database();
 db.connect();
@@ -82,8 +86,17 @@ router.get('/api/address_pay/', async (req, res) => {
     try {
 
             try {
-                const address = await db.query('SELECT * FROM Customer NATURAL JOIN Address WHERE customer_id = ?;', [req.session.userId]);
-                res.json(address[0])
+                const aaddress = await db.query('SELECT * FROM Customer NATURAL JOIN Address WHERE customer_id = ?;', [req.session.userId]);
+                
+                const address = aaddress[0]
+                
+                if(address.village != '' && address.sub_district != '' && address.district != '' && address.city != '' && address.Postal_id != '' ){
+                    req.session.address = true
+                }else{
+                    req.session.address = false
+                }
+                
+                res.json(aaddress[0])
             } catch (error) {
                 console.error('Error executing SQL query:', error);
             }
@@ -96,150 +109,148 @@ router.get('/api/address_pay/', async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-router.post('/api/shop/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
-    const { seller_id } = req.body;
-
+router.get('/api/check_add/', async (req, res) => {
     try {
-        const shop_name = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ? ;', [req.session.userId, seller_id]);
-        // Assuming the result is an array of products
-        res.json(shop_name);
-    } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.render('error', { error: 'An error occurred while fetching data.' });
-    }
-});
+        const selid = req.session.address;
+        res.json({selid})
 
-router.post('/api/cart_product/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
-    const { product_id } = req.body;
-
-    try {
-        const product_info_cart = await db.query('SELECT * FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, product_id]);
-        // Assuming the result is an array of products
-        res.json(product_info_cart);
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.render('error', { error: 'An error occurred while fetching data.' });
+        console.error('Error handling check_order request:', err);
+        res.status(500).json({ error: 'An error occurred while handling the request.', details: err.message });
     }
 });
 
 
 
 
-router.post('/api/cart_count_decrement/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
-    let { product_id } = req.body;
+
+
+const mkdirAsync = util.promisify(fs.mkdir);
+const accessAsync = util.promisify(fs.access);
+
+const storage = multer.diskStorage({
+  destination: async (req, file, cb) => {
+    const destinationPath = path.join(__dirname, '../public/uploads/slip/');
 
     try {
-        if (!req.session.userId || !product_id) {
-            // Check if required parameters are missing
-            throw new Error('Missing required parameters');
-        }
-
-        let beforecountd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        let bbeforecountd = beforecountd[0].product_amount
-
-        await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [ --bbeforecountd, req.session.userId, product_id]);
-
-        let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-
-        res.json({ countd: countd[0].product_amount });
-    } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+      await accessAsync(destinationPath);
+      // Directory already exists
+    } catch (error) {
+      // Directory doesn't exist, create it
+      try {
+        await mkdirAsync(destinationPath);
+      } catch (err) {
+        return cb(err, null);
+      }
     }
-}); 
+    cb(null, destinationPath);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, 'slip-' + uniqueSuffix + ext);
+  }
+});
 
-router.post('/api/cart_count_increment/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
-    let { product_id } = req.body;
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 10, // Limit file size to 5 MB
+  },
+  fileFilter: (req, file, cb) => {
+    // Validate file types
+    const allowedFileTypes = /jpeg|jpg|png/;
+    const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedFileTypes.test(file.mimetype);
 
+    if (extname && mimetype) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, JPG, and PNG are allowed.'));
+    }
+  }
+});
+
+router.post('/upload/silp/', upload.single('slipImage'), async (req, res) => {
+  try {
+    // Check if a file is uploaded
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded.' });
+    }
+
+    const filePath = req.file.filename;
+    console.log('File uploaded:', filePath);
+    req.session.filename = filePath
+    console.log('session:', req.session.filename);
+    // Respond to the client with the relative path
+    res.status(200).json({ message: 'File uploaded successfully', filePath });
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
+
+
+
+router.post('/api/create/order/', async (req, res) => {
+    const product_id = req.session.checkProduct;
+    console.log(product_id)
     try {
-        if (!req.session.userId || !product_id) {
-            // Check if required parameters are missing
-            throw new Error('Missing required parameters');
-        }
-        
-        let beforecounti = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        let bbeforecounti = parseInt(beforecounti[0].product_amount)
-        const qquantity = parseInt(beforecounti[0].quantity)
-        if (bbeforecounti < qquantity){
-            await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforecounti, req.session.userId, product_id]);
-            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ counti: counti[0].product_amount, bucount : true });
+        let { date_time_slip } = req.body;
+        if (req.session.filename != "") {
+            
+            let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_list limit 1;');
+            let max_id = maxIdResults[0].Max_id;
+            db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
+            let status_order = "wait"
+            console.log(max_id)
+            const filen = req.session.filename
+            product_id.forEach( async element => {
+                let aamount = await db.query('SELECT product_amount FROM Cart_Product natural join Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+                let amount = aamount[0].product_amount;
+                await db.query('INSERT INTO Order_list (order_id, product_id, date, amount, slip, status_order) VALUES (?, ?, ?, ?, ?, ?);',[max_id, element, date_time_slip, amount, filen, status_order ])
+                await db.query('DELETE FROM Cart_Product where cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+                await db.query('UPDATE Product SET quantity = (quantity - ? )where product_id = ?;', [amount, element]);
+            });
+            console.log('Data inserted successfully');
+            res.json({ check_slip: true}) 
         }else{
-            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ counti: counti[0].product_amount , bucount : false});
+            res.json({ check_slip: false}) 
         }
-        
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+        res.status(500).json({check_slip: false, error: 'Internal Server Error' });
     }
 });
 
-router.post('/api/check_produck/', async (req, res) => {
-    try {
-        let { checkedIds } = req.body;
-        let check_cost = 0;
-        
 
-        // Use Promise.all to wait for all queries to complete
-        await Promise.all(checkedIds.map(async (element) => {
-            let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
-            check_cost += parseInt(one_cost[0].one_cost);
-        }));
-        req.session.checkProduct = checkedIds;
-        res.json({ check_cost });
-    } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
-    }
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

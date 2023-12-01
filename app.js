@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 
 
 
-
 class AppServer {
   constructor() {
     this.configureExpress();

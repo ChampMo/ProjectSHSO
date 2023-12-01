@@ -66,20 +66,22 @@ create table Type_of_product (
 -- 6
 create table Order_Product(
 	order_id numeric(10),
-    product_id numeric(10),
-    primary key (order_id,product_id),
-    foreign key (product_id) references Product(product_id)
+    customer_id numeric(10) not null,
+    primary key (order_id,customer_id),
+    foreign key (customer_id) references Customer(customer_id)
 );
 
 -- 7
 create table Order_list(
-	order_id numeric(10) primary key not null,
+	order_id numeric(10)not null,
+    product_id numeric(10),
 	date datetime,
 	amount numeric(10),
-    customer_id numeric not null,
     slip varchar(255)  not null,
+    status_order varchar(255)  not null,
+    primary key (order_id,product_id),
     foreign key (order_id) references Order_Product(order_id),
-    foreign key (customer_id) references Customer(customer_id)
+    foreign key (product_id) references Product(product_id)
 );
 
 -- 8

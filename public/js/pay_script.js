@@ -130,6 +130,7 @@ async function createProductElement(seller_id, product_id) {
         const product_amount = product_info_cart[0].product_amount
         const picture1 = product_info_cart[0].picture1
         const cost = (price*product_amount)
+
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <a class="click_incpro" href="/product/${product_id}">
@@ -204,6 +205,9 @@ async function cost_pay_produck(){
 
         const address = await response.json();
 
+        
+
+      
         village.innerHTML = `${address.village}`;
         no_village.innerHTML = `${address.no_village}`;
         road.innerHTML = `${address.road}`;
@@ -223,8 +227,36 @@ async function cost_pay_produck(){
 
 }
 
+document.addEventListener("DOMContentLoaded", function() {
 
+    const button_order = document.getElementById("submit_send");
+    button_order.addEventListener("click", async () => {
+        try {
+            const plsadd = document.querySelector('.plsadd')
+            // Fetch total product count from the server
+            const response = await fetch(`/api/check_add/`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
+            const data = await response.json();
+
+            const selid = data.selid;
+            console.log(data);
+            if (selid) {
+                plsadd.style.visibility = "hidden";
+                window.location.href = '/buy';
+            } else {
+                plsadd.style.visibility = "visible";
+            }
+            
+        } catch (error) {
+            console.error('Error fetching shop data:', error);
+        }
+    });
+
+});
 
 
 
