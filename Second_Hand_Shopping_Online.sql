@@ -93,7 +93,7 @@ create table Address (
     sub_district varchar(50),
     district varchar(50),
     city varchar(50),
-    Postal_id numeric(10),
+    Postal_id varchar(10),
     customer_id numeric(10),
     foreign key (customer_id) references Customer(customer_id)
 );
