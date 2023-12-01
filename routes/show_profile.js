@@ -54,12 +54,41 @@ router.post("/api/profile/", (req, res) => {
     const updatelname = updatedData.lname
     const updatedate = updatedData.date
     const updatetol = updatedData.tol
+  
     // ตัวอย่างการอัพเดทข้อมูลในฐานข้อมูลโดยใช้ parameterized query
-    db.query("UPDATE Customer SET username = ? WHERE customer_id = ?", [updateusername, req.session.userId])
-    db.query("UPDATE Customer SET first_name = ? WHERE customer_id = ?", [updatefname, req.session.userId])
-    db.query("UPDATE Customer SET last_name = ? WHERE customer_id = ?", [updatelname, req.session.userId])
-    db.query("UPDATE Customer SET date_birth = ? WHERE customer_id = ?", [updatedate, req.session.userId])
-    db.query("UPDATE Customer SET phone_number = ? WHERE customer_id = ?", [updatetol, req.session.userId])
+    db.query(
+      "UPDATE Customer SET username = ?, first_name = ?, last_name = ?, date_birth = ?, phone_number = ? WHERE customer_id = ?",
+      [updateusername, updatefname, updatelname, updatedate, updatetol, req.session.userId]
+    )
+      .then(updateData => {
+        res.json(updateData);
+      })
+      .catch(err => {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while updating data.' });
+      });
+  } else {
+    res.status(401).json({ error: 'User is not logged in.' });
+  }
+});
+
+router.post("/api/update/", (req, res) => {
+  if (req.session.isLoggedIn) {
+    const updatedData = req.body; // รับข้อมูลที่ถูกส่งมาจาก frontend
+    const updatevillage = updatedData.village
+    const updateno = updatedData.no_village
+    const updateroad = updatedData.road
+    const updatesub = updatedData.sub_district
+    const updatedis = updatedData.district
+    const updatecity = updatedData.city
+    const updatepostal = updatedData.postal
+
+  
+    // ตัวอย่างการอัพเดทข้อมูลในฐานข้อมูลโดยใช้ parameterized query
+    db.query(
+      "UPDATE Address SET village = ?, no_village = ?, road = ?, sub_district = ?, district = ?, city = ?, Postal_id = ? WHERE customer_id = ?",
+      [updatevillage, updateno, updateroad, updatesub, updatedis, updatecity, updatepostal, req.session.userId]
+    )
       .then(updateData => {
         res.json(updateData);
       })

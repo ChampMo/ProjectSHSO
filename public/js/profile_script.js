@@ -75,6 +75,7 @@ document.getElementById('edit_data_username_button').addEventListener('click', f
     let change_lname = document.getElementById('show_data_lname');
     let change_date = document.getElementById('show_data_date');
     let change_tol = document.getElementById('show_data_tol');
+    
 
     // ให้ input ได้รับการ focus
     edit_address_button.style.display = 'none';
@@ -104,6 +105,7 @@ document.getElementById('edit_data_username_button').addEventListener('click', f
     change_tol.select();
     change_tol.style.border= '2px solid #d4803c';
     change_tol.style.background = '#fffaf5';
+    
 });
 
 document.querySelector('.x_button_all').addEventListener('click', function() {
@@ -189,6 +191,7 @@ document.querySelector('.edit_address_button').addEventListener('click', functio
     inputField.style.display = 'flex';
     edit_address_button.style.display = 'none';
     xc_button.style.display = 'flex';
+    load_address()
 });
 
 document.querySelector('.x_button').addEventListener('click', function() {
@@ -202,6 +205,8 @@ document.querySelector('.x_button').addEventListener('click', function() {
     inputField.style.display = 'none';
     edit_address_button.style.display = 'flex';
     xc_button.style.display = 'none';
+    load_data();
+    console.log("เปลี่ยนข้อมูลไม่สำเร็จ");
 });
 // ถ้าถูกบันทึกใน db และนำข้อมูลมาโช
 document.querySelector('.c_button').addEventListener('click', function() {
@@ -209,12 +214,27 @@ document.querySelector('.c_button').addEventListener('click', function() {
     let show_data_address = document.querySelector('.show_data_address');
     let edit_address_button = document.querySelector('.edit_address_button');
     let xc_button = document.querySelector('.xc_button');
+    let change_village = document.getElementById('village');
+    let change_no_village = document.getElementById('no_village');
+    let change_road = document.getElementById('road');
+    let change_sub_district = document.getElementById('sub_district');
+    let change_district = document.getElementById('district');
+    let change_city = document.getElementById('city');
+    let change_postal = document.getElementById('Postal_id');
+
 
     // ให้ input ได้รับการ focus
     show_data_address.style.display = 'flex';
     inputField.style.display = 'none';
     edit_address_button.style.display = 'flex';
     xc_button.style.display = 'none';
+    updateAddress(change_village.value
+        ,change_no_village.value
+        ,change_road.value
+        ,change_sub_district.value
+        ,change_district.value
+        ,change_city.value
+        ,change_postal.value)
 });
 
 
@@ -281,8 +301,8 @@ function load_data(){
                 const lname = customer.last_name
                 const date = customer.date_birth
                 const date_format = new Date(date).toLocaleDateString('en-GB');
-                console.log(date_format)
-
+                // const date_store = new Date(date_format).toISOString().split('T')[0]
+                // console.log(date_store);
                 const phone = customer.phone_number
                 let village = customer.village
                 let no_village = customer.no_village
@@ -307,7 +327,7 @@ function load_data(){
                 if (lname!='null'){
                     show_lname.value = lname;
                 }
-                if (date!='null'){
+                if (date_format!='null'){
                     show_date.value = date_format;
                 }
                 if (phone!='null'){
@@ -393,6 +413,21 @@ function updateProfile(newUsername, newFname, newLname, newDate, newTol){
       tol: newTol
       // สามารถเพิ่มข้อมูลอื่น ๆ ที่ต้องการอัปเดตได้ใน object นี้ตามต้องการ
     };
+    // if (updatedData.username =''){
+    //     updatedData.username = null
+    // }
+    // if (updatedData.fname =''){
+    //     updatedData.fname = null
+    // }
+    // if (updatedData.lname =''){
+    //     updatedData.lname = null
+    // }
+    // if (updatedData.date =''){
+    //     updatedData.date = null
+    // }
+    // if (updatedData.tol =''){
+    //     updatedData.tol = null
+    // }
     fetch('/api/profile/', {
       method: 'POST',
       headers: {
@@ -415,4 +450,68 @@ function updateProfile(newUsername, newFname, newLname, newDate, newTol){
       // จัดการข้อผิดพลาด เช่น แสดงข้อความว่ามีปัญหาในการอัพเดท
     });
     load_data()
+}
+
+function updateAddress(newVillage, newNo, newRoad, newSub, newDistrict, newCity, newPostal) {
+  const updatedData = {
+    village: newVillage,
+    no_village: newNo,
+    road: newRoad,
+    sub_district: newSub,
+    district: newDistrict,
+    city: newCity,
+    postal: newPostal
+  };
+
+  fetch('/api/update/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedData)
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(result => {
+      console.log(result); // Handle the result from the server as needed
+      // Perform actions after successful update
+    })
+    .catch(error => {
+      console.error('Error updating data:', error);
+      // Handle errors during the update process
+    });
+}
+
+function load_address(){
+    let change_village = document.getElementById('village');
+    let change_no_village = document.getElementById('no_village');
+    let change_road = document.getElementById('road');
+    let change_sub_district = document.getElementById('sub_district');
+    let change_district = document.getElementById('district');
+    let change_city = document.getElementById('city');
+    let change_postal = document.getElementById('Postal_id');
+    fetch(`/api/profile/`)
+    .then(response => response.json())
+    .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+            const customer = data[0];
+            const village = customer.village
+            const no_village = customer.no_village
+            const road = customer.road
+            const sub_district = customer.sub_district
+            const district = customer.district
+            const city = customer.city
+            const postal = customer.Postal_id
+            change_village.value = village;
+            change_no_village.value = no_village;
+            change_road.value = road;
+            change_sub_district.value = sub_district;
+            change_district.value = district;
+            change_city.value = city;
+            change_postal.value = postal;
+        }})
 }
