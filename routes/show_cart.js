@@ -5,28 +5,21 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const util = require('util');
+const { Console } = require('console');
 const db = new Database();
 db.connect();
 
 
 router.get('/api/count_shop/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
 
     try {
-        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?;', req.session.userId);
+        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?  ORDER BY cart_product_date DESC;', req.session.userId);
 
-        // Extract product_id and seller_id from each row in the result
         const data = count_shop.map(row => ({
             product_id: row.product_id,
             seller_id: row.seller_id
         }));
 
-        // Log each product_id in the array
-        data.forEach(item => {
-            console.log(item.product_id);
-        });
-
-        // Send the response as an array of objects
         res.json(data);
     } catch (err) {
         console.error('Error executing SQL query:', err);
@@ -36,11 +29,10 @@ router.get('/api/count_shop/', async (req, res) => {
 
 router.post('/api/shop/', async (req, res) => {
     // Assuming req.session.userID exists and is valid
-    const { shopIndex } = req.body;
+    const { seller_id } = req.body;
 
     try {
-        const shop_name = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ?;', [req.session.userId, shopIndex]);
-
+        const shop_name = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ? ;', [req.session.userId, seller_id]);
         // Assuming the result is an array of products
         res.json(shop_name);
     } catch (err) {
@@ -49,71 +41,97 @@ router.post('/api/shop/', async (req, res) => {
     }
 });
 
-router.get('/api/count_shopgege/', (req, res) => {
-    const id_pro = req.params.id;
-    if(req.session.isLoggedIn){
-      db.query('SELECT * FROM Product JOIN Picture_product ON Product.product_id = Picture_product.product_id WHERE Product.product_id = ? LIMIT 1;', [id_pro])
-        .then(products => {
-          // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
-          db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
-          .then(address => {
-            console.log(products)
-            res.render('product',{ products, address, success: false});
-          })
-          .catch(err => {
-              console.error('Error executing SQL query:', err);
-              res.render('error', { error: 'An error occurred while fetching data.' });
-          });
-        })
-        .catch(err => {
-            console.error('Error executing SQL query:', err);
-            res.render('error', { error: 'An error occurred while fetching data.' });
-        });
-      }else{
-        db.query('SELECT * FROM Product JOIN Picture_product ON Product.picture_id = Picture_product.picture_id WHERE product_id = ? LIMIT 1;', [id_pro])
-        .then(products => {
-          // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
-          db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
-          .then(address => {
-            console.log(products)
-            res.render('product',{ products, address, success: true});
-          })
-          .catch(err => {
-              console.error('Error executing SQL query:', err);
-              res.render('error', { error: 'An error occurred while fetching data.' });
-          });
-        })
-        .catch(err => {
-            console.error('Error executing SQL query:', err);
-            res.render('error', { error: 'An error occurred while fetching data.' });
-        });
-      }
-  });
-  
-
-
-router.post('/api/register/seller/', async (req, res) => {
-    const { card_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id } = req.body;
+router.post('/api/cart_product/', async (req, res) => {
+    // Assuming req.session.userID exists and is valid
+    const { product_id } = req.body;
 
     try {
-        if (req.session.filename != "") {
-            let maxIdResults = await db.query('SELECT max(seller_id) as Max_id FROM Seller limit 1;');
-            let max_id = maxIdResults[0].Max_id;
-            let status_seller = "unverified"
-            // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
-            await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-                    [++max_id, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, status_seller]);
-
-            console.log('Data inserted successfully');
-            res.json({ check_seller: true}) 
-        }else{
-            res.status(500).json({check_seller: false, error: 'file not found' });
-        }
+        const product_info_cart = await db.query('SELECT * FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, product_id]);
+        // Assuming the result is an array of products
+        res.json(product_info_cart);
     } catch (err) {
-        console.error('Error:', err);
-        res.status(500).json({check_seller: false, error: 'Internal Server Error' });
+        console.error('Error executing SQL query:', err);
+        res.render('error', { error: 'An error occurred while fetching data.' });
     }
 });
+
+
+
+
+router.post('/api/cart_count_decrement/', async (req, res) => {
+    // Assuming req.session.userID exists and is valid
+    let { product_id } = req.body;
+
+    try {
+        if (!req.session.userId || !product_id) {
+            // Check if required parameters are missing
+            throw new Error('Missing required parameters');
+        }
+
+        let beforecountd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        let bbeforecountd = beforecountd[0].product_amount
+
+        await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [ --bbeforecountd, req.session.userId, product_id]);
+
+        let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+
+        res.json({ countd: countd[0].product_amount });
+    } catch (err) {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+    }
+}); 
+
+router.post('/api/cart_count_increment/', async (req, res) => {
+    // Assuming req.session.userID exists and is valid
+    let { product_id } = req.body;
+
+    try {
+        if (!req.session.userId || !product_id) {
+            // Check if required parameters are missing
+            throw new Error('Missing required parameters');
+        }
+        
+        let beforecounti = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        let bbeforecounti = parseInt(beforecounti[0].product_amount)
+        const qquantity = parseInt(beforecounti[0].quantity)
+        console.log(bbeforecounti,qquantity)
+        if (bbeforecounti < qquantity){
+            await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforecounti, req.session.userId, product_id]);
+            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+            res.json({ counti: counti[0].product_amount, bucount : true });
+        }else{
+            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+            res.json({ counti: counti[0].product_amount , bucount : false});
+        }
+        
+    } catch (err) {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+    }
+});
+
+
+
+router.post('/api/check_produck/', async (req, res) => {
+    try {
+        let { checkedIds } = req.body;
+        let check_cost = 0;
+
+        // Use Promise.all to wait for all queries to complete
+        await Promise.all(checkedIds.map(async (element) => {
+            let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+            console.log('vvv',one_cost[0].one_cost)
+            check_cost += parseInt(one_cost[0].one_cost);
+        }));
+
+        res.json({ check_cost });
+    } catch (err) {
+        console.error('Error executing SQL query:', err);
+        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+    }
+});
+
 
 
 

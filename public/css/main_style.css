@@ -1059,6 +1059,9 @@ header{
     width: auto;
     font-size: 18px;
 }
+
+/* ลบปุ่ม + , - เลขใน input */
+
 input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
 }
