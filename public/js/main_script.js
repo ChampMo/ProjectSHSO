@@ -1,4 +1,6 @@
-
+function formatNumber(num){
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
+}
 //-----------------------------------------------
 
 const productContainer = document.getElementById('productContainer');
@@ -48,7 +50,7 @@ function createProductBox(productId) {
                         ${name_product}
                     </div> 
                     <div class="cost_product">
-                        ${price_product}
+                        ${formatNumber(price_product)}
                     </div>`
                     ;
         })

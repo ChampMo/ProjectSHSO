@@ -1,5 +1,7 @@
 
-
+function formatNumber(num){
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
+}
 
 
 function handleFileUpload() {
@@ -36,3 +38,27 @@ function displayAmount() {
     // ใช้ JavaScript เพื่อรับข้อมูลและแสดงในส่วนของ HTML
     document.getElementById('amountDisplay').innerHTML = `${amount}   บาท`;
   }
+
+
+  
+async function cost_pay_produck(){
+    const cost_allcp = document.getElementById("amountDisplay")
+
+    try {
+        // Fetch total product count from the server
+        const response = await fetch(`/api/cost_pay_produck/`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const allcost = parseInt(data.check_cost) + parseInt( data.cost_car);
+        cost_allcp.innerHTML = `${formatNumber(allcost)}  ฿`;
+
+
+    } catch (error) {
+        console.error('Error fetching shop data:', error);
+    }
+}
+
+cost_pay_produck();

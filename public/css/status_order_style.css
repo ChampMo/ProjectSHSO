@@ -211,6 +211,7 @@ body{
 }
 .shop_name{
     margin-left: 30px;
+    font-size: 20px;
 }
 .inorder{
     width: 100%;
@@ -259,6 +260,7 @@ body{
     display: flex;
     justify-content: flex-start;
     color: #000;
+    font-size: 20px;
 }
 
 .select_type_pro{
@@ -276,10 +278,12 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }
 .bg_amount{
     display: flex;
     align-items: center;
+    font-size: 18px;
 }
 .amount{
     width: 50px;

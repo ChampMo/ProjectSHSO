@@ -378,12 +378,49 @@ async function updateAmountSelect() {
         console.error('Error:', error);
         // Handle the error, for example by displaying a user-friendly message
     }
+
+
+
+
 }
 
 
 
 
 //-----------------------------------------------
+
+
+
+const button_order = document.querySelector(".button_order");
+
+button_order.addEventListener("click", async () => {
+    try {
+        const plsadd = document.querySelector('.plsadd')
+        // Fetch total product count from the server
+        const response = await fetch(`/api/check_order/`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const selid = data.selid;
+        console.log(selid);
+        if (parseInt(selid) > 0) {
+            plsadd.style.display = "none";
+            window.location.href = '/pay';
+        } else {
+            plsadd.style.display = "flex";
+        }
+        
+    } catch (error) {
+        console.error('Error fetching shop data:', error);
+    }
+});
+
+
+
 
 
 

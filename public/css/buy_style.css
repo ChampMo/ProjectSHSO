@@ -77,6 +77,8 @@ html, body{
 }
 .qrcode img{
     width: 100%;
+    object-fit: cover;
+    border-radius: 30px;
 }
 .text_up1{
     margin-top: 10px;
@@ -96,11 +98,19 @@ html, body{
     width: 800px;
     padding: 10px 0;
 }
+.amountDisplay{
+    font-size: 30px;
+    color: #ed6a53;
+    background-color: #fceac8;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
 .date_time{
     width: 700px;
     height: 40px;
     font-size: 16px;
     padding-left: 10px;
+    padding-right: 15px;
     outline: none;
     border-radius: 5px;
     border: 1px solid#ecb143;

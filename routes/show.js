@@ -29,6 +29,7 @@ router.get('/main', Login, (req, res, next) => {
 
 const Login_cart = (req, res, next) => {
     if(req.session.isLoggedIn){
+        req.session.checkProduct = [];
         res.render('cart',{ success: false });
     }else{
         res.render('cart',{ success: true });
@@ -79,10 +80,14 @@ router.get("/registerseller", (req, res) => {
     res.render(path.join(__dirname, "../views/registerseller.ejs"));
 });
 
-router.get("/pay", (req, res) => {
-    res.render(path.join(__dirname, "../views/pay.ejs"));
-});
 
+router.get("/pay", (req, res) => {
+    if (parseInt(req.session.checkProduct) > 0) {
+        res.render(path.join(__dirname, "../views/pay.ejs"));
+    } else {
+        return;
+    }
+});
 router.get("/newproductinfo", (req, res) => {
     res.render(path.join(__dirname, "../views/newproductinfo.ejs"));
 });

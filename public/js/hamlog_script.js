@@ -582,7 +582,6 @@ document.addEventListener('DOMContentLoaded', function() {
 fetch(`/api/count_in_cart/`)
     .then(response => response.json())
     .then(amount_pro_cart => {
-        console.log(amount_pro_cart)
         count_order.innerHTML = `${amount_pro_cart} `;
     })
     .catch(error => {

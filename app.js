@@ -64,6 +64,10 @@ class AppServer {
 
      this.app.use("/", show_profile);
 
+     const pay_order = require("./routes/pay_order");
+
+     this.app.use("/", pay_order);
+
     }
 
 

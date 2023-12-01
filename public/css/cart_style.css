@@ -55,6 +55,9 @@ body{
     align-items: center;
     
 }
+.shop_name{
+    font-size: 20px;
+}
 .check_shop_pro{
     margin-left: 10px;
     margin-right:10px ;
@@ -213,6 +216,7 @@ body{
     display: flex;
     justify-content: flex-start;
     color: #000;
+    font-size: 18px;
 }
 
 .select_type_pro{
@@ -224,10 +228,12 @@ body{
 }
 .cost_pro{
     width: 150px;
+    height: 50px;
     margin:10px ;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }
 .cost_pro:before{
     content: "฿ ";
@@ -284,6 +290,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }
 .delete{
     width: 100px;
@@ -293,11 +300,12 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
 }
 .pay{
     position:sticky;
     bottom:0px;
-    background-color: #ecb143;
+    background-color: #fcc153;
     height: 180px;
     width: 90%;
     max-width: 1500px;
@@ -405,7 +413,7 @@ width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffdfb1;
+    background-color: #fff6d6;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
@@ -446,6 +454,41 @@ width: 100%;
     background-color: #a33e2d;
     transform: scale(0.9);
 }
+.plsadd {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 200px;
+    background-color: #ffeed7;
+    padding: 7px 20px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 20px;
+    color: #ed6a53;
+    font-size: 18px;
+    display: none;
+    border:5px solid #ecb143;
+    border-left: 0px;
+    border-bottom: 0px;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 1000px) {
     #mymenu .inmenu:nth-child(1) .bordermenu:nth-child(1) {
