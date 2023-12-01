@@ -13,7 +13,7 @@ db.connect();
 router.get('/api/count_shop/', async (req, res) => {
 
     try {
-        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? ;', req.session.userId);
+        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?  ORDER BY cart_product_date DESC;', req.session.userId);
 
         const data = count_shop.map(row => ({
             product_id: row.product_id,
