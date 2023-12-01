@@ -205,8 +205,6 @@ async function cost_pay_produck(){
 
         const address = await response.json();
 
-        
-
       
         village.innerHTML = `${address.village}`;
         no_village.innerHTML = `${address.no_village}`;
