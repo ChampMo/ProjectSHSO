@@ -100,6 +100,7 @@ document.getElementById('edit_data_username_button').addEventListener('click', f
     change_date.select();
     change_date.style.border= '2px solid #d4803c';
     change_date.style.background = '#fffaf5';
+    change_date.type="date"
     change_tol.removeAttribute('readonly');
     change_tol.focus();
     change_tol.select();
@@ -129,6 +130,7 @@ document.querySelector('.x_button_all').addEventListener('click', function() {
     change_date.setAttribute('readonly', 'true');
     change_date.style.border= '2px solid #dedede';
     change_date.style.background = 'none';
+    change_date.type="text"
     change_tol.setAttribute('readonly', 'true');
     change_tol.style.border= '2px solid #dedede';
     change_tol.style.background = 'none';
@@ -162,6 +164,7 @@ document.querySelector('.c_button_all').addEventListener('click', function() {
     change_date.setAttribute('readonly', 'true');
     change_date.style.border= '2px solid #dedede';
     change_date.style.background = 'none';
+    change_date.type="text"
     change_tol.setAttribute('readonly', 'true');
     change_tol.style.border= '2px solid #dedede';
     change_tol.style.background = 'none';
@@ -170,6 +173,8 @@ document.querySelector('.c_button_all').addEventListener('click', function() {
     edit_address_button.style.display = 'flex';
     xc_button.style.display = 'none';
     updateProfile(change_username.value,change_fname.value,change_lname.value,change_date.value,change_tol.value);
+    load_data()
+    alert('Update information successfully!!!');
 
 });
 
@@ -235,6 +240,8 @@ document.querySelector('.c_button').addEventListener('click', function() {
         ,change_district.value
         ,change_city.value
         ,change_postal.value)
+    load_data()
+    alert('Update information successfully!!!');
 });
 
 
@@ -333,33 +340,33 @@ function load_data(){
                 if (phone!='null'){
                     show_phone.value = phone;
                 }
-                if(village='null'){
+                if(village=='null'){
                     village=''
                 }
-                if(no_village='null'){
+                if(no_village=='null'){
                     no_village=''
                 }
-                if(road='null'){
+                if(road=='null'){
                     road=''
                 }
-                if(sub_district='null'){
+                if(sub_district=='null'){
                     sub_district=''
                 }
-                if(district='null'){
+                if(district=='null'){
                     district=''
                 }
-                if(city='null'){
+                if(city=='null'){
                     city=''
                 }
-                if(postal_id='null'){
+                if(postal_id=='null'){
                     postal_id=''
                 }
-                if(village==='' && (no_village==='') &&(road==='')&&(sub_district==='')&&(district==='')&&(city==='')&&(postal_id==='')){
+                if(village=='' && no_village==''&& road==''&& sub_district==''&& district==''&& city==''&& postal_id==''){
                     show_address.innerHTML =`<div class="add_address">กรุณากรอกที่อยู่ของท่าน</div>`
                 }
                 else{
-                    show_address.innerHTML =`
-                <div>${village}&nbsp;</div>
+                    show_address.innerHTML =
+                `<div>${village}&nbsp;</div>
                 <div>${no_village}&nbsp;</div>
                 <div>${road}&nbsp;</div>
                 <div>${sub_district}&nbsp;</div>
@@ -449,7 +456,6 @@ function updateProfile(newUsername, newFname, newLname, newDate, newTol){
       console.error('Error updating data:', error);
       // จัดการข้อผิดพลาด เช่น แสดงข้อความว่ามีปัญหาในการอัพเดท
     });
-    load_data()
 }
 
 function updateAddress(newVillage, newNo, newRoad, newSub, newDistrict, newCity, newPostal) {
