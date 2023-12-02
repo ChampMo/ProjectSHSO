@@ -27,22 +27,6 @@ router.post("/profile", async (req, res) => {
   }
 });
 
-router.get("/profile",async (req,res)=>{
-  if(req.session.isLoggedIn){
-    await db.query("SELECT * FROM Cutomer WHERE customer_id = ?",[req.session.userId])
-    .then(data => {
-      // Assuming data is an array of objects containing Customer and Address details
-      console.log(data);
-      res.json(data);
-    })
-    .catch(err => {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.' });
-    });
-  }else {
-        res.status(401).json({ error: 'User is not logged in.' });
-  }
-})
 
 router.get("/api/profile/", async (req, res) => {
   if (req.session.isLoggedIn) {
