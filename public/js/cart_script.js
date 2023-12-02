@@ -130,6 +130,7 @@ async function createProductElement(seller_id, product_id) {
         const price = product_info_cart[0].price
         const product_amount = product_info_cart[0].product_amount
         const picture1 = product_info_cart[0].picture1
+        const quantity = product_info_cart[0].quantity
         
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
@@ -150,6 +151,7 @@ async function createProductElement(seller_id, product_id) {
                     <span class="count">${product_amount}</span>
                     <button class="increment"> + </button>
                     <div class="maxq" id="maxq${product_id}">*ของถึงจำนวนจำกัดแล้ว</div>
+                    <div class="qquan" id="qquan${product_id}"> สินค้ามีจำนวน ${quantity} ชิ้น</div>
                 </div>
                 <div class="all_cost_pro"></div>
                 <div class="delete">ลบ</div>
@@ -177,6 +179,9 @@ async function amount_pro(incproId, count, product_id) {
     const incrementButtons = document.querySelectorAll(`#${incproId} .increment`);
     const maxqId = `maxq${product_id}`;
     const maxq = document.getElementById(maxqId)
+    const qquanId = `qquan${product_id}`;
+    const qquan = document.getElementById(qquanId)
+
 
     
 
@@ -201,7 +206,7 @@ async function amount_pro(incproId, count, product_id) {
                     },
                     body: JSON.stringify({ product_id }),
                 });
-
+                qquan.style.display = "flex";
                 maxq.style.display = "none";
                 const countd = await shopResponse.json();
                 const countdd =countd.countd
@@ -225,8 +230,10 @@ async function amount_pro(incproId, count, product_id) {
             const bucount = counti.bucount
             console.log(bucount)
             if (!bucount){
+                qquan.style.display = "none";
                 maxq.style.display = "flex";
             }else{
+                qquan.style.display = "flex";
                 maxq.style.display = "none";
             }
             updateCostProduct(incproId, countii);
