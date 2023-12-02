@@ -67,9 +67,15 @@ class AppServer {
 
      this.app.use("/", pay_order);
 
+<<<<<<< Updated upstream
      const new_product = require("./routes/newproduct");
      
      this.app.use("/", new_product);
+=======
+     const show_status_order = require("./routes/show_status_order");
+
+     this.app.use("/", show_status_order);
+>>>>>>> Stashed changes
 
     }
 

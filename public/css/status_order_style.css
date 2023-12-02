@@ -174,8 +174,8 @@ body{
     right: 0;
 }
 .all_intype_order{
-    padding-top: 10px;
     width: 100%;
+    padding: 10px 0;
     max-width: 1500px;
     display:flex;
     justify-content: center;
@@ -183,7 +183,18 @@ body{
     align-content: flex-start;
     background-color: #fff;
 }
-.intype_order{
+#Iincshop{
+    padding-bottom: 150px;
+}
+
+.bg_order{
+    background-color: rgb(240, 170, 113);
+    width: 1200px;
+    height: 2px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.shop_pro{
     background-color: rgb(253, 255, 224);
     height: auto;
     width: 85%;
@@ -196,9 +207,6 @@ body{
     flex-wrap: wrap;
     align-content: flex-start;
 }
-
-
-
 .detail_shop{
     height: 50px;
     width: 100%;
@@ -206,12 +214,19 @@ body{
     border-top-right-radius:5px ;
     border-bottom:2px solid rgb(255, 209, 181);
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 }
 .shop_name{
     margin-left: 30px;
     font-size: 20px;
+}
+.date_order{
+    margin-right: 30px;
+    padding: 5px 20px;
+    border-radius: 50px;
+    color: #555555;
+    font-size: 18px;
 }
 .inorder{
     width: 100%;
@@ -300,7 +315,6 @@ body{
 }
 .all_cost{
     position: absolute;
-    margin: 10px;
     right: 0;
     bottom: 10px;
     display: flex;
@@ -311,8 +325,7 @@ body{
     margin-right: 10px;
 }
 .all_cost_pro{
-    width: 100px;
-    margin:10px 0px;
+    width:120px;
     color: #ed6a53;
     display: flex;
     justify-content: flex-start;
@@ -321,13 +334,13 @@ body{
 }
 .status{
     position:absolute;
-    width: 80px;
+    width: 120px;
     margin:10px ;
     right: 0;
     top: 0;
     color: #767676;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 }
 .con_product{
@@ -352,11 +365,65 @@ body{
     background-color:rgb(255, 192, 181) ;
     font-size: 18px;
 }
-
-
-
-
-
+.bg_confirm_sucess{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #767676;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    display: none;
+}
+.confirm_success{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    height: 250px;
+    border: 5px solid #ed6a53;
+    background-color: #fffaf5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    transition-duration: 0.2s;
+    transform:scale(0);
+}
+.confirm_success_text{
+    font-size: 28px;
+    margin-top: 50px;
+    
+}
+.bg_success{
+    display: flex;
+    gap: 40px;
+}
+.confirm_success_exit, .confirm_success_verifile{
+    width: 140px;
+    height: 50px;
+    margin-top: 60px;
+    font-size: 22px;
+    border-radius: 10px;
+    border: 3px solid #ed6a53;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+.confirm_success_exit{
+    background-color: none;
+    color: #ed6a53;
+}
+.confirm_success_verifile{
+    background-color: #ed6a53;
+    color: #fff;
+}
+.confirm_success_exit:hover, .confirm_success_verifile:hover{
+    transform: scale(1.1);
+}
 
 
 

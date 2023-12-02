@@ -8,9 +8,9 @@ async function processShopProElements(seller_id, product_id) {
     let shop_pro = document.querySelectorAll('.all_intype_order');
     let foundMatch = false;
     for (const element of shop_pro) {
-        
+        console.log('element = ' ,element)
         if (element.id === `shop${seller_id}`) {
-
+            console.log('2')
             await createProductElement(seller_id, product_id);
             foundMatch = true;
             
@@ -18,14 +18,13 @@ async function processShopProElements(seller_id, product_id) {
     }
 
     if (!foundMatch) {
+        console.log('1')
         await createshopElement(seller_id, product_id);
     }
 }
 
 async function getcreateshopElement() {
 
-    
-    
     Iincshop.innerHTML = '';
 
     try {
