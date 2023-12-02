@@ -196,7 +196,6 @@ router.post('/upload/silp/', upload.single('slipImage'), async (req, res) => {
 
 
 
-
 router.post('/api/create/order/', async (req, res) => {
     const product_id = req.session.checkProduct;
     console.log(product_id)
@@ -218,6 +217,7 @@ router.post('/api/create/order/', async (req, res) => {
                 await db.query('UPDATE Product SET quantity = (quantity - ? )where product_id = ?;', [amount, element]);
             });
             console.log('Data inserted successfully');
+            req.session.filename = ''
             res.json({ check_slip: true}) 
         }else{
             res.json({ check_slip: false}) 
@@ -226,6 +226,7 @@ router.post('/api/create/order/', async (req, res) => {
         res.status(500).json({check_slip: false, error: 'Internal Server Error' });
     }
 });
+
 
 
 
