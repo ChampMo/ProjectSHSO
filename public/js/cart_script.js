@@ -233,7 +233,7 @@ async function amount_pro(incproId, count, product_id) {
                 qquan.style.display = "none";
                 maxq.style.display = "flex";
             }else{
-                qquan.style.display = "flex";
+                qquan.style.display = "flex";       
                 maxq.style.display = "none";
             }
             updateCostProduct(incproId, countii);

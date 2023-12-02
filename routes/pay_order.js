@@ -155,7 +155,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 10, // Limit file size to 5 MB
+    fileSize: 1024 * 1024 * 10, // Limit file size to 10 MB
   },
   fileFilter: (req, file, cb) => {
     // Validate file types
@@ -201,7 +201,7 @@ router.post('/api/create/order/', async (req, res) => {
     console.log(product_id)
     try {
         let { date_time_slip } = req.body;
-        if (req.session.filename != "") {
+        if (req.session.filename != "" || req.session.filename != null) {
             
             let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_list limit 1;');
             let max_id = maxIdResults[0].Max_id;
@@ -217,7 +217,7 @@ router.post('/api/create/order/', async (req, res) => {
                 await db.query('UPDATE Product SET quantity = (quantity - ? )where product_id = ?;', [amount, element]);
             });
             console.log('Data inserted successfully');
-            req.session.filename = ''
+            req.session.filename = '';
             res.json({ check_slip: true}) 
         }else{
             res.json({ check_slip: false}) 
