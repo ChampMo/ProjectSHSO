@@ -283,8 +283,22 @@ async function uploadFile() {
       console.error('Error uploading file:', error);
     }
 }
-  
-  
+function load_picture(){
+    fetch(`/api/profile/`)
+    .then(response => response.json())
+    .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+        const customer = data[0];
+        const profile_picture = customer.profile_picture;
+        const img = document.getElementById('uploadedImage');
+        img.src = `../uploads/profile/${profile_picture}`; // กำหนด URL ของภาพให้กับแท็ก <img>
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching profile data:', error);
+        // แสดงข้อความผิดพลาดหรือดำเนินการเพิ่มเติมตามที่ต้องการ
+    });
+}
 
  document.addEventListener('DOMContentLoaded', function() {
 
@@ -308,6 +322,8 @@ function load_data(){
                 const lname = customer.last_name
                 const date = customer.date_birth
                 const date_format = new Date(date).toLocaleDateString('en-GB');
+                // const profile_picture = customer.profile_picture;
+
                 // const date_store = new Date(date_format).toISOString().split('T')[0]
                 // console.log(date_store);
                 const phone = customer.phone_number
@@ -325,6 +341,9 @@ function load_data(){
                 const show_lname = document.getElementById('show_data_lname')
                 const show_date = document.getElementById('show_data_date')
                 const show_phone = document.getElementById('show_data_tol')
+                // const img = document.getElementById('uploadedImage')
+                // img.src=profile_picture;
+
                 if (username!='null'){
                     show_user.value = username;
                 }
@@ -405,6 +424,7 @@ function load_data(){
 }
 document.addEventListener('DOMContentLoaded', function() {
     load_data();
+    load_picture();
 });
 
 // เรียกใช้ฟังก์ชันเมื่อเกิดการกดปุ่มหรือเหตุการณ์ที่ต้องการอัพเดท username

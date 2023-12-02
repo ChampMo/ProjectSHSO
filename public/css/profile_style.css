@@ -469,6 +469,7 @@ html, body{
     justify-content: flex-start;
     align-items: flex-start;
     box-sizing: border-box;
+    padding:10px
 }
 .profile_address_data{
     display: flex;
