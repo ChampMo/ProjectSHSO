@@ -118,6 +118,8 @@ router.post('/api/check_produck/', async (req, res) => {
             check_cost += parseInt(one_cost[0].one_cost);
         }));
         req.session.checkProduct = checkedIds;
+        console.log(req.session.checkProduct)
+        // await db.query('SELECT product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
         res.json({ check_cost});
     } catch (err) {
         console.error('Error executing SQL query:', err);
