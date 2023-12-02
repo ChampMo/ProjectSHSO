@@ -95,51 +95,56 @@
             <section class="input_infoproduct">
                 <div class="info_text">รูปสินค้า</div>
                 <div class="bg_shop_img">
-                    <button class="button_product_img" onclick="handleFileUpload()">
+                    <button class="button_product_img" onclick="handleFileUpload('1')">
                         <i class="fa-solid fa-upload"></i>
                         Upload รูป 1
                     </button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <div class="uploadphoto">
+                    <input type="file" id="fileInput1" style="display: none;" accept="image/*" onchange="uploadFile('1')">
+                    <div class="uploadphoto" id="photo1" style="display: none;">
+                        <img src="" id="upload_1">
                     </div>
+
                 </div>
                 <div class="bg_shop_img">
-                    <button class="button_product_img" onclick="handleFileUpload()">
+                    <button class="button_product_img" onclick="handleFileUpload('2')">
                         <i class="fa-solid fa-upload"></i>
                         Upload รูป 2
                     </button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <div class="uploadphoto">
+                    <input type="file" id="fileInput2" style="display: none;" accept="image/*" onchange="uploadFile('2')">
+                    <div class="uploadphoto" id="photo2" style="display: none;">
+                        <img src="" id="upload_2" >
                     </div>
                 </div>
                 <div class="bg_shop_img">
-                    <button class="button_product_img" onclick="handleFileUpload()">
+                    <button class="button_product_img" onclick="handleFileUpload('3')">
                         <i class="fa-solid fa-upload"></i>
                         Upload รูป 3
                     </button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <div class="uploadphoto">
+                    <input type="file" id="fileInput3" style="display: none;" accept="image/*" onchange="uploadFile('3')">
+                    <div class="uploadphoto" id="photo3" style="display: none;">
+                        <img src="" id="upload_3">
                     </div>
                 </div>
                 <div class="bg_shop_img">
-                    <button class="button_product_img" onclick="handleFileUpload()">
+                    <button class="button_product_img" onclick="handleFileUpload('4')">
                         <i class="fa-solid fa-upload"></i>
                         Upload รูป 4
                     </button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <div class="uploadphoto">
+                    <input type="file" id="fileInput4" style="display: none;" accept="image/*" onchange="uploadFile('4')">
+                    <div class="uploadphoto" id="photo4" style="display: none;">
+                        <img src="" id="upload_4">
                     </div>
                 </div>
                 <div class="text_up2">ใส่รูปให้ครบถ้วนเพื่อให้ผู้ซื้อเห็นสินค้าในหลายมุมมอง ทำให้ผู้ซื้อตัดสินใจได้ดีขึ้น</div>
                 <div class="info_text">ชื่อสินค้า</div>
-                <input class="product_name" placeholder="ชื่อสินค้าของคุณ"></input>
+                <input id="product_name" value="" class="product_name" placeholder="ชื่อสินค้าของคุณ"></input>
                 <div class="info_text">ราคา (บาท)</div>
-                <input class="product_cost" type="number" placeholder="ราคาสินค้าของคุณ (บาท)"></input>
+                <input id="product_cost" value="" class="product_cost" type="number" placeholder="ราคาสินค้าของคุณ (บาท)"></input>
                 <div class="info_text">จำนวน (ชิ้น)</div>
-                <input class="product_cost" type="number" placeholder="จำนวนสินค้าของคุณ"></input>
+                <input id="product_quan" value="" class="product_cost" type="number" placeholder="จำนวนสินค้าของคุณ"></input>
                 <div class="info_text">ประเภทสินค้า</div>
-                <select class="product_cost">
-                    <option  value="0">อื่นๆ</option>
+                <select id="product_cate" class="product_cost">
+                    <option id="cate1"  value="0">อื่นๆ</option>
                     <option value="1">Audi</option>
                     <option value="2">BMW</option>
                     <option value="3">Citroen</option>
@@ -147,7 +152,7 @@
                     <option value="5">Honda</option>
                 </select>
                 <div class="info_text">คำอธิบายสินค้า</div>
-                <textarea class="product_description" placeholder="คำอธิบายสินค้าของคุณ"></textarea>
+                <textarea value="" id="product_desc" class="product_description" placeholder="คำอธิบายสินค้าของคุณ"></textarea>
             </section>
             <button class="submit_seller"><div>เพิ่มสินค้า</div></button>
             

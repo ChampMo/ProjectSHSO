@@ -67,6 +67,10 @@ class AppServer {
 
      this.app.use("/", pay_order);
 
+     const new_product = require("./routes/newproduct");
+     
+     this.app.use("/", new_product);
+
     }
 
 

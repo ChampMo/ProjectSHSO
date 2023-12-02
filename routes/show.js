@@ -85,6 +85,7 @@ router.get("/pay", (req, res) => {
     res.render(path.join(__dirname, "../views/pay.ejs"));
 });
 router.get("/newproductinfo", (req, res) => {
+    req.session.product = []
     res.render(path.join(__dirname, "../views/newproductinfo.ejs"));
 });
 
