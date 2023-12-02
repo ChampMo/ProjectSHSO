@@ -16,7 +16,6 @@ router.get('/api/count_order_status/', async (req, res) => {
 
     try {
         const count_shop = await db.query('SELECT seller_id, product_id, order_id FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Product WHERE customer_id = ? AND status_order = ? ORDER BY date DESC;', [req.session.userId, 'Wait']);
-        console.log(count_shop)
         const data = count_shop.map(row => ({
             product_id: row.product_id,
             seller_id: row.seller_id,
@@ -37,8 +36,6 @@ router.post('/api/order_shop/', async (req, res) => {
     try {
         const shop_name = await db.query('SELECT shop_name FROM Order_list JOIN Order_Product ON Order_list.order_id = Order_Product.order_id JOIN Product ON Product.product_id = Order_list.product_id JOIN Seller ON Seller.seller_id = Product.seller_id WHERE status_order = "wait" AND Order_list.order_id = ? AND seller.seller_id = ? ;', [order_id, seller_id]);
         const date = await db.query('SELECT DATE_FORMAT(date, ?) as date FROM Order_list JOIN Order_Product ON Order_list.order_id = Order_Product.order_id JOIN Product ON Product.product_id = Order_list.product_id JOIN Seller ON Seller.seller_id = Product.seller_id WHERE status_order = "wait" AND Order_list.order_id = ? AND seller.seller_id = ? ;', [ '%d-%m-%Y', order_id, seller_id]);
-        // Assuming the result is an array of products
-        console.log(date)
         res.json({shop_name, date});
     } catch (err) {
         console.error('Error executing SQL query:', err);
@@ -68,7 +65,6 @@ router.post('/api/order_product/', async (req, res) => {
 router.get('/api/count_order_status2/', async (req, res) => {
     try {
         const count_shop = await db.query('SELECT seller_id, product_id, order_id FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Product WHERE customer_id = ? AND status_order = ? ORDER BY date DESC;', [req.session.userId, 'Success']);
-        console.log(count_shop)
         const data = count_shop.map(row => ({
             product_id: row.product_id,
             seller_id: row.seller_id,
@@ -88,8 +84,6 @@ router.post('/api/order_shop2/', async (req, res) => {
     try {
         const shop_name = await db.query('SELECT shop_name FROM Order_list JOIN Order_Product ON Order_list.order_id = Order_Product.order_id JOIN Product ON Product.product_id = Order_list.product_id JOIN Seller ON Seller.seller_id = Product.seller_id WHERE status_order = "Success" AND Order_list.order_id = ? AND seller.seller_id = ? ;', [order_id, seller_id]);
         const date = await db.query('SELECT DATE_FORMAT(date, ?) as date FROM Order_list JOIN Order_Product ON Order_list.order_id = Order_Product.order_id JOIN Product ON Product.product_id = Order_list.product_id JOIN Seller ON Seller.seller_id = Product.seller_id WHERE status_order = "Success" AND Order_list.order_id = ? AND seller.seller_id = ? ;', [ '%d-%m-%Y', order_id, seller_id]);
-        // Assuming the result is an array of products
-        console.log(date)
         res.json({shop_name, date});
     } catch (err) {
         console.error('Error executing SQL query:', err);
