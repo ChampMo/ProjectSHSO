@@ -38,15 +38,15 @@ async function InsertData() {
     const namePro = document.getElementById('product_name');
     const costPro = document.getElementById('product_cost');
     const quanPro = document.getElementById('product_quan');
-    const catePro = document.getElementById('product_cate');
     const descPro = document.getElementById('product_desc');
-    const selectedOption = catePro.options[catePro.selectedIndex];
-    const selectedText = selectedOption.text;
+    // const catePro = document.getElementById('product_cate');
+    // const selectedOption = catePro.options[catePro.selectedIndex];
+    // const selectedText = selectedOption.text;
     const allData = {
         name:namePro.value,
         cost:costPro.value,
         quan:quanPro.value,
-        cate:selectedText,
+        /*cate:selectedText,*/
         desc:descPro.value};
     console.log(allData);
     fetch('/upload/product_info/', {

@@ -80,7 +80,7 @@ router.post('/upload/product_info/', async (req, res) => {
     const namePro = insertProduct.name;
     const costPro = insertProduct.cost;
     const quanPro = insertProduct.quan;
-    const catePro = insertProduct.cate;
+    // const catePro = insertProduct.cate;
     const descPro = insertProduct.desc;
     let date = new Date();
     let dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
@@ -102,7 +102,7 @@ router.post('/upload/product_info/', async (req, res) => {
     let status; 
     if (seller_result.length > 0) {
         const seller_id = seller_result[0].seller_id;
-        if(namePro==""||costPro==""||quanPro==""||catePro==""||descPro==""||req.session.product.length!==4){
+        if(namePro==""||costPro==""||quanPro==""/*||catePro==""*/||descPro==""||req.session.product.length!==4){
             res.json(status=false);
         }else{
             await db.query("INSERT INTO Product (product_id, name, detail, price, quantity, product_date, seller_id) VALUES (?, ?, ?, ?, ?, ?, ?)",[++product_id, namePro, descPro, costPro, quanPro, dateString, seller_id]);

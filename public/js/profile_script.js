@@ -17,7 +17,13 @@ function expandContact() {
   
 
 function expandResetpass() {
+    let old_pass = document.querySelector('.old_pass');
+    let new_pass = document.querySelector('.new_pass');
+    let re_new_pass = document.querySelector('.re_new_pass');
     let pass_reset_all = document.querySelector('.pass_reset_all');
+    old_pass.value ="";
+    new_pass.value ="";
+    re_new_pass.value = "";
     pass_reset_all.style.display = 'flex';
     
 }
@@ -68,46 +74,55 @@ function borderpassout3(){
 //---------------------------------------1
 
 document.getElementById('edit_data_username_button').addEventListener('click', function() {
-    let edit_address_button = document.getElementById('edit_data_username_button');
-    let xc_button = document.querySelector('.xc_button_all');
-    let change_username = document.getElementById('show_data_username');
-    let change_fname = document.getElementById('show_data_fname');
-    let change_lname = document.getElementById('show_data_lname');
-    let change_date = document.getElementById('show_data_date');
-    let change_tol = document.getElementById('show_data_tol');
-    
+    fetch(`/api/profile/`)
+        .then(response => response.json())
+        .then(data => {
+            const customer = data[0];
+            let date_date = new Date(customer.date_birth)
+            let date = new Date()
+            let date_format = new Date(date_date - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+            let edit_address_button = document.getElementById('edit_data_username_button');
+            let xc_button = document.querySelector('.xc_button_all');
+            let change_username = document.getElementById('show_data_username');
+            let change_fname = document.getElementById('show_data_fname');
+            let change_lname = document.getElementById('show_data_lname');
+            let change_date = document.getElementById('show_data_date');
+            let change_tol = document.getElementById('show_data_tol');
+            
+            
 
-    // ให้ input ได้รับการ focus
-    edit_address_button.style.display = 'none';
-    xc_button.style.display = 'flex';
-    change_username.removeAttribute('readonly');
-    change_username.focus();
-    change_username.select();
-    change_username.style.border= '2px solid #d4803c';
-    change_username.style.background = '#fffaf5';
-    change_fname.removeAttribute('readonly');
-    change_fname.focus();
-    change_fname.select();
-    change_fname.style.border= '2px solid #d4803c';
-    change_fname.style.background = '#fffaf5';
-    change_lname.removeAttribute('readonly');
-    change_lname.focus();
-    change_lname.select();
-    change_lname.style.border= '2px solid #d4803c';
-    change_lname.style.background = '#fffaf5';
-    change_date.removeAttribute('readonly');
-    change_date.focus();
-    change_date.select();
-    change_date.style.border= '2px solid #d4803c';
-    change_date.style.background = '#fffaf5';
-    change_date.type="date"
-    change_tol.removeAttribute('readonly');
-    change_tol.focus();
-    change_tol.select();
-    change_tol.style.border= '2px solid #d4803c';
-    change_tol.style.background = '#fffaf5';
+            // ให้ input ได้รับการ focus
+            edit_address_button.style.display = 'none';
+            xc_button.style.display = 'flex';
+            change_username.removeAttribute('readonly');
+            change_username.focus();
+            change_username.select();
+            change_username.style.border= '2px solid #d4803c';
+            change_username.style.background = '#fffaf5';
+            change_fname.removeAttribute('readonly');
+            change_fname.focus();
+            change_fname.select();
+            change_fname.style.border= '2px solid #d4803c';
+            change_fname.style.background = '#fffaf5';
+            change_lname.removeAttribute('readonly');
+            change_lname.focus();
+            change_lname.select();
+            change_lname.style.border= '2px solid #d4803c';
+            change_lname.style.background = '#fffaf5';
+            change_date.removeAttribute('readonly');
+            change_date.focus();
+            change_date.select();
+            change_date.style.border= '2px solid #d4803c';
+            change_date.style.background = '#fffaf5';
+            change_date.type="date"
+            change_date.value=date_format
+            change_tol.removeAttribute('readonly');
+            change_tol.focus();
+            change_tol.select();
+            change_tol.style.border= '2px solid #d4803c';
+            change_tol.style.background = '#fffaf5';
     
-});
+})});
 
 document.querySelector('.x_button_all').addEventListener('click', function() {
     let edit_address_button = document.getElementById('edit_data_username_button');
@@ -174,7 +189,6 @@ document.querySelector('.c_button_all').addEventListener('click', function() {
     xc_button.style.display = 'none';
     updateProfile(change_username.value,change_fname.value,change_lname.value,change_date.value,change_tol.value);
     load_data()
-    alert('Update information successfully!!!');
 
 });
 
@@ -241,7 +255,6 @@ document.querySelector('.c_button').addEventListener('click', function() {
         ,change_city.value
         ,change_postal.value)
     load_data()
-    alert('Update information successfully!!!');
 });
 
 
@@ -540,4 +553,48 @@ function load_address(){
             change_city.value = city;
             change_postal.value = postal;
         }})
+}
+
+document.querySelector(".Resetbutton").addEventListener('click', function(){
+    repassword();
+})
+function repassword(){
+    let old_pass = document.querySelector('.old_pass').value;
+    let new_pass = document.querySelector('.new_pass').value;
+    let re_new_pass = document.querySelector('.re_new_pass').value;
+    if (new_pass !== re_new_pass) {
+        // แสดงข้อความหรือทำการจัดการเมื่อรหัสผ่านใหม่และยืนยันรหัสผ่านไม่ตรงกัน
+        alert('รหัสผ่านใหม่และยืนยันรหัสผ่านไม่ตรงกัน');
+        // ทำการแสดงข้อความผิดพลาดหรือจัดการตามที่คุณต้องการ
+      
+    } else {
+        // รหัสผ่านใหม่และการยืนยันรหัสผ่านใหม่ตรงกัน
+        // ส่งข้อมูลไปยัง backend
+        fetch('/repassword', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            oldPassword: old_pass,
+            newPassword: new_pass
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                alert(data.message);
+                let pass_reset_all = document.querySelector('.pass_reset_all');
+                pass_reset_all.style.display='none';
+            }else{
+                alert(data.message)
+
+            }
+          // ทำสิ่งที่ต้องการหลังจากได้ผลลัพธ์จาก backend ที่ส่งกลับมา
+          console.log(data); // ตัวอย่างการแสดงผลลัพธ์
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
 }
