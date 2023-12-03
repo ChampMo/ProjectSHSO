@@ -408,13 +408,23 @@ function load_data(){
                 }
                 
                 window.innerHTML =`
-                <div>${username}</div>
-                <div>${fname}</div>
-                <div>${lname}</div>
-                <div>${date_format}</div>
-                <div>${phone}</div>
-                <div>
-                    <div>${village}</div>
+                <div class = "head_data_profile">
+                    <div class = "sub_data_profile">
+                        <div class="data_profile">ชื่อผู้ใช้ : ${username}</div>
+                    </div>
+                    <div class = "sub_data_profile">
+                        <div class="data_profile">ชื่อ : ${fname}</div>
+                        <div class="data_profile">${lname}</div>
+                    </div>
+                    <div class = "sub_data_profile">
+                        <div class="data_profile">วันเกิด : ${date_format}</div>
+                    </div>
+                    <div class = "sub_data_profile">
+                        <div class="data_profile">โทร : ${phone}</div>
+                    </div>
+                </div>
+                <div class = "adress_profile">
+                    <div>ที่อยู่ : ${village}</div>
                     <div>${no_village}</div>
                     <div>${road}</div>
                     <div>${sub_district}</div>

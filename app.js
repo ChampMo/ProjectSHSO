@@ -78,6 +78,10 @@ class AppServer {
      const seller_pro = require("./routes/seller_pro");
 
      this.app.use("/", seller_pro);
+     
+     const seller_order = require("./routes/seller_order");
+
+     this.app.use("/", seller_order);
 
     }
 
