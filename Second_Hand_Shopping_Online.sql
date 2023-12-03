@@ -56,14 +56,6 @@ create table Picture_product (
 );
 
 -- 5
-create table Type_of_product (
-	type_id numeric(10) primary key not null,
-    name varchar(50),
-    product_id numeric(10),
-    foreign key (product_id) references Product(product_id)
-);
-
--- 6
 create table Order_Product(
 	order_id numeric(10),
     customer_id numeric(10) not null,
@@ -71,7 +63,7 @@ create table Order_Product(
     foreign key (customer_id) references Customer(customer_id)
 );
 
--- 7
+-- 6
 create table Order_list(
 	order_id numeric(10)not null,
     product_id numeric(10),
@@ -84,7 +76,7 @@ create table Order_list(
     foreign key (product_id) references Product(product_id)
 );
 
--- 8
+-- 7
 create table Address (
 	address_id numeric(10) not null primary key,
 	village varchar(50),
@@ -98,14 +90,14 @@ create table Address (
     foreign key (customer_id) references Customer(customer_id)
 );
 
--- 9
+-- 8
 create table Cart(
 	cart_id numeric(10) primary key not null,
 	customer_id numeric(10),
 	foreign key (customer_id) references Customer(customer_id)
 );
 
--- 10
+-- 9
 create table Cart_Product(
 	cart_id numeric(10),
     product_id numeric(10),
