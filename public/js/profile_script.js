@@ -17,7 +17,13 @@ function expandContact() {
   
 
 function expandResetpass() {
+    let old_pass = document.querySelector('.old_pass');
+    let new_pass = document.querySelector('.new_pass');
+    let re_new_pass = document.querySelector('.re_new_pass');
     let pass_reset_all = document.querySelector('.pass_reset_all');
+    old_pass.value ="";
+    new_pass.value ="";
+    re_new_pass.value = "";
     pass_reset_all.style.display = 'flex';
     
 }
@@ -183,7 +189,6 @@ document.querySelector('.c_button_all').addEventListener('click', function() {
     xc_button.style.display = 'none';
     updateProfile(change_username.value,change_fname.value,change_lname.value,change_date.value,change_tol.value);
     load_data()
-    alert('Update information successfully!!!');
 
 });
 
@@ -250,7 +255,6 @@ document.querySelector('.c_button').addEventListener('click', function() {
         ,change_city.value
         ,change_postal.value)
     load_data()
-    alert('Update information successfully!!!');
 });
 
 
@@ -552,15 +556,45 @@ function load_address(){
 }
 
 document.querySelector(".Resetbutton").addEventListener('click', function(){
-    repassword()
+    repassword();
 })
-
 function repassword(){
-    let old_pass = document.querySelector('.old_pass');
-    let new_pass = document.querySelector('.new_pass');
-    let re_new_pass = document.querySelector('.re_new_pass');
+    let old_pass = document.querySelector('.old_pass').value;
+    let new_pass = document.querySelector('.new_pass').value;
+    let re_new_pass = document.querySelector('.re_new_pass').value;
+    if (new_pass !== re_new_pass) {
+        // แสดงข้อความหรือทำการจัดการเมื่อรหัสผ่านใหม่และยืนยันรหัสผ่านไม่ตรงกัน
+        alert('รหัสผ่านใหม่และยืนยันรหัสผ่านไม่ตรงกัน');
+        // ทำการแสดงข้อความผิดพลาดหรือจัดการตามที่คุณต้องการ
+      
+    } else {
+        // รหัสผ่านใหม่และการยืนยันรหัสผ่านใหม่ตรงกัน
+        // ส่งข้อมูลไปยัง backend
+        fetch('/repassword', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            oldPassword: old_pass,
+            newPassword: new_pass
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                alert(data.message);
+                let pass_reset_all = document.querySelector('.pass_reset_all');
+                pass_reset_all.style.display='none';
+            }else{
+                alert(data.message)
 
-    if (new_pass === re_new_pass){
-
+            }
+          // ทำสิ่งที่ต้องการหลังจากได้ผลลัพธ์จาก backend ที่ส่งกลับมา
+          console.log(data); // ตัวอย่างการแสดงผลลัพธ์
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
 }

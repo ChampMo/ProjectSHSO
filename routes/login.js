@@ -87,7 +87,28 @@ router.get('/logout', (req, res) => {
     res.redirect("/");
 });
 
+router.post('/repassword', async (req, res) => {
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const [oldPassword_compare] = await(db.query('SELECT * FROM Customer WHERE customer_id = ?',[req.session.userId]));
+    // เรียกใช้ฟังก์ชันเปรียบเทียบและอัปเดตรหัสผ่าน
+    const isUpdated = await bcrypt.compare(oldPassword, oldPassword_compare.password);
+    const saltRounds = 12;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+  
+    if (isUpdated) {
+        if(newPassword.length>=8){
+            db.query('UPDATE Customer SET password = ? WHERE customer_id = ?',[hashedPassword,req.session.userId]);
+            res.json({ success: true, message: 'รหัสผ่านอัปเดตสำเร็จ' });
+        }else{
+            res.json({success:false, message: 'ไม่สามารถอัปเดตรหัสผ่านได้ (ใส่รหัสผ่านอย่างน้อย 8 ตัว)'});
+        }
 
+    } else {
+      // ถ้าเกิดข้อผิดพลาดหรือไม่สามารถอัปเดตรหัสผ่านได้
+      res.status(400).json({ success: false, message: 'ไม่สามารถอัปเดตรหัสผ่านได้ (รหัสผ่านไม่ถูกต้อง)' });
+    }
+  });
 
 
 
