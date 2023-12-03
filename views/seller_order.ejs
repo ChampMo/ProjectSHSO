@@ -46,9 +46,6 @@
                         <div class="incartham">Cart</div>
                     </div>
                 </a>
-                <% if (success) { %>
-                    <a class="login" onclick="openLogin(this)">login/sing up</a>
-                <% } else { %>
                     <a class="logout">
                         <i class="fa-solid fa-right-from-bracket fa-xl"></i>logout
                     </a>
@@ -60,8 +57,6 @@
                         </div>
                         
                     </div>
-                    
-                <% } %>
             </div>
             
             <div class="ham" id="myham" onclick="myFunction(this)">
@@ -148,7 +143,7 @@
     </div>
     <div class="bg_confirm_sucess"></div>
     <div class="confirm_success"> 
-        <div class="confirm_success_text">ยืนยันว่าได้รับสินค้าเรียบร้อยแล้ว</div>
+        <div class="confirm_success_text">คุณต้องการยกเลิก order ของลูกค้า?</div>
             <div class="bg_success">
             <div class="confirm_success_exit">
                 ยกเลิก

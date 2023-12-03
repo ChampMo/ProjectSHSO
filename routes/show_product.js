@@ -100,23 +100,15 @@ router.post('/api/product_add_cart/', async (req, res) => {
   let amount_pro = req.body;
   const amount_Pro = amount_pro.amount_pro;
   const proId = req.session.checkProduct
-  console.log(proId)
   try {
     const [rows] = await db.query('SELECT * FROM Cart_Product WHERE cart_id = ? AND product_id = ? ;', [ req.session.userId, proId ]);
-    console.log(rows)
     if (rows == undefined) {
-      console.log(rows)
       await db.query('INSERT INTO Cart_Product VALUES (?, ?, ?, ?) ;', [ req.session.userId, proId, amount_Pro, new Date() ]);
     } else {
       await db.query('UPDATE Cart_product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ;', [ amount_Pro, req.session.userId, proId ]);
       
     }
-    
-
-      
-      
-      
-      res.json({add_cart:true});
+      res.json({add_cart:true,proId});
   } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });

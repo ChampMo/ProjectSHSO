@@ -209,7 +209,7 @@ router.post('/api/create/order/', async (req, res) => {
         let { date_time_slip } = req.body;
         if (req.session.filename != "" || req.session.filename != null) {
             
-            let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_list limit 1;');
+            let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_Product limit 1;');
             let max_id = maxIdResults[0].Max_id;
             db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
             let status_order = "Wait"

@@ -305,6 +305,7 @@ html, body{
     border-radius:5px;
     border: 2px  solid #dedede;
     padding-left: 10px;
+    padding-right: 10px;
     font-size: 17px;
     outline: none;
 }

@@ -128,8 +128,10 @@ document.querySelector('.product_cart_button').addEventListener('click',async()=
     },
     body: JSON.stringify({amount_pro}),
   })
-  if(add_cart){
-    
+  const aadd_cart = await add_cart.json();
+  console.log(aadd_cart.add_cart)
+  if(aadd_cart.add_cart){
+    window.location.href = `/product/${aadd_cart.proId}`
   }
 })
 

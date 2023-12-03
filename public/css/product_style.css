@@ -336,10 +336,12 @@ body{
 }
 .picture_shop_box{
     width: 200px;
+
     margin-left:80px;
 }
 .picture_shop_box img{
     width: 130px;
+    height: 130px;
     object-fit: cover;
     border-radius: 100%;
     border:7px solid #ffffff;

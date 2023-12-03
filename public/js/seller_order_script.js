@@ -62,21 +62,6 @@ async function start_order(){
 //----
 // ดูว่ามี element ที่มี order${order_id} เดียวกันไหม ถ้าไม่มีก็สร้าง
 
-async function process_orderElementsforselling(seller_id, product_id, order_id) {
-    let shop_pro = document.querySelectorAll('.all_intype_order');
-    let foundMatch = false;
-    for (const element of shop_pro) {
-        if (element.id === `order${order_id}`) {
-            await processShopProElementsforselling(seller_id, product_id, order_id);
-            foundMatch = true;
-            
-        }
-    }
-
-    if (!foundMatch) {
-        await process_orderforselling(seller_id, product_id, order_id);
-    }
-}
 
 //สร้าว element order${order_id}
 async function process_orderforselling(seller_id, product_id, order_id) {
@@ -97,23 +82,13 @@ async function process_orderforselling(seller_id, product_id, order_id) {
         console.error('Error fetching product data:', error);
     }
 }
-
+ 
 // ดูว่ามีร้านที่ถูกสร้างมั้ย
-async function processShopProElementsforselling(seller_id, product_id, order_id) {
-    let shop_pro = document.querySelectorAll('.all_intype_order');
-    let foundMatch = false;
-    for (const element of shop_pro) {
-        if (element.id === `${order_id}shop${seller_id}`) {
-            console.log('มีร้านแล้วสร้าง สินค้า ',product_id)
-            await createProductElementforselling(seller_id, product_id, order_id);
-            foundMatch = true;
-            
-        }
-    }
+async function processShopProElementsforselling(seller_id,product_id, order_id) {
+    
+    await createshopElementforselling(seller_id, product_id, order_id);
 
-    if (!foundMatch) {
-        await createshopElementforselling(seller_id, product_id, order_id);
-    }
+
 }
 
 async function getcreateshopElementforselling() {
@@ -122,7 +97,7 @@ async function getcreateshopElementforselling() {
 
     try {
         // Fetch total product count from the server
-        const response = await fetch(`/api/count_order_status/`);
+        const response = await fetch(`/api/count_order_sell/`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -133,8 +108,8 @@ async function getcreateshopElementforselling() {
             const product_id = item.product_id;
             const seller_id = item.seller_id;
             const order_id = item.order_id;
-
-            await process_orderElementsforselling(seller_id, product_id, order_id);
+            
+            await process_orderforselling(seller_id, product_id, order_id);
 
         }
     } catch (error) {
@@ -148,68 +123,31 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
     // Declare shop_pro here
     const Iincshop = document.getElementById(`order${order_id}`)
 
-
     try {
-        // สร้าง .shop_pro
-        let all_intype_order = document.createElement('div');
-        all_intype_order.className = 'all_intype_order';
-        all_intype_order.id = `${order_id}shop${seller_id}`;
         
         // สร้าง HTML ภายใน .shop_pro
-        const shopResponse = await fetch(`/api/order_shop/`, {
+        const shoResponse = await fetch(`/api/order_sell/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ seller_id, order_id }),
+            body: JSON.stringify({product_id, order_id }),
         });
-
-        const shop_name = await shopResponse.json();
-        // Assuming shop_pro is available in the global scope
-        all_intype_order.innerHTML = `
-        <div class="shop_pro">
-            <div class="detail_shop">
-                <div class="shop_name">${shop_name.shop_name[0].shop_name}</div>
-                <div class="date_order">${shop_name.date[0].date}</div>
-            </div>
-            <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">
-                
-            </section>
-        </div>
-        `;
-
-        // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
-        Iincshop.appendChild(all_intype_order);
-
-        await createProductElementforselling(seller_id, product_id, order_id);
         
-        
-    } catch (error) {
-        console.error('Error fetching product data:', error);
-    }
-}
-
-//-----------------------------------------------
-
-async function createProductElementforselling(seller_id, product_id, order_id) {
-
-
-    // สร้าง HTML ภายใน .incpro
-    try {
-        // สร้าง .shop_pro
-        const Iincpro = document.getElementById(`${order_id}shop${seller_id}_Iincpro`);
+        const date = await shoResponse.json();
+        console.log(date)
         // สร้าง .incpro
         const incpro = document.createElement('div');
         incpro.className = 'incpro';
         incpro.id = `${order_id}shop${seller_id}_incpro${product_id}`;
-        
+
         // สร้าง HTML ภายใน .shop_pro
-        const shopResponse = await fetch(`/api/order_product/`, {
+        const shopResponse = await fetch(`/api/order_product_sell/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ product_id, order_id }),
+            body: JSON.stringify({seller_id, product_id, order_id }),
         });
         const product_info_cart = await shopResponse.json();
         const name = product_info_cart[0].name
@@ -218,6 +156,7 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
         const picture1 = product_info_cart[0].picture1
         const status_order = product_info_cart[0].status_order
         const cost = (price*product_amount)
+        console.log(picture1)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <a class="click_incpro" href="/product/${product_id}">
@@ -230,6 +169,7 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
 
                 <div class="cost_pro">
                     &nbsp;${formatNumber(price)}
+                    
                 </div>
                 <div class="bg_amount">
                     <div>จำนวน</div>
@@ -243,8 +183,12 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
                         ฿ ${formatNumber(cost)}
                     </div>
                 </div>
-                <button class="con_product" onclick='confirm(${product_id},${order_id})'>ยืนยันการรับสินค้า</button>
+                <div class='bg_con_product' >
+                    <button class="xcon_product" onclick='Xconfirm(${product_id},${order_id})'>ยกเลิก order</button>
+                    <button class="con_product" onclick='confirm(${product_id},${order_id})'>ส่งสินค้าเรียบร้อย</button>
+                </div>
                 <div class="status">
+                    <div class ="status1">${date.date[0].date}</div>
                     Status : ${status_order}
                 </div>
             `;
@@ -253,19 +197,23 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
             
 
 
-        Iincpro.appendChild(incpro);
+            console.log('prodect - ',product_id,'order - ',order_id, 'seller', seller_id)
+            Iincshop.appendChild(incpro)
 
         
-
+        
     } catch (error) {
         console.error('Error fetching product data:', error);
     }
 }
 
+//-----------------------------------------------
+
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 
-function confirm(product_id,order_id){
+function Xconfirm(product_id,order_id){
     const bg_confirm_success = document.querySelector('.bg_confirm_sucess');
     const confirm_success = document.querySelector('.confirm_success');
     bg_confirm_success.style.display = "flex";
@@ -290,7 +238,7 @@ function confirm(product_id,order_id){
         confirm_success.style.transform = "scale(0)";
         
         try {
-            const response = await fetch(`/api/confirm_sucess/`, {
+            const response = await fetch(`/api/confirm_sucess_sell_cancel/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -305,7 +253,7 @@ function confirm(product_id,order_id){
                 return;
             }
             if(response){
-                window.location.href = '/status_order'
+                window.location.href = '/seller_order'
             }
             const result = await response.json();
         } catch (error) {
@@ -316,25 +264,35 @@ function confirm(product_id,order_id){
     
 };
 
-
-
-
-
-async function process_orderElements(seller_id, product_id, order_id) {
-    let shop_pro = document.querySelectorAll('.all_intype_order');
-    let foundMatch = false;
-    for (const element of shop_pro) {
-        if (element.id === `order${order_id}`) {
-            await processShopProElements(seller_id, product_id, order_id);
-            foundMatch = true;
-            
+async function confirm(product_id,order_id){
+   
+        try {
+            const response = await fetch(`/api/confirm_sucess_sell/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_id, order_id }),
+            });
+    
+            if (!response.ok) {
+                
+                console.error('Failed to confirm success:', response.statusText);
+                // Handle the error appropriately, e.g., show an error message
+                return;
+            }
+            if(response){
+                window.location.href = '/seller_order'
+            }
+            const result = await response.json();
+        } catch (error) {
+            console.error('Error confirming success:', error);
+            // Handle the error appropriately, e.g., show an error message
         }
-    }
+    
+    
+};
 
-    if (!foundMatch) {
-        await process_order(seller_id, product_id, order_id);
-    }
-}
 
 //สร้าว element order${order_id}
 async function process_order(seller_id, product_id, order_id) {
@@ -355,22 +313,13 @@ async function process_order(seller_id, product_id, order_id) {
         console.error('Error fetching product data:', error);
     }
 }
-
+ 
 // ดูว่ามีร้านที่ถูกสร้างมั้ย
-async function processShopProElements(seller_id, product_id, order_id) {
-    let shop_pro = document.querySelectorAll('.all_intype_order');
-    let foundMatch = false;
-    for (const element of shop_pro) {
-        if (element.id === `${order_id}shop${seller_id}`) {
-            await createProductElement(seller_id, product_id, order_id);
-            foundMatch = true;
-            
-        }
-    }
+async function processShopProElements(seller_id,product_id, order_id) {
+    
+    await createshopElement(seller_id, product_id, order_id);
 
-    if (!foundMatch) {
-        await createshopElement(seller_id, product_id, order_id);
-    }
+
 }
 
 async function getcreateshopElement() {
@@ -379,7 +328,7 @@ async function getcreateshopElement() {
 
     try {
         // Fetch total product count from the server
-        const response = await fetch(`/api/count_order_status2/`);
+        const response = await fetch(`/api/count_order_sell2/`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -390,8 +339,8 @@ async function getcreateshopElement() {
             const product_id = item.product_id;
             const seller_id = item.seller_id;
             const order_id = item.order_id;
-
-            await process_orderElements(seller_id, product_id, order_id);
+            console.log('prodect - ',product_id,'order - ',order_id)
+            await process_order(seller_id, product_id, order_id);
 
         }
     } catch (error) {
@@ -405,75 +354,42 @@ async function createshopElement(seller_id, product_id, order_id) {
     // Declare shop_pro here
     const Iincshop = document.getElementById(`order${order_id}`)
 
-
     try {
-        // สร้าง .shop_pro
-        let all_intype_order = document.createElement('div');
-        all_intype_order.className = 'all_intype_order';
-        all_intype_order.id = `${order_id}shop${seller_id}`;
-        
         // สร้าง HTML ภายใน .shop_pro
-        const shopResponse = await fetch(`/api/order_shop2/`, {
+        const shoResponse = await fetch(`/api/order_sell2/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ seller_id, order_id }),
+            body: JSON.stringify({product_id, order_id }),
         });
-
-        const shop_name = await shopResponse.json();
-        // Assuming shop_pro is available in the global scope
-        all_intype_order.innerHTML = `
-        <div class="shop_pro">
-            <div class="detail_shop">
-                <div class="shop_name">${shop_name.shop_name[0].shop_name}</div>
-                <div class="date_order">${shop_name.date[0].date}</div>
-            </div>
-            <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">
-                
-            </section>
-        </div>
-        `;
-
-        // นำ .shop_pro มาแทรกในเอลิเมนต์ของหน้าเว็บ
-        Iincshop.appendChild(all_intype_order);
-
-        await createProductElement(seller_id, product_id, order_id);
         
-        
-    } catch (error) {
-        console.error('Error fetching product data:', error);
-    }
-}
-
-//-----------------------------------------------
-
-async function createProductElement(seller_id, product_id, order_id) {
-
-
-    // สร้าง HTML ภายใน .incpro
-    try {
-        // สร้าง .shop_pro
-        const Iincpro = document.getElementById(`${order_id}shop${seller_id}_Iincpro`);
+        const date = await shoResponse.json();
+        console.log(date)
         // สร้าง .incpro
         const incpro = document.createElement('div');
         incpro.className = 'incpro';
         incpro.id = `${order_id}shop${seller_id}_incpro${product_id}`;
-        
+
         // สร้าง HTML ภายใน .shop_pro
-        const shopResponse = await fetch(`/api/order_product/`, {
+        const shopResponse = await fetch(`/api/order_product_sell2/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ product_id, order_id }),
+            body: JSON.stringify({seller_id, product_id, order_id }),
         });
+        
         const product_info_cart = await shopResponse.json();
         const name = product_info_cart[0].name
         const price = product_info_cart[0].price
         const product_amount = product_info_cart[0].amount
         const picture1 = product_info_cart[0].picture1
+        const status_order = product_info_cart[0].status_order
+        console.log(product_info_cart)
         const cost = (price*product_amount)
+        console.log(picture1)
+        console.log('seller_id, product_id, order_id',seller_id, product_id, order_id,status_order)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <a class="click_incpro" href="/product/${product_id}">
@@ -486,6 +402,7 @@ async function createProductElement(seller_id, product_id, order_id) {
 
                 <div class="cost_pro">
                     &nbsp;${formatNumber(price)}
+                    
                 </div>
                 <div class="bg_amount">
                     <div>จำนวน</div>
@@ -500,17 +417,23 @@ async function createProductElement(seller_id, product_id, order_id) {
                     </div>
                 </div>
                 <div class="status">
-                    Status : Success
+                    <div class ="status1">${date.date[0].date}</div>
+                    Status : ${status_order}
                 </div>
             `;
 
 
-        Iincpro.appendChild(incpro)
+            
+
+
+            Iincshop.appendChild(incpro)
+
+        
+        
     } catch (error) {
         console.error('Error fetching product data:', error);
     }
 }
-
 //-----------------------------------------------------------------------------------------------------
 
 

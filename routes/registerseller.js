@@ -85,9 +85,10 @@ router.post('/api/register/seller/', async (req, res) => {
             let maxIdResults = await db.query('SELECT max(seller_id) as Max_id FROM Seller limit 1;');
             let max_id = maxIdResults[0].Max_id;
             let status_seller = "unverified"
+            let picfile = "../uploads/profile_shop/"+req.session.filename
             // เรียกใช้ max_id ในการกำหนดค่าในการ INSERT
             await db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-                    [++max_id, card_id, shop_bank, shop_bank_id, req.session.filename, req.session.userId, shop_name, shop_description, shop_address, status_seller]);
+                    [++max_id, card_id, shop_bank, shop_bank_id, picfile, req.session.userId, shop_name, shop_description, shop_address, status_seller]);
 
             console.log('Data inserted successfully');
             res.json({ check_seller: true}) 

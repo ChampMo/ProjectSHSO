@@ -99,6 +99,10 @@ router.get("/wait_verified", (req, res) => {
     res.render(path.join(__dirname, "../views/wait_verified.ejs"));
 });
 
+router.get("/seller_order", (req, res) => {
+    
+    res.render(path.join(__dirname, "../views/seller_order.ejs"));
+});
 
 
 

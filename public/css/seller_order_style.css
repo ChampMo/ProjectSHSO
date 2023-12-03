@@ -43,7 +43,7 @@ body{
     background-color: #ffffff;
 }
 .type_order{
-    background-color: #f6dab5;
+    background-color: #e08f4d;
     width: 100%;
     height: 80px;
     display: flex;
@@ -71,6 +71,7 @@ body{
     align-items: center;
     font-size: 20px;
     transition: transform 0.1s;
+    color: #fff;
 }
 .bg_history_order{
     width: 750px;
@@ -78,6 +79,7 @@ body{
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    color: #fff;
 }
 .history_order{
     width: 100%;
@@ -101,20 +103,20 @@ body{
 .midline{
     width: 4px;
     height: 50px;
-    background-color: #e08f4d;
+    background-color: #943524;
 }
 .line_right{
     position: absolute;
     width: 0px;
     height: 5px;
-    background-color: #e08f4d;
+    background-color: #943524;
     bottom: 0;
 }
 .line_left{
     position: absolute;
     width: 0px;
     height: 5px;
-    background-color: #e08f4d;
+    background-color: #943524;
     bottom: 0;
     right: 0;
 }
@@ -141,35 +143,35 @@ body{
         background-color: #f6dab5;
     }
     100% {
-        background-color: #e08f4d;
+        background-color: #943524;
     }
 }
 @keyframes hover_line {
     0%   {
         width: 0px;
-        background-color: #e08f4d;
+        background-color: #dd6752;
     }
     50% {
         width: 748px;
-        background-color: #e08f4d;
+        background-color: #c24d38;
     }
     100% {
         width: 748px;
-        background-color: #a66836;
+        background-color: #943524;
     }
 }
 .bg_history_order-active .line_right{
     position: absolute;
     width: 748px;
     height: 5px;
-    background-color: #a66836;
+    background-color: #943524;
     bottom: 0;
 }
 .bg_sending_order-active .line_left{
     position: absolute;
     width: 748px;
     height: 5px;
-    background-color: #a66836;
+    background-color: #943524;
     bottom: 0;
     right: 0;
 }
@@ -237,15 +239,16 @@ body{
 }
 .incpro{
     position:relative;
-    background-color: rgb(255, 255, 255);
+    background-color: #fdffea;
     height: 200px;
+    min-width: 1000px;
     width: 95%;
-    max-width: 1500px;
     margin: 20px;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     align-items: center;
+    border: 2px solid #ed6a53;
 }
 .click_incpro{
     height: 150px;
@@ -334,7 +337,7 @@ body{
 }
 .status{
     position:absolute;
-    width: 120px;
+    width: 500px;
     margin:10px ;
     right: 0;
     top: 0;
@@ -343,26 +346,46 @@ body{
     justify-content: flex-end;
     align-items: center;
 }
+.status1{
+    font-size: 18px;
+    margin-right: 20px;
+}
+.bg_con_product{
+    display: flex;
+    gap: 20px;
+}
 .con_product{
-    width: 200px;
+    width: 150px;
     height: 40px;
-    margin:0 30px ;
     border-radius: 5px;
     border:1px solid #ed6a53;
     color: #ffffff;
     background-color:#ed6a53 ;
     font-size: 18px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.xcon_product{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border:1px solid #ed6a53;
+    color: #ed6a53;
+    background-color:#fdffea ;
+    font-size: 18px;
     transition-duration: 0.3s;
     cursor: pointer;
 }
 .con_product:hover{
-    width: 200px;
-    height: 40px;
-    margin:0 30px ;
+    transform: scale(1.05);
+}
+.xcon_product:hover{
+    transform: scale(1.05);
     border-radius: 5px;
     border:1px solid #ed6a53;
     color: #ed6a53;
-    background-color:rgb(255, 192, 181) ;
+    background-color:rgb(255, 220, 213) ;
     font-size: 18px;
 }
 .bg_confirm_sucess{
