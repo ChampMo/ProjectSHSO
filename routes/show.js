@@ -65,29 +65,11 @@ router.get("/product", (req, res) => {
     res.render(path.join(__dirname, "../views/product.ejs"));
 });
 
-const Login_seller = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        res.render('seller',{ success: false });
-    }else{
-        res.render('seller',{ success: true });
-        next();
-    }
-}
-router.get("/seller",Login_seller, (req, res) => {
-});
-
-router.get("/registerseller", (req, res) => {
-    res.render(path.join(__dirname, "../views/registerseller.ejs"));
-});
-
 
 router.get("/pay", (req, res) => {
     res.render(path.join(__dirname, "../views/pay.ejs"));
 });
-router.get("/newproductinfo", (req, res) => {
-    req.session.product = []
-    res.render(path.join(__dirname, "../views/newproductinfo.ejs"));
-});
+
 
 router.get("/buy", (req, res) => {
     
