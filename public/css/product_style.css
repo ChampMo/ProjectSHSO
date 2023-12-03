@@ -355,13 +355,13 @@ body{
     display: flex;
     font-size: 18px;
 }
-.type{
+.type_pro{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.type_product{
+.type_productt{
     width: 80%;
     margin-top: 30px;
     height: 30px;

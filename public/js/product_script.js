@@ -1,3 +1,6 @@
+window.addEventListener('popstate', function(event) {
+  window.location.reload();
+});
 
 
 let slideIndex = 1;
@@ -83,7 +86,6 @@ decrementButtons.forEach((button) => {
 
 incrementButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    console.log(myDataValue)
       if (count < myDataValue) {
         count++;
         max_qp.textContent = '';
@@ -96,4 +98,61 @@ incrementButtons.forEach((button) => {
     });
   });
 //---------------------------------------
+
+
+
+
+
+document.querySelector('.product_buy_button').addEventListener('click',async()=>{
+  const amount_pro = document.querySelector('.count').textContent;
+  console.log(amount_pro);
+  const add_cart = await fetch(`/api/product_add_cart/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({amount_pro}),
+  })
+  if(add_cart){
+    window.location.href = '/pay'
+  }
+})
+
+document.querySelector('.product_cart_button').addEventListener('click',async()=>{
+  const amount_pro = document.querySelector('.count').textContent;
+  console.log(amount_pro);
+  const add_cart = await fetch(`/api/product_add_cart/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({amount_pro}),
+  })
+  if(add_cart){
+    
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

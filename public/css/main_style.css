@@ -8,7 +8,7 @@
     text-decoration: none;
 }
 body{
-    background-color: #ffffff;
+    background-color: #fffaf5;
 }
 .icon{
     display:none;
@@ -364,34 +364,41 @@ header{
     background-color: #a33e2d;
     transform: scale(0.9);
 }
-.type{
+.type_product{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    
+    align-items: center;
+}
+.type{
+    padding-top: 30px;
+    width: 1500px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
 }
 .inty{
     padding:20px;
-    width: 100%;
-    min-height: 120px;
-    max-width: 1500px;
+    height: 200px;
+    width: 80%;
     min-width: 560px;
     display: flex;
     flex-wrap:wrap ;
+    background-color: #fffaf5;
+    border-radius: 30px;
+    border: 5px solid #ecb143;
+    align-items: center;
     justify-content: center;
-    background-color: #f7f7f7;
 }
-.intype {
-    margin: 10px;
-    height: 60px;
-    width: 230px;
-    background-color: #684c1f;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    border-bottom: 5px solid #ffa82f;
-    border-right: 5px solid #ffa82f;
+.Ads{
+    font-size: 30px;
+    color: #f3664d;
 }
-.intype:hover{
-    transform: scale(1.03);
+.Ads i{
+    rotate: 20deg;
+    padding-left:20px ;
 }
 .product{
     width: 100%;
@@ -401,6 +408,7 @@ header{
     border-bottom: 3px solid #fff6c6;
 }
 .inpro{
+    box-sizing: border-box;
     padding:20px;
     padding-top: 30px;
     width: 1500px;
@@ -410,7 +418,7 @@ header{
     flex-wrap:wrap ;
     justify-content: center;
     align-content: flex-start;
-    background-color: #f7f7f7;
+    background-color: #fff;
 }
 .inproduct{
     margin: 10px;

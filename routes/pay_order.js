@@ -44,13 +44,21 @@ router.get('/api/count_order/', async (req, res) => {
 router.get('/api/cost_pay_produck/', async (req, res) => {
     try {
         let check_cost = 0;
-        const product_id = req.session.checkProduct;
+        let product_id ;
+        if (Array.isArray(req.session.checkProduct)) {
+            product_id = req.session.checkProduct;
+        } else {
+            product_id = [req.session.checkProduct];
+        }
+        console.log(product_id)
         let seller_id = [];
 
         // Use Promise.all to wait for all queries to complete
         await Promise.all(product_id.map(async (element) => {
-            let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
-            check_cost += parseInt(one_cost[0].one_cost);
+            
+          let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+            console.log(one_cost)
+          check_cost += parseInt(one_cost[0].one_cost);
 
             try {
                 const count_shop = await db.query('SELECT seller_id as amount_seller FROM Seller NATURAL JOIN Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? LIMIT 1;', [req.session.userId, element]);
@@ -63,7 +71,7 @@ router.get('/api/cost_pay_produck/', async (req, res) => {
             } catch (error) {
                 console.error('Error executing SQL query:', error);
                 // Handle the error as needed
-            }
+            } 
         }));
 
         // Calculate unique sellers and cost_car outside the loop
@@ -206,7 +214,7 @@ router.post('/api/create/order/', async (req, res) => {
             let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_list limit 1;');
             let max_id = maxIdResults[0].Max_id;
             db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
-            let status_order = "wait"
+            let status_order = "Wait"
             console.log(max_id)
             const filen = req.session.filename
             product_id.forEach( async element => {

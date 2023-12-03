@@ -189,29 +189,19 @@ async function amount_pro(incproId, count, product_id) {
 
     decrementButtons.forEach((button) => {
         button.addEventListener('click', async () => {
-            const shopResponse = await fetch(`/api/cart_product/`, {
+            const shopResponse = await fetch(`/api/cart_count_decrement/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ product_id }),
             });
-            const product_info_cart = await shopResponse.json();
-            const product_amount = product_info_cart[0].product_amount
-            if (product_amount > 1) {
-                const shopResponse = await fetch(`/api/cart_count_decrement/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ product_id }),
-                });
-                qquan.style.display = "flex";
-                maxq.style.display = "none";
-                const countd = await shopResponse.json();
-                const countdd =countd.countd
-                updateCostProduct(incproId, countdd);
-            }
+            const countd = await shopResponse.json();
+            const countdd =countd.countd 
+            qquan.style.display = "flex";
+            maxq.style.display = "none";
+            updateCostProduct(incproId, countdd);
+            
         });
     });
 
@@ -228,7 +218,6 @@ async function amount_pro(incproId, count, product_id) {
             const counti = await shopResponse.json();
             const countii = counti.counti
             const bucount = counti.bucount
-            console.log(bucount)
             if (!bucount){
                 qquan.style.display = "none";
                 maxq.style.display = "flex";

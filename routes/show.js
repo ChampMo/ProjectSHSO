@@ -94,7 +94,10 @@ router.get("/buy", (req, res) => {
     res.render(path.join(__dirname, "../views/buy.ejs"));
 });
 
-
+router.get("/wait_verified", (req, res) => {
+    
+    res.render(path.join(__dirname, "../views/wait_verified.ejs"));
+});
 
 
 

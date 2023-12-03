@@ -84,15 +84,12 @@ async function process_orderforselling(seller_id, product_id, order_id) {
 
 
     try {
-        let bg_order = document.createElement('div');
-        bg_order.className = 'bg_order';
         let all_intype_order = document.createElement('div');
         all_intype_order.className = 'all_intype_order';
         all_intype_order.id = `order${order_id}`;
 
         
         Iincshop.appendChild(all_intype_order);
-        Iincshop.appendChild(bg_order);
         await processShopProElementsforselling(seller_id, product_id, order_id);
         
         
@@ -345,15 +342,12 @@ async function process_order(seller_id, product_id, order_id) {
 
 
     try {
-        let bg_order = document.createElement('div');
-        bg_order.className = 'bg_order';
         let all_intype_order = document.createElement('div');
         all_intype_order.className = 'all_intype_order';
         all_intype_order.id = `order${order_id}`;
 
         
         Iincshop.appendChild(all_intype_order);
-        Iincshop.appendChild(bg_order);
         await processShopProElements(seller_id, product_id, order_id);
         
         

@@ -38,12 +38,12 @@ router.get('/api/products/', (req, res) => {
 router.get('/product/:id', (req, res) => {
   const id_pro = req.params.id;
   if(req.session.isLoggedIn){
-    db.query('SELECT * FROM Product JOIN Picture_product ON Product.product_id = Picture_product.product_id WHERE Product.product_id = ? LIMIT 1;', [id_pro])
+    db.query('SELECT * FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product WHERE product_id = ? LIMIT 1;', [id_pro])
       .then(products => {
         // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
         db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
         .then(address => {
-          console.log(products)
+          req.session.checkProduct = id_pro;
           res.render('product',{ products, address, success: false});
         })
         .catch(err => {
@@ -61,7 +61,6 @@ router.get('/product/:id', (req, res) => {
         // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
         db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
         .then(address => {
-          console.log(products)
           res.render('product',{ products, address, success: true});
         })
         .catch(err => {
@@ -93,6 +92,79 @@ router.get('/api/count_in_cart/', (req, res) => {
   }
 
 });
+
+
+
+
+router.post('/api/product_add_cart/', async (req, res) => {
+  let amount_pro = req.body;
+  const amount_Pro = amount_pro.amount_pro;
+  const proId = req.session.checkProduct
+  try {
+    const [rows] = await db.query('SELECT * FROM Cart_Product WHERE cart_id = ? AND product_id = ? ;', [ req.session.userId, proId ]);
+    if ([rows] == undefined) {
+      await db.query('INSERT INTO Cart_Product VALUES (?, ?, ?, ?) ;', [ req.session.userId, proId, amount_Pro, new Date() ]);
+    } else {
+      await db.query('UPDATE Cart_product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ;', [ amount_Pro, req.session.userId, proId ]);
+      
+    }
+    
+
+      
+      
+      
+      res.json({add_cart:true});
+  } catch (err) {
+      console.error('Error executing SQL query:', err);
+      res.render('error', { error: 'An error occurred while fetching data.' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

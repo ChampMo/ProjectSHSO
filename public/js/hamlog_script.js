@@ -669,8 +669,10 @@ document.querySelector('.Signinbutton').addEventListener('click', function () {
     const Ppassinput_sign2 = document.getElementById('Ppassinput_sign2').value.trim();
     const match_mail = document.querySelector('.match_mail');
     const login_click = document.querySelector('.login_click');
+    const matchpass = document.querySelector('.matchpass')
     // ตรวจสอบรหัสผ่านและอีเมล
     if (Ppassinput_sign === Ppassinput_sign2 && Ppassinput_sign.length >= 8) {
+        matchpass.style.display = 'none';
         // ส่ง request ไปยัง server
         fetch('/save-register', {
             method: 'POST',
@@ -699,6 +701,7 @@ document.querySelector('.Signinbutton').addEventListener('click', function () {
                 // Handle the error, for example by displaying a user-friendly message
             });
     } else {
+        matchpass.style.display = 'flex';
         console.log('Password mismatch or does not meet requirements');
     }
 });

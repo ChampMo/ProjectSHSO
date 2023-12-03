@@ -86,7 +86,7 @@ document.querySelector('.submit_success').addEventListener('click', function () 
                     console.log('Data inserted successfully');
                     setTimeout(() => {
                         alert('Your order is successfully!!!');
-                        window.location.href = '/';
+                        window.location.href = '/status_order';
                     }, 500);
                     
                 } else {

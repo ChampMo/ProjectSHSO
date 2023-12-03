@@ -135,7 +135,7 @@ html, body{
 .cost_pro:before{
     content: "฿ ";
 }
-.type{
+.type_selling{
     position: absolute;
     width: 250px;
     height: 40px;

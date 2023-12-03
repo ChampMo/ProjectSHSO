@@ -167,9 +167,7 @@
                             <div class="all_quantity">
                                 มีสินค้าทั้งหมด <div id = "quantity_product"><%= product.quantity %></div> ชิ้น
                             </div>
-                            <% } else { %>
-                                <p>No product found</p>
-                            <% } %>
+                            
                         </div>
                         <div class="max_qp"></div>
                         <div class="product_button">
@@ -190,22 +188,25 @@
             <div class="detail">
                 <div class="Shopbox">
                     <div class="picture_shop_box">
-                        <img src="../images/Shiboy.JPG">
+                        <img src="<%= product.picture %>">
                     </div>
-                    <div class="name_shop_box">Shop Name</div>
-                    <div class="description_shop_box">Shop Description</div>
+                    <div class="name_shop_box"><%= product.shop_name %></div>
+                    <div class="description_shop_box"><%= product.description %></div>
                 </div>
-                <div class="type">
-                    <div class="type_product">Type Product :</div>
-                    <div class="address_product">ส่งจาก :</div>
+                <div class="type_pro">
+                    <div class="type_productt">Type Product :</div>
+                    <div class="address_product">ส่งจาก : <%= product.address_shop %></div>
                 </div>
 
                 <div class="description">
-                    <div class="description_product">Description Product :</div>
+                    <div class="description_product">Description Product : <%= product.detail %></div>
                 </div>
             </div>
         </div>
     </div>
+    <% } else { %>
+        <p>No product found</p>
+    <% } %>
     <!-- login -->
     <section class="prologin" id="myprologin">
         <div class="closeLogin" onclick="closeLogin(this)"></div>
