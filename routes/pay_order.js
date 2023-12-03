@@ -44,20 +44,18 @@ router.get('/api/count_order/', async (req, res) => {
 router.get('/api/cost_pay_produck/', async (req, res) => {
     try {
         let check_cost = 0;
-        let product_id ;
-        if (Array.isArray(req.session.checkProduct)) {
-            product_id = req.session.checkProduct;
-        } else {
-            product_id = [req.session.checkProduct];
-        }
-        console.log(product_id)
-        let seller_id = [];
+        let product_id = req.session.checkProduct;
+        console.log('product_id',req.session.checkProduct)
+        if (!Array.isArray(product_id)) {
+          product_id = [product_id];
+      }
+        const product_idd = product_id.map(id => parseInt(id));
 
-        // Use Promise.all to wait for all queries to complete
-        await Promise.all(product_id.map(async (element) => {
-            
+        console.log('product_id',product_idd)
+        let seller_id = [];
+        await Promise.all(product_idd.map(async (element) => {
           let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
-            console.log(one_cost)
+          console.log('one_cost',one_cost[0].one_cost)
           check_cost += parseInt(one_cost[0].one_cost);
 
             try {

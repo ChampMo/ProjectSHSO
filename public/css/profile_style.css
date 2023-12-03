@@ -239,14 +239,43 @@ html, body{
     border-radius: 100%;
 }
 .username{
-    height: 250px;
+    width: 100%;
+    margin-right: 20px;
+    font-size: 19px;
+
+}
+.head_data_profile{
     width: 50%;
     min-width: 200px;
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    row-gap: 10px;
 }
+.sub_data_profile{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+.data_profile{
+    margin-bottom: 10px;
+}
+.adress_profile{
+    margin-top: 5px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+
+
+
+
+
 .mid{
     margin-top: 50px;
     margin-right: 100px;
