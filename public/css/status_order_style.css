@@ -234,6 +234,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 .incpro{
     position:relative;
@@ -241,7 +242,7 @@ body{
     height: 200px;
     width: 95%;
     max-width: 1500px;
-    margin: 20px;
+    margin:20px 20px 10px 20px;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
@@ -424,7 +425,26 @@ body{
 .confirm_success_exit:hover, .confirm_success_verifile:hover{
     transform: scale(1.1);
 }
-
+.cost_car{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.detail_car{
+    width: 120px;
+    color: #d4803c;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 10px;
+    font-size: 20px;
+    margin-right: 30px;
+}
+.detail_car i{
+    margin-right: 10px;
+}
 
 
 

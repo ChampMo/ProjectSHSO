@@ -71,12 +71,14 @@ router.post('/upload', upload.single('profileImage'), async (req, res) => {
       return res.status(400).json({ error: 'No file uploaded.' });
     }
 
+
     const filePath = req.file.filename;
     console.log('File uploaded:', filePath);
+    const file_up = '../uploads/profile/'+filePath
     
     if (req.session.isLoggedIn) {
       // Assuming req.session.isLoggedIn contains a valid customer_id
-      await db.query('UPDATE Customer SET profile_picture = ? WHERE customer_id = ?', [filePath, req.session.userId]);
+      await db.query('UPDATE Customer SET profile_picture = ? WHERE customer_id = ?', [file_up, req.session.userId]);
       await db.query('SELECT profile_picture FROM Customer WHERE customer_id = ?', [ req.session.userId])
               .then(profile_pic => {
                 const profile_picture = profile_pic[0].profile_picture;

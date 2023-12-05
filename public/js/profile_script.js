@@ -304,7 +304,7 @@ function load_picture(){
         const customer = data[0];
         const profile_picture = customer.profile_picture;
         const img = document.getElementById('uploadedImage');
-        img.src = `../uploads/profile/${profile_picture}`; // กำหนด URL ของภาพให้กับแท็ก <img>
+        img.src = `${profile_picture}`; // กำหนด URL ของภาพให้กับแท็ก <img>
         }
     })
     .catch(error => {

@@ -177,6 +177,7 @@ body{
 }
 .all_intype_order{
     width: 100%;
+    height: 250px;
     padding: 10px 0;
     max-width: 1500px;
     display:flex;
@@ -184,6 +185,7 @@ body{
     flex-wrap: wrap;
     align-content: flex-start;
     background-color: #fff;
+    transition-duration: 0.3s;
 }
 #Iincshop{
     padding-bottom: 150px;
@@ -243,12 +245,13 @@ body{
     height: 200px;
     min-width: 1000px;
     width: 95%;
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     align-items: center;
     border: 2px solid #ed6a53;
+    z-index: 3;
 }
 .click_incpro{
     height: 150px;
@@ -354,6 +357,17 @@ body{
     display: flex;
     gap: 20px;
 }
+.customer_info{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border:1px solid #e08f4d;
+    color: #ffffff;
+    background-color:#e08f4d ;
+    font-size: 18px;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
 .con_product{
     width: 150px;
     height: 40px;
@@ -376,6 +390,9 @@ body{
     font-size: 18px;
     transition-duration: 0.3s;
     cursor: pointer;
+}
+.customer_info:hover{
+    transform: scale(1.05);
 }
 .con_product:hover{
     transform: scale(1.05);
@@ -447,7 +464,81 @@ body{
 .confirm_success_exit:hover, .confirm_success_verifile:hover{
     transform: scale(1.1);
 }
+.bg_user_profile{
+    border-bottom-left-radius:10px ;
+    border-bottom-right-radius:10px ;
+    width: 80%;
+    min-width: 650px;
+    height: 200px;
+    display: flex;
+    justify-content:center;
+    gap: 100px;
+    align-items: center;
+    border: 2px solid #d4803c;
+    border-top: 0px;
+    background-color: #fffaf5;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    visibility: hidden;
+    transform: translateY(-200px);
+    transition-duration: 0.3s;
+    z-index: 2;
+}
+.user_profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+    border-radius: 15px;
+    height: 180px;
+    min-width: 180px;
+    
+}
+.user_pic{
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    border: 10px solid #d5925b;
+}
 
+.user_pic img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}
+.username{
+    width: 100%;
+    margin-right: 20px;
+    font-size: 19px;
+    display: flex;
+
+}
+.head_data_profile{
+    width: 50%;
+    min-width: 180px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.sub_data_profile{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+.data_profile{
+    margin-bottom: 10px;
+}
+.adress_profile{
+    margin-top: 5px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border:1px solid #943524;
+    background-color: #fffaf5;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
 
 

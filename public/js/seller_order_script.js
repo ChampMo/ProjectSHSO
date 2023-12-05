@@ -156,7 +156,8 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
         const picture1 = product_info_cart[0].picture1
         const status_order = product_info_cart[0].status_order
         const cost = (price*product_amount)
-        console.log(picture1)
+
+        console.log('price',price,'product_amount', product_amount,'cost',cost)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <a class="click_incpro" href="/product/${product_id}">
@@ -184,6 +185,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
                     </div>
                 </div>
                 <div class='bg_con_product' >
+                    <button class="customer_info" onclick='custo_info(${seller_id},${product_id},${order_id})'>ข้อมูลลูกค้า</button>
                     <button class="xcon_product" onclick='Xconfirm(${product_id},${order_id})'>ยกเลิก order</button>
                     <button class="con_product" onclick='confirm(${product_id},${order_id})'>ส่งสินค้าเรียบร้อย</button>
                 </div>
@@ -193,12 +195,56 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
                 </div>
             `;
 
-
-            
-
-
+            //------------
+            const cusResponse = await fetch(`/api/order_customer_sell/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({seller_id, product_id, order_id }),
+            });
+            const cus_info = await cusResponse.json();
+            const customer_info = document.createElement('div');
+            customer_info.className = 'bg_user_profile';
+            customer_info.id = `${order_id}Customer${seller_id}_info${product_id}`;
+            customer_info.innerHTML = `
+                        <div class="user_profile">
+                            <div class="user_pic">
+                                <img src="${cus_info[0].profile_picture}" alt="" id="uploadedImage">
+                                <div class="edit_img" onclick="handleFileUpload()">
+                                    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="uploadFile()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="username">
+                        <div class = "head_data_profile">
+                            <div class = "sub_data_profile">
+                                <div class="data_profile">ชื่อผู้ใช้ : ${cus_info[0].username}</div>
+                            </div>
+                            <div class = "sub_data_profile">
+                                <div class="data_profile">ชื่อ : ${cus_info[0].first_name}</div>
+                            </div>
+                            <div class = "sub_data_profile">
+                                <div class="data_profile">สกุล : ${cus_info[0].last_name}</div>
+                            </div>
+                            <div class = "sub_data_profile">
+                                <div class="data_profile">โทร : ${cus_info[0].phone_number}</div>
+                            </div>
+                        </div>
+                        <div class = "adress_profile">
+                            <div>ที่อยู่ : ${cus_info[0].village}</div>
+                            <div>${cus_info[0].no_village}</div>
+                            <div>${cus_info[0].road}</div>
+                            <div>${cus_info[0].sub_district}</div>
+                            <div>${cus_info[0].district}</div>
+                            <div>${cus_info[0].city}</div>
+                            <div>${cus_info[0].Postal_id}</div>
+                        </div>
+                        </div>
+                `;
             console.log('prodect - ',product_id,'order - ',order_id, 'seller', seller_id)
             Iincshop.appendChild(incpro)
+            Iincshop.appendChild(customer_info)
 
         
         
@@ -208,7 +254,24 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
 }
 
 //-----------------------------------------------
-
+function custo_info(seller_id, product_id, order_id){
+    const orderbg = document.getElementById(`order${order_id}`);
+    const cus_info = document.getElementById(`${order_id}Customer${seller_id}_info${product_id}`);
+    const customer_info = document.querySelector('.customer_info');
+    cus_info.classList.toggle('active');
+    if (cus_info.classList.contains('active')) {
+        customer_info.textContent = 'ปิดข้อมูล'
+        orderbg.style.height = '450px'
+        cus_info.style.visibility = 'visible'
+        cus_info.style.transform = 'translateY(0px)';
+      } else {
+        customer_info.textContent = 'ข้อมูลลูกค้า'
+        cus_info.style.transform = 'translateY(-200px)';
+        orderbg.style.height = '250px'
+        cus_info.style.visibility = 'hidden'
+      }
+    
+}
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 

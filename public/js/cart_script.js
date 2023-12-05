@@ -347,9 +347,9 @@ async function updateAmountSelect() {
             if (element.checked) {
                 let productId = parseInt(element.id.replace("Ccheck_pro", ""));
                 checkedIds.push(productId);
+                console.log('session.productId',productId)
             }
         }));
-
         if (checkedIds.length >= 0) {
             const response = await fetch(`/api/check_produck/`, {
                 method: 'POST',

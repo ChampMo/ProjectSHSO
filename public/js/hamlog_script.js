@@ -90,6 +90,7 @@ function login_click_func() {
 
 //-----------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
+    count_in_cart() 
     const inputElement = document.querySelector('.input1');
     const insearchBarElement = document.querySelector('.insearch_bar');
     const searchimg = document.getElementById('searchimg');
@@ -575,7 +576,7 @@ function login_click() {
 
 //--------------------------------
 
-document.addEventListener('DOMContentLoaded', function() {
+function count_in_cart() {
     let count_order = document.querySelector('.count_order')  
 
 // ส่งคำขอ GET ไปยัง server เพื่อดึงข้อมูล
@@ -611,7 +612,7 @@ fetch(`/api/count_in_cart/`)
         }, 100);
         
     });
-});
+};
 
 
 

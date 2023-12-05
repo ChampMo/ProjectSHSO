@@ -170,11 +170,16 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
         <div class="shop_pro">
             <div class="detail_shop">
                 <div class="shop_name">${shop_name.shop_name[0].shop_name}</div>
-                <div class="date_order">${shop_name.date[0].date}</div>
+                <div class="date_order">${shop_name.date[0].date}</div>  
             </div>
             <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">
-                
             </section>
+            <div class="cost_car">
+                <div class="detail_car">
+                    <i class="fa-solid fa-truck fa-xl"></i>
+                    ฿ 50
+                </div>
+            </div>
         </div>
         `;
 
@@ -430,8 +435,13 @@ async function createshopElement(seller_id, product_id, order_id) {
                 <div class="date_order">${shop_name.date[0].date}</div>
             </div>
             <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">
-                
             </section>
+            <div class="cost_car">
+                <div class="detail_car">
+                    <i class="fa-solid fa-truck fa-xl"></i>
+                    ฿ 50
+                </div>
+            </div>
         </div>
         `;
 
