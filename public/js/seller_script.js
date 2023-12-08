@@ -131,36 +131,88 @@ async function count_order2(){
 }
 
 
-// function del_product_sell(product_id){
+function del_product_sell(product_id){
         
-//     fetch(`/api/delete_product_sell/`, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json',
+    fetch(`/api/delete_product_sell/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
             
-//         },
-//         body: JSON.stringify({ product_id }),
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error(`HTTP error! Status: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log();
-//             if(data.DELETE){
-//                 window.location.href = "/seller"
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             // Handle error (e.g., display an error message to the user)
-//         });
-// }
+        },
+        body: JSON.stringify({ product_id }),
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log();
+            if(data.DELETE){
+                window.location.href = "/seller"
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error (e.g., display an error message to the user)
+        });
+}
 
 
 
 
 
 
+
+function del_product_sell(product_id){
+    const bg_confirm_success = document.querySelector('.bg_confirm_sucess');
+    const confirm_success = document.querySelector('.confirm_success');
+    bg_confirm_success.style.display = "flex";
+    confirm_success.style.transform = "scale(1) translateX(-50%) translateY(-50%) ";
+
+    document.querySelector('.confirm_success_exit').addEventListener('click',() =>{
+        const bg_confirm_success = document.querySelector('.bg_confirm_sucess');
+        const confirm_success = document.querySelector('.confirm_success');
+        bg_confirm_success.style.display = "none";
+        confirm_success.style.transform = "scale(0)";
+    })
+    document.querySelector('.bg_confirm_sucess').addEventListener('click',() =>{
+        const bg_confirm_success = document.querySelector('.bg_confirm_sucess');
+        const confirm_success = document.querySelector('.confirm_success');
+        bg_confirm_success.style.display = "none";
+        confirm_success.style.transform = "scale(0)";
+    })
+    document.querySelector('.confirm_success_verifile').addEventListener('click', async () => {
+        const bg_confirm_success = document.querySelector('.bg_confirm_sucess');
+        const confirm_success = document.querySelector('.confirm_success');
+        bg_confirm_success.style.display = "none";
+        confirm_success.style.transform = "scale(0)";
+        
+        fetch(`/api/delete_product_sell/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                
+            },
+            body: JSON.stringify({ product_id }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log();
+                if(data.DELETE){
+                    window.location.href = "/seller"
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error (e.g., display an error message to the user)
+            });
+    });
+    
+};
