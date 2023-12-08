@@ -83,6 +83,10 @@ class AppServer {
 
      this.app.use("/", seller_order);
 
+     const seller_main = require("./routes/seller_main");
+
+     this.app.use("/", seller_main);
+
     }
 
 

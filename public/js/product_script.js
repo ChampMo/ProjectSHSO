@@ -106,15 +106,18 @@ incrementButtons.forEach((button) => {
 document.querySelector('.product_buy_button').addEventListener('click',async()=>{
   const amount_pro = document.querySelector('.count').textContent;
   console.log(amount_pro);
-  const add_cart = await fetch(`/api/product_add_cart/`, {
+  const response = await fetch(`/api/product_add_cart/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({amount_pro}),
   })
-  if(add_cart){
+  const result = await response.json();
+  if(result.add_cart){
     window.location.href = '/pay'
+  }else{
+    alert('กรุณา Login ก่อน')
   }
 })
 
@@ -132,6 +135,8 @@ document.querySelector('.product_cart_button').addEventListener('click',async()=
   console.log(aadd_cart.add_cart)
   if(aadd_cart.add_cart){
     count_in_cart();
+  }else{
+    alert('กรุณา Login ก่อน')
   }
 })
 

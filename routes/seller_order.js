@@ -89,7 +89,7 @@ router.get('/api/count_order_sell2/', async (req, res) => {
         
         const seller = await db.query('SELECT seller_id FROM seller NATURAL JOIN Customer WHERE customer_id = ?;', [req.session.userId]);
         const sseller = seller[0].seller_id
-        const count_shop = await db.query('SELECT * FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Customer NATURAL JOIN product WHERE seller_id = ? AND (status_order = ? OR status_order = ? OR status_order = ?);', [sseller, 'Success', 'Sending', 'Cancel']);
+        const count_shop = await db.query('SELECT * FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Customer NATURAL JOIN product WHERE seller_id = ? AND (status_order = ? OR status_order = ? OR status_order = ?) ORDER BY order_id DESC;', [sseller, 'Success', 'Sending', 'Cancel']);
         const data = count_shop.map(row => ({
             product_id: row.product_id,
             seller_id:row.seller_id,

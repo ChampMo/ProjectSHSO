@@ -56,7 +56,7 @@ router.get('/product/:id', (req, res) => {
           res.render('error', { error: 'An error occurred while fetching data.' });
       });
     }else{
-      db.query('SELECT * FROM Product JOIN Picture_product ON Product.picture_id = Picture_product.picture_id WHERE product_id = ? LIMIT 1;', [id_pro])
+      db.query('SELECT * FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product WHERE product_id = ? LIMIT 1;', [id_pro])
       .then(products => {
         // const customer_id = 1; //เปลี่ยนเป็นของคนที่ล๊อกอิน
         db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ')
@@ -101,14 +101,18 @@ router.post('/api/product_add_cart/', async (req, res) => {
   const amount_Pro = amount_pro.amount_pro;
   const proId = req.session.checkProduct
   try {
-    const [rows] = await db.query('SELECT * FROM Cart_Product WHERE cart_id = ? AND product_id = ? ;', [ req.session.userId, proId ]);
-    if (rows == undefined) {
-      await db.query('INSERT INTO Cart_Product VALUES (?, ?, ?, ?) ;', [ req.session.userId, proId, amount_Pro, new Date() ]);
-    } else {
-      await db.query('UPDATE Cart_product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ;', [ amount_Pro, req.session.userId, proId ]);
-      
+    if(req.session.isLoggedIn){
+      const [rows] = await db.query('SELECT * FROM Cart_Product WHERE cart_id = ? AND product_id = ? ;', [ req.session.userId, proId ]);
+      if (rows == undefined) {
+        await db.query('INSERT INTO Cart_Product VALUES (?, ?, ?, ?) ;', [ req.session.userId, proId, amount_Pro, new Date() ]);
+      } else {
+        await db.query('UPDATE Cart_product SET product_amount = ? , cart_product_date = ? WHERE cart_id = ? AND product_id = ? ;', [ amount_Pro, new Date(), req.session.userId, proId ]);
+      }
+        res.json({add_cart:true,proId});
+    }else{
+      console.log('add_cart',{add_cart:false} )
+      res.json({add_cart:false});
     }
-      res.json({add_cart:true,proId});
   } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });

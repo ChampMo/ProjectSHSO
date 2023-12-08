@@ -224,38 +224,68 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
         const status_order = product_info_cart[0].status_order
         const cost = (price*product_amount)
         // Assuming shop_pro is available in the global scope
-        incpro.innerHTML = `
-                <a class="click_incpro" href="/product/${product_id}">
-                    <img src="${picture1}" alt="Product Image">
-                    <div class="bg_product_name">
-                        <div class="product_name">${name}</div>
-                        <div class="select_type_pro">Select Type Product</div>
-                    </div>
-                </a>
+        
 
-                <div class="cost_pro">
-                    &nbsp;${formatNumber(price)}
-                </div>
-                <div class="bg_amount">
-                    <div>จำนวน</div>
-                    <div class="amount">
-                        &nbsp;${formatNumber(product_amount)}
-                    </div>
-                </div>
-                <div class="all_cost">
-                    <div class="all_cost_text">รวมคำสั่งซื้อ : </div>
-                    <div class="all_cost_pro">
-                        ฿ ${formatNumber(cost)}
-                    </div>
-                </div>
-                <button class="con_product" onclick='confirm(${product_id},${order_id})'>ยืนยันการรับสินค้า</button>
-                <div class="status">
-                    Status : ${status_order}
-                </div>
-            `;
+        if(status_order === 'Sending'){
+            incpro.innerHTML = `
+                    <a class="click_incpro" href="/product/${product_id}">
+                        <img src="${picture1}" alt="Product Image">
+                        <div class="bg_product_name">
+                            <div class="product_name">${name}</div>
+                            <div class="select_type_pro">Select Type Product</div>
+                        </div>
+                    </a>
 
+                    <div class="cost_pro">
+                        &nbsp;${formatNumber(price)}
+                    </div>
+                    <div class="bg_amount">
+                        <div>จำนวน</div>
+                        <div class="amount">
+                            &nbsp;${formatNumber(product_amount)}
+                        </div>
+                    </div>
+                    <div class="all_cost">
+                        <div class="all_cost_text">รวมคำสั่งซื้อ : </div>
+                        <div class="all_cost_pro">
+                            ฿ ${formatNumber(cost)}
+                        </div>
+                    </div>
+                    <button class="con_product" onclick='confirm(${product_id},${order_id})'>ยืนยันการรับสินค้า</button>
+                    <div class="status">
+                        Status : ${status_order}
+                    </div>
+                `;
+        }else{
+            incpro.innerHTML = `
+                    <a class="click_incpro" href="/product/${product_id}">
+                        <img src="${picture1}" alt="Product Image">
+                        <div class="bg_product_name">
+                            <div class="product_name">${name}</div>
+                            <div class="select_type_pro">Select Type Product</div>
+                        </div>
+                    </a>
 
-            
+                    <div class="cost_pro">
+                        &nbsp;${formatNumber(price)}
+                    </div>
+                    <div class="bg_amount">
+                        <div>จำนวน</div>
+                        <div class="amount">
+                            &nbsp;${formatNumber(product_amount)}
+                        </div>
+                    </div>
+                    <div class="all_cost">
+                        <div class="all_cost_text">รวมคำสั่งซื้อ : </div>
+                        <div class="all_cost_pro">
+                            ฿ ${formatNumber(cost)}
+                        </div>
+                    </div>
+                    <div class="status">
+                        Status : ${status_order}
+                    </div>
+                `;
+        }
 
 
         Iincpro.appendChild(incpro);
@@ -268,6 +298,9 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 function confirm(product_id,order_id){
@@ -483,6 +516,7 @@ async function createProductElement(seller_id, product_id, order_id) {
         const price = product_info_cart[0].price
         const product_amount = product_info_cart[0].amount
         const picture1 = product_info_cart[0].picture1
+        const status_order = product_info_cart[0].status_order
         const cost = (price*product_amount)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
@@ -510,7 +544,7 @@ async function createProductElement(seller_id, product_id, order_id) {
                     </div>
                 </div>
                 <div class="status">
-                    Status : Success
+                    Status : ${status_order}
                 </div>
             `;
 

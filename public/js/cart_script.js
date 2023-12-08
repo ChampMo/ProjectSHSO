@@ -154,7 +154,7 @@ async function createProductElement(seller_id, product_id) {
                     <div class="qquan" id="qquan${product_id}"> สินค้ามีจำนวน ${quantity} ชิ้น</div>
                 </div>
                 <div class="all_cost_pro"></div>
-                <div class="delete">ลบ</div>
+                <div class="delete" onclick="del_pro_incart(${product_id})">ลบ</div>
             `;
         
         Iincpro.appendChild(incpro);
@@ -417,7 +417,34 @@ button_order.addEventListener("click", async () => {
 
 
 
-
+//--------------------------------------------------------
+function del_pro_incart( product_id){
+    
+    fetch(`/api/delete_product_cart/`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json',
+        
+    },
+    body: JSON.stringify({ product_id }),
+    })
+    .then(response => {
+        if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log();
+        if(data.DELETE){
+            window.location.href = "/cart"
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle error (e.g., display an error message to the user)
+    });
+}
 
 
 

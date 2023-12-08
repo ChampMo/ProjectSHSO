@@ -95,7 +95,7 @@ router.post('/upload/product_info/', async (req, res) => {
     const pic4 = ` ../uploads/product_picture/${insertphoto4}`;
     const product_id_result = await db.query("SELECT MAX(product_id) AS most FROM product;");
     let product_id = product_id_result[0].most;
-    console.log(product_id);
+    console.log('product_id',product_id);
     const seller_result = await db.query("SELECT seller_id FROM seller WHERE customer_id=?",[req.session.userId]);
     console.log(req.session.product.length)
     
@@ -113,7 +113,7 @@ router.post('/upload/product_info/', async (req, res) => {
         }  
     }
 })
-
+ 
 
 
 

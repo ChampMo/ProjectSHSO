@@ -24,8 +24,104 @@ html, body{
     flex-direction: column;
     align-items: center;
 }
-.my_product_add_head{
+.container_orad{
     width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+.order_pro{
+    width: 50%;
+    display: flex;
+}
+.text_head{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+.myproduct_order{
+    width: 600px;
+    height: 200px;
+    margin-top:30px ;
+    border-radius: 10px;
+    border: 5px solid #ed6a53;
+    background-color: #fff6f5;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #ed6a53;
+    font-size: 30px;
+    transition-duration: 0.1s;
+}
+.bookmark,.bookmark2 ,.box_open{
+    color: #ed6a53;
+    margin: 20px;
+    font-size: 50px;
+    transition-duration: 0.1s;
+}
+.bookmark{
+    font-size: 80px;
+    position: absolute;
+    top: -30px;
+    right: 0;
+    color: #f4b27c;
+}
+.bookmark2{
+    font-size: 80px;
+    position: absolute;
+    top: -35px;
+    right: -5px;
+    color: #ed6a53;
+}
+.count_order2{
+    position: absolute;
+    font-size: 24px;
+    top: 0px;
+    right: 25px;
+    color: #fff;
+    height: 45px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.count_order3{
+    font-size: 35px;
+    margin-bottom: 10px;
+    color: #ed6a53;
+}
+.myproduct_order:hover{
+    transform: scale(1.005);
+}
+.myproduct_order:hover > i, .count_order2, .count_order3{
+    transform: scale(1.1);
+}
+
+.text_order{
+    margin-top: 30px;
+    margin-left: 80px;
+    width: 600px;
+    height: 180px;
+    padding: 10px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+}
+.text_o{
+    margin:20px;
+    align-items: center;
+}
+.my_product_add_head{
+    width: 600px;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    font-size: 25px;
+    padding-left:20px ;
+}
+.my_product_add_head2{
+    width: 600px;
     height: 80px;
     display: flex;
     align-items: flex-end;
@@ -33,18 +129,18 @@ html, body{
     padding-left:20px ;
 }
 .myproduct_add{
-    width: 90%;
+    width: 600px;
     height: 200px;
     margin-top:30px ;
     border-radius: 10px;
-    border: 2px solid #d4803c;
+    border: 5px solid #d4803c;
     background-color: #fffaf5;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s;
-    cursor: pointer;
+    cursor: poi+9nter;
 }
 .myproduct_add i{
     color: #d4803c;
@@ -66,6 +162,12 @@ html, body{
     font-size: 25px;
     padding-left:20px ;
 }
+.bg_mypro{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .myproduct{
     width: 90%;
     height: 200px;
@@ -85,13 +187,13 @@ html, body{
     height: 150px;
     width: 400px;
     padding-left:10px;
-    margin: 5px;
+    margin: 5px 0px 5px 30px;
     display: flex;
     align-items: center;
     background-color: #fffaf5;
-    border:1px solid #ffddb9;
+    border:1px solid #e5a46f;
     border-radius: 10px;
-    margin-left: 30px;
+    z-index: 1;
 }
 .click_incpro img{
     width: 130px;
@@ -106,21 +208,36 @@ html, body{
     display: flex;
     justify-content: flex-start;
     color: #000;
+    font-size: 18px;
 }
+.bg_description{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
 
+}
+.bg_cost_amount{
+    display: flex;
+    height: 50px;
+    justify-content: space-around;
+    width: 500px;
+}
 .cost_pro{
-    width: 300px;
     margin:10px ;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 20px;
+    color: #ed6a53;
+    margin-left: 50px;
 }
+
 .bg_amount{
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 20px;
 }
+
 .amount{
     width: 50px;
     margin-left: 10px;
@@ -135,6 +252,16 @@ html, body{
 .cost_pro:before{
     content: "฿ ";
 }
+.bg_desc{
+    height: 120px;
+    margin: 0px 10px 19px 30px;
+    box-sizing: border-box;
+    border-left: 0px;
+    padding: 10px 10px 10px 20px;
+    z-index: 0;
+    font-size: 18px;
+    border-top: 1px solid #ffddb9;
+}
 .type_selling{
     position: absolute;
     width: 250px;
@@ -148,7 +275,6 @@ html, body{
     justify-content: center;
     align-items: center;
     font-size: 18px;
-
 }
 .del_product{
     margin-right: 30px;
@@ -158,7 +284,19 @@ html, body{
     cursor: pointer;
     font-size: 18px;
 }
-
+.date_selling{
+    position: absolute;
+    width: 250px;
+    height: 40px;
+    right: 20px;
+    bottom: 10px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #555555;
+}
 
 
 

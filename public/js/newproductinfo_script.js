@@ -58,6 +58,7 @@ async function InsertData() {
       })
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         if (!data){
             alert('กรุณากรอกข้อมูลให้ครบถ้วน')
         }else{

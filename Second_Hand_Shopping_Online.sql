@@ -38,8 +38,9 @@ create table Product (
     detail varchar(255),
     price numeric(10),
     quantity numeric(10),
-    product_date date,
+    product_date datetime,
     seller_id numeric(10) not null,
+    #status_product varchar(255),
 	foreign key (seller_id) references Seller(seller_id)
 );
 
@@ -102,7 +103,7 @@ create table Cart_Product(
 	cart_id numeric(10),
     product_id numeric(10),
     product_amount numeric(10),
-    cart_product_date date,
+    cart_product_date datetime,
     primary key (cart_id, product_id),
     foreign key (cart_id) references Cart(cart_id),
     foreign key (product_id) references Product(product_id)

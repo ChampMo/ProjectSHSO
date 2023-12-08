@@ -15,7 +15,7 @@ router.get('/api/count_shop/', async (req, res) => {
             product_id: row.product_id,
             seller_id: row.seller_id
         }));
-
+        console.log(data)
         res.json(data);
     } catch (err) {
         console.error('Error executing SQL query:', err);
@@ -151,6 +151,16 @@ router.get('/api/check_order/', async (req, res) => {
 });
 
 
+router.delete('/api/delete_product_cart/', (req, res) => {
+    try {
+        let { product_id } = req.body;
+        db.query('DELETE FROM Cart_Product WHERE cart_id = ? AND product_id = ?;',[ req.session.userId, product_id ])
+        res.json({DELETE:true });
+
+    }  catch (err) {
+        res.json({DELETE:false });
+    }
+  });
 
 
 
