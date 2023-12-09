@@ -73,6 +73,7 @@ router.get('/api/count_order2_seller/', async (req, res) => {
 router.put('/api/delete_product_sell/', (req, res) => {
     try {
         let { product_id } = req.body;
+        db.query('DELETE FROM Cart_Product WHERE product_id = ?;',[ product_id ])
         db.query('DELETE FROM Order_list WHERE product_id = ?;',[ product_id ])
         db.query('DELETE FROM Picture_product WHERE product_id = ?;',[ product_id ])
         db.query('DELETE FROM Product WHERE product_id = ?;',[ product_id ])
