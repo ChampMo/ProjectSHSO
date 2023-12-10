@@ -42,10 +42,11 @@ function createProductBox(productId) {
             const name_product = product[productId].name
             const price_product = product[productId].price
             const id_product = product[productId].product_id
+            const picture1 = product[productId].picture1
             product_box.href = `/product/${id_product}`;
             console.log(name_product)
             product_box.innerHTML = `
-                    <div class="imgproduct_box"><img src="/images/Shirocmt.jpg"></div>
+                    <div class="imgproduct_box"><img src="${picture1}"></div>
                     <div class="detail_product_box">
                         ${name_product}
                     </div> 

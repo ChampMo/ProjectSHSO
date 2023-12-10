@@ -48,7 +48,7 @@ router.get('/api/cost_pay_produck/', async (req, res) => {
         console.log('product_id',req.session.checkProduct)
         if (!Array.isArray(product_id)) {
           product_id = [product_id];
-      }
+        }
         const product_idd = product_id.map(id => parseInt(id));
 
         console.log('product_id',product_idd)
@@ -203,32 +203,40 @@ router.post('/upload/silp/', upload.single('slipImage'), async (req, res) => {
 
 
 router.post('/api/create/order/', async (req, res) => {
-    const product_id = req.session.checkProduct;
+    let product_id = req.session.checkProduct;
+    if (!Array.isArray(product_id)) {
+      product_id = [product_id];
+    }
     console.log(product_id)
+
+    let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_Product limit 1;');
+    let max_id = maxIdResults[0].Max_id;
+    db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
     try {
         let { date_time_slip } = req.body;
         if (req.session.filename != "" || req.session.filename != null) {
-            
-            let maxIdResults = await db.query('SELECT max(order_id) as Max_id FROM Order_Product limit 1;');
-            let max_id = maxIdResults[0].Max_id;
-            db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
+
             let status_order = "Wait"
             console.log(max_id)
             const filen = req.session.filename
+            console.log(product_id)
             product_id.forEach( async element => {
                 let aamount = await db.query('SELECT product_amount FROM Cart_Product natural join Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
                 let amount = aamount[0].product_amount;
                 await db.query('INSERT INTO Order_list (order_id, product_id, date, amount, slip, status_order) VALUES (?, ?, ?, ?, ?, ?);',[max_id, element, date_time_slip, amount, filen, status_order ])
-                await db.query('DELETE FROM Cart_Product where cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+                await db.query('DELETE FROM Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
                 await db.query('UPDATE Product SET quantity = (quantity - ? )where product_id = ?;', [amount, element]);
             });
             console.log('Data inserted successfully');
             req.session.filename = '';
             res.json({ check_slip: true}) 
         }else{
+          console.log('nonono')
             res.json({ check_slip: false}) 
         }
     } catch (err) {
+        db.query('DELETE FROM Order_Product WHERE order_id = ?;',[max_id] );
+        
         res.status(500).json({check_slip: false, error: 'Internal Server Error' });
     }
 });

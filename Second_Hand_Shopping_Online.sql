@@ -35,12 +35,11 @@ create table Seller (
 create table Product (
 	product_id numeric(10) not null primary key,
     name varchar(20),
-    detail varchar(255),
+    detail TEXT,
     price numeric(10),
     quantity numeric(10),
     product_date datetime,
     seller_id numeric(10) not null,
-    #status_product varchar(255),
 	foreign key (seller_id) references Seller(seller_id)
 );
 
