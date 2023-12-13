@@ -411,6 +411,31 @@ body{
 .description_head{
     width: 200px;
 }
+.description_body{
+    margin-left: 50px;
+    width: 1000px;
+    height: 500px;
+    outline: none;
+    resize: none;
+    border:0;
+    background-color: #f6f6f6;
+    font-size: 20px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+.description_body::-webkit-scrollbar {
+    width: 10px;
+
+}
+.description_body::-webkit-scrollbar-track {
+    background-color: #dddddd;
+    border-radius: 10px;
+} 
+.description_body::-webkit-scrollbar-thumb {
+    background-color: #818181; 
+    border-radius: 10px;
+} 
+
 
 @media screen and (max-width: 1000px) {
     #mymenu .inmenu:nth-child(0) .bordermenu {

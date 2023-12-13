@@ -198,6 +198,7 @@
     width: 130px;
     height:130px;
     object-fit: cover;
+    border-radius: 5px;
 }
 .bg_product_name{
     display: flex;
