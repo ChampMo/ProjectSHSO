@@ -25,7 +25,6 @@ router.get('/api/products/', (req, res) => {
 
   db.query('SELECT * FROM Product join Picture_product where Product.product_id = Picture_product.product_id;')
     .then(products => {
-      // Assuming the result is an array of products
       res.json(products);
     })
     .catch(err => {
@@ -110,7 +109,6 @@ router.post('/api/product_add_cart/', async (req, res) => {
       }
         res.json({add_cart:true,proId});
     }else{
-      console.log('add_cart',{add_cart:false} )
       res.json({add_cart:false});
     }
   } catch (err) {
@@ -121,13 +119,34 @@ router.post('/api/product_add_cart/', async (req, res) => {
 
 
 
+router.post('/search-product/', (req, res) => {
+  let input1 = req.body;
+  
+  // Assuming req.session.userID exists and is valid
+
+  db.query('SELECT product_id FROM Product WHERE name LIKE ?;',[`%${input1.input1}%`])
+    .then(product_id => {
+      res.json(product_id);
+    })
+    .catch(err => {
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
+  });
+});
 
 
 
-
-
-
-
+router.post('/api/products-search/', (req, res) => {
+ let productId = req.body
+  db.query('SELECT * FROM Product natural join Picture_product  WHERE product_id = ?;', [productId.productId])
+    .then(products => {
+        res.json(products);
+    })
+    .catch(err => {
+      console.error('Error executing SQL query:', err);
+      res.render('error', { error: 'An error occurred while fetching data.' });
+    });
+});
 
 
 

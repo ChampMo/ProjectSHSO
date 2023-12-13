@@ -87,9 +87,9 @@ async function createshopElement_seller( product_id) {
                                 </div>
                             </div>
                         </div>
-                        <div class="bg_desc">
+                        <textarea class="bg_desc">
                             detail : ${detail}
-                        </div>
+                        </textarea>
                     </div>
                 </div>
                 <div class="type_selling">

@@ -185,7 +185,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
                     </div>
                 </div>
                 <div class='bg_con_product' >
-                    <button class="customer_info" onclick='custo_info(${seller_id},${product_id},${order_id})'>ข้อมูลลูกค้า</button>
+                    <button class="customer_info${order_id} customer_info" onclick='custo_info(${seller_id},${product_id},${order_id})'>ข้อมูลลูกค้า</button>
                     <button class="xcon_product" onclick='Xconfirm(${product_id},${order_id})'>ยกเลิก order</button>
                     <button class="con_product" onclick='confirm(${product_id},${order_id})'>ส่งสินค้าเรียบร้อย</button>
                 </div>
@@ -257,7 +257,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
 function custo_info(seller_id, product_id, order_id){
     const orderbg = document.getElementById(`order${order_id}`);
     const cus_info = document.getElementById(`${order_id}Customer${seller_id}_info${product_id}`);
-    const customer_info = document.querySelector('.customer_info');
+    const customer_info = document.querySelector(`.customer_info${order_id}`);
     cus_info.classList.toggle('active');
     if (cus_info.classList.contains('active')) {
         customer_info.textContent = 'ปิดข้อมูล'

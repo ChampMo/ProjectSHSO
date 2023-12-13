@@ -24,7 +24,7 @@ create table Seller (
 	picture varchar(255),
     customer_id numeric(10),
     shop_name varchar(50),
-    description varchar(255),
+    description TEXT,
     address_shop varchar(255),
     status_seller varchar(255),
 	foreign key (customer_id) references Customer(customer_id)
@@ -107,4 +107,29 @@ create table Cart_Product(
     foreign key (cart_id) references Cart(cart_id),
     foreign key (product_id) references Product(product_id)
 );
+
+
+ALTER TABLE Picture_product
+ADD CONSTRAINT fk_product_id
+FOREIGN KEY (product_id) 
+REFERENCES Product(product_id)
+ON DELETE CASCADE;
+
+ALTER TABLE Order_list
+ADD CONSTRAINT fk_product_list
+FOREIGN KEY (product_id) 
+REFERENCES Product(product_id)
+ON DELETE CASCADE;
+
+ALTER TABLE Cart_Product
+ADD CONSTRAINT fk_product_Cart
+FOREIGN KEY (product_id) 
+REFERENCES Product(product_id)
+ON DELETE CASCADE;
+
+
+
+
+
+
 

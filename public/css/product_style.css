@@ -53,6 +53,8 @@ body{
     width: 450px;
     height: 450px;
     object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .button-left {
     background-color: rgb(167, 164, 164);
@@ -404,8 +406,11 @@ body{
     display: flex;
     font-size: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
 }
-
+.description_head{
+    width: 200px;
+}
 
 @media screen and (max-width: 1000px) {
     #mymenu .inmenu:nth-child(0) .bordermenu {
