@@ -295,6 +295,7 @@ async function uploadFile() {
     } catch (error) {
       console.error('Error uploading file:', error);
     }
+    window.location.href ="/profile";
 }
 function load_picture(){
     fetch(`/api/profile/`)
