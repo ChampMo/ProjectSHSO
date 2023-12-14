@@ -97,13 +97,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     inputElement.addEventListener('focus', function() {
         insearchBarElement.classList.add('active');
-        searchimg.classList.add('active');
+        searchimg.style.display = 'none'
     });
-    
+
     inputElement.addEventListener('blur', function() {
         insearchBarElement.classList.remove('active');
         if (inputElement.value.trim() === '') {
-            searchimg.classList.remove('active');
+            searchimg.style.display = 'flex'
         }
     });
 });
@@ -588,31 +588,33 @@ fetch(`/api/count_in_cart/`)
     .catch(error => {
         console.error('Error fetching product data:', error);
     });
-
-
-
-
-
-    const logout = document.querySelector('.logout').addEventListener("click",function(){
-        const relog = document.querySelector('.relog')
-        relog.style.transform = "scale(1)"
-        
-    })
-    const cancel_logout = document.querySelector('.cancel_logout').addEventListener("click",function(){
-        const relog = document.querySelector('.relog')
-        setTimeout(() => {
-            relog.style.transform = "scale(0)"
-        }, 100);
-        
-    });
-    document.querySelector('.ham').addEventListener("click",function(){
-        const relog = document.querySelector('.relog')
-        setTimeout(() => {
-            relog.style.transform = "scale(0)"
-        }, 100);
-        
-    });
 };
+
+
+
+function logout_bg(){
+    const relog = document.querySelector('.relog')
+    relog.style.transform = "scale(1)"
+
+}  
+function logout_bgcancle(){
+    const relog = document.querySelector('.relog')
+    setTimeout(() => {
+        relog.style.transform = "scale(0)"
+    }, 100);
+}  
+
+
+document.querySelector('.ham').addEventListener("click",function(){
+    const relog = document.querySelector('.relog')
+    setTimeout(() => {
+        relog.style.transform = "scale(0)"
+    }, 100);
+    
+});
+
+    
+
 
 
 
