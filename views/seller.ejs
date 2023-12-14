@@ -55,13 +55,13 @@
                 <% if (success) { %>
                     <a class="login" onclick="openLogin(this)">login/sing up</a>
                 <% } else { %>
-                    <a class="logout">
+                    <a class="logout" onclick="logout_bg()">
                         <i class="fa-solid fa-right-from-bracket fa-xl"></i>logout
                     </a>
                     <div class="relog">
                         <div class="head_relog">log out แน่นะ</div>
                         <div class="blog">
-                            <a class="cancel_logout">ยกเลิก</a>
+                            <a class="cancel_logout" onclick="logout_bgcancle()">ยกเลิก</a>
                             <a href="../logout" class="repeat_logout">ยืนยัน</a>
                         </div>
                         
