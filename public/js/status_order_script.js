@@ -328,7 +328,7 @@ function confirm(product_id,order_id){
         confirm_success.style.transform = "scale(0)";
         
         try {
-            const response = await fetch(`/api/confirm_sucess/`, {
+            const response = await fetch(`/api/confirm_success/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

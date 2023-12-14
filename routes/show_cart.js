@@ -1,181 +1,171 @@
 const express = require('express');
-const router = express.Router();
-const path = require("path");
 const Database = require('../routes/db');
 const db = new Database();
 db.connect();
 
+class ShoppingCartRouter {
+  constructor() {
+    this.router = express.Router();
+    this.setupRoutes();
+  }
 
-router.get('/api/count_shop/', async (req, res) => {
+  
+  setupRoutes() {
+    this.router.get('/api/count_shop/', this.getCountShop.bind(this));
+    this.router.post('/api/shop/', this.postShop.bind(this));
+    this.router.post('/api/cart_product/', this.postCartProduct.bind(this));
+    this.router.post('/api/cart_count_decrement/', this.postCartCountDecrement.bind(this));
+    this.router.post('/api/cart_count_increment/', this.postCartCountIncrement.bind(this));
+    this.router.post('/api/check_produck/', this.postCheckProduct.bind(this));
+    this.router.get('/api/check_order/', this.getCheckOrder.bind(this));
+    this.router.delete('/api/delete_product_cart/', this.deleteProductCart.bind(this));
+  }
 
+  async getCountShop(req, res) {
     try {
-        const count_shop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ?  ORDER BY cart_product_date DESC;', req.session.userId);
+      const countShop = await db.query('SELECT product_id, seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? ORDER BY cart_product_date DESC;', req.session.userId);
 
-        const data = count_shop.map(row => ({
-            product_id: row.product_id,
-            seller_id: row.seller_id
-        }));
-        console.log(data)
-        res.json(data);
+      const data = countShop.map(row => ({
+        product_id: row.product_id,
+        seller_id: row.seller_id
+      }));
+      console.log(data);
+      res.json(data);
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.' });
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
     }
-});
+  }
 
-router.post('/api/shop/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
+  async postShop(req, res) {
     const { seller_id } = req.body;
 
     try {
-        const shop_name = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ? ;', [req.session.userId, seller_id]);
-        // Assuming the result is an array of products
-        res.json(shop_name);
+      const shopName = await db.query('SELECT shop_name FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND seller_id = ?;', [req.session.userId, seller_id]);
+      res.json(shopName);
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.render('error', { error: 'An error occurred while fetching data.' });
+      console.error('Error executing SQL query:', err);
+      res.render('error', { error: 'An error occurred while fetching data.' });
     }
-});
+  }
 
-router.post('/api/cart_product/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
+  async postCartProduct(req, res) {
     const { product_id } = req.body;
 
     try {
-        const check_product_amount = await db.query('SELECT product_amount,quantity  FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, product_id]);
-        const product_amount = check_product_amount[0].product_amount
-        const quantity = check_product_amount[0].quantity
-        if(parseInt(product_amount) > parseInt(quantity)){
-            await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ;', [quantity, req.session.userId, product_id]);
-        }
-        const product_info_cart = await db.query('SELECT * FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, product_id]);
-        // Assuming the result is an array of products
-        res.json(product_info_cart);
+      const checkProductAmount = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, product_id]);
+      const productAmount = checkProductAmount[0].product_amount;
+      const quantity = checkProductAmount[0].quantity;
+
+      if (parseInt(productAmount) > parseInt(quantity)) {
+        await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ?;', [quantity, req.session.userId, product_id]);
+      }
+
+      const productInfoCart = await db.query('SELECT * FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, product_id]);
+      res.json(productInfoCart);
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.render('error', { error: 'An error occurred while fetching data.' });
+      console.error('Error executing SQL query:', err);
+      res.render('error', { error: 'An error occurred while fetching data.' });
     }
-});
+  }
 
-
-
-
-router.post('/api/cart_count_decrement/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
+  async postCartCountDecrement(req, res) {
     let { product_id } = req.body;
 
     try {
-        if (!req.session.userId || !product_id) {
-            // Check if required parameters are missing
-            throw new Error('Missing required parameters');
-        }
-        const check_product_amount = await db.query('SELECT product_amount,quantity  FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, product_id]);
-        const product_amount = check_product_amount[0].product_amount
+      if (!req.session.userId || !product_id) {
+        throw new Error('Missing required parameters');
+      }
 
-        if (product_amount > 1) {
-            let beforecountd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            let bbeforecountd = beforecountd[0].product_amount
+      const checkProductAmount = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Picture_product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, product_id]);
+      const productAmount = checkProductAmount[0].product_amount;
 
-            await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [ --bbeforecountd, req.session.userId, product_id]);
+      if (productAmount > 1) {
+        let beforeCountD = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        let bbeforeCountD = beforeCountD[0].product_amount;
 
-            let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ countd: countd[0].product_amount});
-        }else{
-            let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ countd: countd[0].product_amount});
-        }
+        await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [--bbeforeCountD, req.session.userId, product_id]);
+
+        let countD = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countD: countD[0].product_amount });
+      } else {
+        let countD = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countD: countD[0].product_amount });
+      }
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
     }
-}); 
+  }
 
-router.post('/api/cart_count_increment/', async (req, res) => {
-    // Assuming req.session.userID exists and is valid
+  async postCartCountIncrement(req, res) {
     let { product_id } = req.body;
 
     try {
-        if (!req.session.userId || !product_id) {
-            // Check if required parameters are missing
-            throw new Error('Missing required parameters');
-        }
-        
-        let beforecounti = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        let bbeforecounti = parseInt(beforecounti[0].product_amount)
-        const qquantity = parseInt(beforecounti[0].quantity)
-        if (bbeforecounti < qquantity){
-            await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforecounti, req.session.userId, product_id]);
-            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ counti: counti[0].product_amount, bucount : true });
-        }else{
-            let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-            res.json({ counti: counti[0].product_amount , bucount : false});
-        }
-        
+      if (!req.session.userId || !product_id) {
+        throw new Error('Missing required parameters');
+      }
+
+      let beforeCountI = await db.query('SELECT product_amount, quantity FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+      let bbeforeCountI = parseInt(beforeCountI[0].product_amount);
+      const qQuantity = parseInt(beforeCountI[0].quantity);
+
+      if (bbeforeCountI < qQuantity) {
+        await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforeCountI, req.session.userId, product_id]);
+        let countI = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countI: countI[0].product_amount, buCount: true });
+      } else {
+        let countI = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countI: countI[0].product_amount, buCount: false });
+      }
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
     }
-});
+  }
 
-router.post('/api/check_produck/', async (req, res) => {
+  async postCheckProduct(req, res) {
     try {
-        let { checkedIds } = req.body;
-        let check_cost = 0;
-        
+      let { checkedIds } = req.body;
+      let check_cost = 0;
+      
 
-        // Use Promise.all to wait for all queries to complete
-        await Promise.all(checkedIds.map(async (element) => {
-            let one_cost = await db.query('SELECT (price*product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
-            check_cost += parseInt(one_cost[0].one_cost);
-        }));
-        req.session.checkProduct = checkedIds;
-        console.log('session.checkProduct',req.session.checkProduct)
-        // await db.query('SELECT product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
-        res.json({ check_cost});
+      await Promise.all(checkedIds.map(async (element) => {
+        let oneCost = await db.query('SELECT (price * product_amount) as one_cost FROM Product NATURAL JOIN Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
+        check_cost += parseInt(oneCost[0].one_cost);
+      }));
+
+      req.session.checkProduct = checkedIds;
+      console.log('session.checkProduct', req.session.checkProduct);
+      console.log({ check_cost })
+      res.json({ check_cost });
     } catch (err) {
-        console.error('Error executing SQL query:', err);
-        res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.', details: err.message });
     }
-});
+  }
 
-router.get('/api/check_order/', async (req, res) => {
+  async getCheckOrder(req, res) {
     try {
-        const selid = req.session.checkProduct;
-        res.json({selid})
-
+      const selId = req.session.checkProduct;
+      res.json({ selId });
     } catch (err) {
-        console.error('Error handling check_order request:', err);
-        res.status(500).json({ error: 'An error occurred while handling the request.', details: err.message });
+      console.error('Error handling check_order request:', err);
+      res.status(500).json({ error: 'An error occurred while handling the request.', details: err.message });
     }
-});
+  }
 
-
-router.delete('/api/delete_product_cart/', (req, res) => {
+  async deleteProductCart(req, res) {
     try {
-        let { product_id } = req.body;
-        db.query('DELETE FROM Cart_Product WHERE cart_id = ? AND product_id = ?;',[ req.session.userId, product_id ])
-        res.json({DELETE:true });
-
-    }  catch (err) {
-        res.json({DELETE:false });
+      let { product_id } = req.body;
+      db.query('DELETE FROM Cart_Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, product_id]);
+      res.json({ DELETE: true });
+    } catch (err) {
+      res.json({ DELETE: false });
     }
-  });
+  }
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = router;
+const shoppingCartRouter = new ShoppingCartRouter();
+module.exports = shoppingCartRouter.router;

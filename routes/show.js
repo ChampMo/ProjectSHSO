@@ -1,101 +1,83 @@
-
-
-const Database = require('../routes/db');
-const express = require("express");
-const path = require("path");
-
-const bcrypt = require('bcrypt');
-const { body, validationResult } = require('express-validator');
+const express = require('express');
+const path = require('path');
 const router = express.Router();
-const app = express();
 
+class AuthRouter {
+  constructor() {
+    this.router = express.Router();
+    this.setupRoutes();
+  }
 
+  
+  setupRoutes() {
+    this.router.get('/', this.loginCheck, (req, res, next) => {});
+    this.router.get('/main', this.loginCheck, (req, res, next) => {});
 
-const Login = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        res.render('main',{ success: false });
-    }else{
-        res.render('main',{ success: true });
-        next();
+    this.router.get('/cart', this.loginCartCheck, (req, res) => {});
+
+    this.router.get('/profile', this.loginProfileCheck, (req, res) => {});
+
+    this.router.get('/status_order', this.loginStatusOrderCheck, (req, res) => {});
+
+    this.router.get('/product', (req, res) => {
+      res.render(path.join(__dirname, '../views/product.ejs'));
+    });
+
+    this.router.get('/pay', (req, res) => {
+      res.render(path.join(__dirname, '../views/pay.ejs'));
+    });
+
+    this.router.get('/buy', (req, res) => {
+      res.render(path.join(__dirname, '../views/buy.ejs'));
+    });
+
+    this.router.get('/wait_verified', (req, res) => {
+      res.render(path.join(__dirname, '../views/wait_verified.ejs'));
+    });
+
+    this.router.get('/seller_order', (req, res) => {
+      res.render(path.join(__dirname, '../views/seller_order.ejs'));
+    });
+  }
+
+  loginCheck(req, res, next) {
+    if (req.session.isLoggedIn) {
+      res.render('main', { success: false });
+    } else {
+      res.render('main', { success: true });
+      next();
     }
+  }
+
+  loginCartCheck(req, res, next) {
+    if (req.session.isLoggedIn) {
+      req.session.checkProduct = [];
+      res.render('cart', { success: false });
+    } else {
+      res.render('cart', { success: true });
+      next();
+    }
+  }
+
+  loginProfileCheck(req, res, next) {
+    if (req.session.isLoggedIn) {
+      res.render('profile', { success: false });
+    } else {
+      res.render('profile', { success: true });
+      next();
+    }
+  }
+
+  loginStatusOrderCheck(req, res, next) {
+    if (req.session.isLoggedIn) {
+      res.render('status_order', { success: false });
+    } else {
+      res.render('status_order', { success: true });
+      next();
+    }
+  }
+
 }
 
-router.get('/', Login, (req, res, next) => {
-
-})
-router.get('/main', Login, (req, res, next) => {
-
-})
-
-const Login_cart = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        req.session.checkProduct = [];
-        res.render('cart',{ success: false });
-    }else{
-        res.render('cart',{ success: true });
-        next();
-    }
-}
-router.get("/cart", Login_cart, (req, res) => {
-});
-
-const Login_profile = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        res.render('profile',{ success: false });
-    }else{
-        res.render('profile',{ success: true });
-        next();
-    }
-}
-router.get("/profile", Login_profile, (req, res) => {
-});
-
-const Login_status_order = (req, res, next) => {
-    if(req.session.isLoggedIn){
-        res.render('status_order',{ success: false });
-    }else{
-        res.render('status_order',{ success: true });
-        next();
-    }
-}
-router.get("/status_order", Login_status_order , (req, res) => {
-});
-
-router.get("/product", (req, res) => {
-    res.render(path.join(__dirname, "../views/product.ejs"));
-});
-
-
-router.get("/pay", (req, res) => {
-    res.render(path.join(__dirname, "../views/pay.ejs"));
-});
-
-
-router.get("/buy", (req, res) => {
-    
-    res.render(path.join(__dirname, "../views/buy.ejs"));
-});
-
-router.get("/wait_verified", (req, res) => {
-    
-    res.render(path.join(__dirname, "../views/wait_verified.ejs"));
-});
-
-router.get("/seller_order", (req, res) => {
-    
-    res.render(path.join(__dirname, "../views/seller_order.ejs"));
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = router;
+const authRouter = new AuthRouter();
+module.exports = authRouter.router;

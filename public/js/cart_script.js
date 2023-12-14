@@ -401,9 +401,9 @@ button_order.addEventListener("click", async () => {
 
         const data = await response.json();
 
-        const selid = data.selid;
-        console.log(selid);
-        if (parseInt(selid) > 0) {
+        const selId = data.selId;
+        console.log(selId);
+        if (parseInt(selId) > 0) {
             plsadd.style.display = "none";
             window.location.href = '/pay';
         } else {
