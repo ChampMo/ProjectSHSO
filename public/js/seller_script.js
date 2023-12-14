@@ -92,12 +92,14 @@ async function createshopElement_seller( product_id) {
                         </textarea>
                     </div>
                 </div>
-                <div class="type_selling">
-                    type
-                </div>
-                <button class="del_product" onclick="del_product_sell(${product_id})">ลบสินค้า</button>
-                <div class="date_selling">
-                    Date : ${date.date[0].date}
+                <div class="data_pro">
+                    <div class="type_selling">
+                        type
+                    </div>
+                    <button class="del_product" onclick="del_product_sell(${product_id})">ลบสินค้า</button>
+                    <div class="date_selling">
+                        Date : ${date.date[0].date}
+                    </div>
                 </div>
             `;
 
