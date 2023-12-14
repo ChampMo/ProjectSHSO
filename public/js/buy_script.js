@@ -40,6 +40,7 @@ async function uploadFile() {
 
     const formData = new FormData();
     formData.append('slipImage', file);
+
   
     try {
         const response = await fetch('/upload/silp/', {

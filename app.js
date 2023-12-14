@@ -31,8 +31,8 @@ class AppServer {
   }
 
   configureRoutes() {
-     const login = require("./routes/login");
 
+     const login = require("./routes/login");
      this.app.use("/", login);
 
      const Show_product = require("./routes/show_product");
@@ -48,7 +48,6 @@ class AppServer {
      this.app.use("/", upload);
 
      const registerseller = require("./routes/registerseller");
-
      this.app.use("/", registerseller);
 
      const show_cart = require("./routes/show_cart");
@@ -63,12 +62,12 @@ class AppServer {
 
      this.app.use("/", show_profile);
 
-     const pay_order = require("./routes/pay_order");
-
-     this.app.use("/", pay_order);
-
-     const new_product = require("./routes/newproduct");
+     const { orderRouter, uploadSlipRouter, FileUploaderRouter } = require("./routes/pay_order");
+     this.app.use("/", orderRouter);
+     this.app.use("/", uploadSlipRouter);
+     this.app.use("/", FileUploaderRouter);
      
+     const new_product = require("./routes/newproduct");
      this.app.use("/", new_product);
      
      const show_status_order = require("./routes/show_status_order");
