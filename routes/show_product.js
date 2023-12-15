@@ -22,7 +22,7 @@ class ProductRouter {
   
   async getCountProducts(req, res) {
     try {
-      const productIds = await db.query('SELECT product_id FROM Product;');
+      const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0;');
       res.json(productIds);
     } catch (err) {
       console.error('Error executing SQL query:', err);
@@ -34,7 +34,7 @@ class ProductRouter {
     let input1 = req.body;
 
     try {
-      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ?;', [`%${input1.input1}%`]);
+      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ? quantity > 0;', [`%${input1.input1}%`]);
       res.json(productIds);
     } catch (err) {
       console.error('Error executing SQL query:', err);
