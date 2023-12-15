@@ -7,7 +7,7 @@ class Database {
   constructor() {
     this.connection = mysql.createConnection({
       host: 'localhost',
-      user: 'root',
+      user: pass.user,
       password: pass.password,
       database: 'Second_Hand_Shopping_Online',
     });
