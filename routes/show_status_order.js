@@ -4,7 +4,7 @@ const Database = require('../routes/db');
 const db = new Database();
 db.connect();
 
-class OrderRouter {
+class StatusOrderRouter {
   constructor() {
     this.router = express.Router();
     this.setupRoutes();
@@ -74,5 +74,5 @@ class OrderRouter {
 
 }
 
-const orderRouter = new OrderRouter();
-module.exports = orderRouter.router;
+const statusOrderRouter = new StatusOrderRouter();
+module.exports = statusOrderRouter.router;

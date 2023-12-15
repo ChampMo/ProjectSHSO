@@ -1,93 +1,76 @@
 const express = require('express');
+const router = express.Router();
 const Database = require('../routes/db');
-const db = new Database();
-db.connect();
 
-class SellerRouter {
-  constructor() {
-    this.router = express.Router();
-    this.setupRoutes();
-  }
-
-  setupRoutes() {
-    this.router.get('/seller', this.LoginSeller, this.getSeller.bind(this));
-    this.router.get('/registerseller', this.getRegisterSeller.bind(this));
-    this.router.get('/newproductinfo', this.getNewProductInfo.bind(this));
-  }
-
-
-  LoginSeller(req, res, next) {
-    if (req.session.isLoggedIn) {
-      res.render('seller', { success: false });
-    } else {
-      res.render('seller', { success: true });
-      next();
+class SellerController {
+    constructor() {
+        this.db = new Database();
+        this.db.connect();
     }
-  }
 
-  async getSeller(req, res) {
-    if (req.session.isLoggedIn) {
-      const isRegistered = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
-      const isApproved = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
+    async checkSellerStatus(customerId) {
+        const isRegistered = await this.db.query("SELECT * FROM seller WHERE customer_id = ?;", [customerId]);
+        const isApproved = await this.db.query("SELECT * FROM seller WHERE customer_id = ?;", [customerId]);
 
-      if (isRegistered.length > 0) {
-        const checkApproved = isApproved[0].status_seller;
-        if (checkApproved === "verified") {
-          res.render('seller', { success: false });
+        if (isRegistered.length > 0) {
+            const checkApproved = isApproved[0].status_seller;
+
+            if (checkApproved === "verified") {
+                return 'registeredAndApproved';
+            } else {
+                return 'registeredButNotApproved';
+            }
         } else {
-          res.redirect('wait_verified');
+            return 'notRegistered';
         }
-      } else {
-        res.redirect('registerseller');
-      }
-    } else {
-      res.json({ status: "Not Login" });
     }
-  }
 
-  async getRegisterSeller(req, res) {
-    if (req.session.isLoggedIn) {
-      const isRegistered = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
-      const isApproved = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
+    async renderSellerPage(req, res, status) {
+        switch (status) {
+            case 'registeredAndApproved':
+                res.render('seller', { success: false });
+                break;
+            case 'registeredButNotApproved':
+                res.redirect('wait_verified');
+                break;
+            case 'notRegistered':
+                res.redirect('registerseller');
+                break;
+            default:
+                res.redirect('/');
+        }
+    }
 
-      if (isRegistered.length > 0) {
-        const checkApproved = isApproved[0].status_seller;
-        if (checkApproved === "verified") {
-          res.redirect('seller');
+    // Other methods related to seller functionality
+
+    async getSellerPage(req, res) {
+        if (req.session.isLoggedIn) {
+            const status = await this.checkSellerStatus(req.session.userId);
+            this.renderSellerPage(req, res, status);
         } else {
-          res.redirect('wait_verified');
+            res.json({ status: "Not Login" });
         }
-      } else {
-        res.render('registerseller');
-      }
-    } else {
-      res.json({ status: "Not Login" });
     }
-  }
-
-  async getNewProductInfo(req, res) {
-    req.session.product = [];
-    if (req.session.isLoggedIn) {
-      const isRegistered = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
-      const isApproved = await db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
-
-      if (isRegistered.length > 0) {
-        const checkApproved = isApproved[0].status_seller;
-        if (checkApproved === "verified") {
-          res.render('newproductinfo', { success: false });
-        } else {
-          res.redirect('wait_verified');
-        }
-      } else {
-        res.redirect('registerseller');
-      }
-    } else {
-      res.json({ status: "Not Login" });
-    }
-  }
-
-  
 }
 
-const sellerRouter = new SellerRouter();
-module.exports = sellerRouter.router;
+const sellerController = new SellerController();
+
+router.get("/seller", async (req, res) => {
+    sellerController.getSellerPage(req, res);
+});
+
+router.get("/registerseller", async (req, res) => {
+    sellerController.getSellerPage(req, res);
+});
+
+router.get("/newproductinfo", async (req, res) => {
+    req.session.product = [];
+    if (req.session.isLoggedIn) {
+        const status = await sellerController.checkSellerStatus(req.session.userId);
+        sellerController.renderSellerPage(req, res, status);
+    } else {
+        res.json({ status: "Not Login" });
+    }
+});
+
+module.exports = router;

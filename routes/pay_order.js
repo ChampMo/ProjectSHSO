@@ -10,7 +10,7 @@ const Database = require('../routes/db');
 
 
 
-class OrderRouter {
+class PayRouter {
 
     constructor() {
       this.router = express.Router();
@@ -175,7 +175,7 @@ class OrderRouter {
 const mkdirAsync = promisify(fs.mkdir);
 const accessAsync = promisify(fs.access);
 
-class FileUploader extends OrderRouter {
+class FileUploader extends PayRouter {
   constructor() {
     super(); 
     this.destinationPath =  path.join(__dirname, '../public/uploads/slip/');
@@ -259,12 +259,12 @@ class SlipUploader extends FileUploader {
 
 
 
-const orderRouter = new OrderRouter();
+const payRouter = new PayRouter();
 const upload_slip = new SlipUploader();
 const fileUploader = new FileUploader();
 
 module.exports = {
-  orderRouter: orderRouter.router,
+  payRouter: payRouter.router,
   uploadSlipRouter: upload_slip.router,
   FileUploaderRouter: fileUploader.router,
 };

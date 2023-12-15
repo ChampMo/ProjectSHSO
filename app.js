@@ -53,8 +53,8 @@ class AppServer {
      const show_profile = require("./routes/show_profile");
      this.app.use("/", show_profile);
 
-     const { orderRouter, uploadSlipRouter, FileUploaderRouter } = require("./routes/pay_order");
-     this.app.use("/", orderRouter);
+     const { payRouter, uploadSlipRouter, FileUploaderRouter } = require("./routes/pay_order");
+     this.app.use("/", payRouter);
      this.app.use("/", uploadSlipRouter);
      this.app.use("/", FileUploaderRouter);
      
@@ -74,7 +74,6 @@ class AppServer {
      this.app.use("/", seller_main);
 
     }
-
 
   startServer() {
     const PORT = process.env.PORT || 3000;

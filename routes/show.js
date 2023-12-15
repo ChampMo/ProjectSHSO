@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
-class AuthRouter {
+class ShowRouter {
   constructor() {
     this.router = express.Router();
     this.setupRoutes();
@@ -79,5 +79,5 @@ class AuthRouter {
 
 }
 
-const authRouter = new AuthRouter();
-module.exports = authRouter.router;
+const showRouter = new ShowRouter();
+module.exports = showRouter.router;
