@@ -48,7 +48,7 @@ class SellerController {
             const status = await this.checkSellerStatus(req.session.userId);
             this.renderSellerPage(req, res, status);
         } else {
-            res.json({ status: "Not Login" });
+            res.redirect("/main");
         }
     }
 }
@@ -69,7 +69,7 @@ router.get("/newproductinfo", async (req, res) => {
         const status = await sellerController.checkSellerStatus(req.session.userId);
         sellerController.renderSellerPage(req, res, status);
     } else {
-        res.json({ status: "Not Login" });
+        res.redirect("/main");
     }
 });
 
