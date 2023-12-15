@@ -231,10 +231,13 @@ function closeLogin() {
     let myprologin = document.getElementById('myprologin');
     let Iinlog = document.getElementById('Iinlog');
     let Iinsign = document.getElementById('Iinsign');
+    let match_mail = document.querySelector('.match_mail');
     if (myprologin.className !== 'prologin') {
         myprologin.style.background = "none";
+        match_mail.style.visibility='hidden';
         Iinsign.style.transform = "translateY(-150%)";
         Iinlog.style.transform = "translateY(-150%) ";
+        
         setTimeout(function () {
             myprologin.className = 'prologin';
         }, 200);
@@ -548,6 +551,7 @@ function eye_sign2imgon() {
 //sign_up_click
 
 function sign_up_click() {
+    
     let Iinlog = document.getElementById('Iinlog');
     let Iinsign = document.getElementById('Iinsign');
     if (Iinlog.className === 'inlog') {
@@ -562,7 +566,9 @@ function sign_up_click() {
 function login_click() {
     let Iinlog = document.getElementById('Iinlog');
     let Iinsign = document.getElementById('Iinsign');
+    let match_mail = document.querySelector('.match_mail');
     if (Iinsign.className === 'insign') {
+        match_mail.style.visibility = 'hidden'
         Iinsign.style.opacity = '0';
         Iinsign.style.zIndex = '20';
         Iinlog.style.opacity = '1';
