@@ -164,11 +164,11 @@ html, body{
 }
 .my_product_head{
     width: 90%;
-    height: 100px;
+    margin-top:60px;
     display: flex;
     align-items: flex-end;
     font-size: 25px;
-    padding-left:20px ;
+    padding-left:40px ;
 }
 .bg_mypro{
     width: 100%;
@@ -186,6 +186,7 @@ html, body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff;
 }
 .detail_pro{
     display: flex;
