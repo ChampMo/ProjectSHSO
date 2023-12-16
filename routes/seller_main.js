@@ -82,6 +82,7 @@ class SellerRouter {
       await this.db.query('DELETE FROM Order_list WHERE product_id = ?;', [product_id]);
       await this.db.query('DELETE FROM Picture_product WHERE product_id = ?;', [product_id]);
       await this.db.query('DELETE FROM Product WHERE product_id = ?;', [product_id]);
+      await Catelog.deleteMany({ id_product: product_id });
 
       res.json({ DELETE: true });
 
