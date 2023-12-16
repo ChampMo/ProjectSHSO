@@ -38,6 +38,12 @@ class ShowRouter {
     this.router.get('/seller_order', (req, res) => {
       res.render(path.join(__dirname, '../views/seller_order.ejs'));
     });
+
+    this.router.get('/edit_product', (req, res) => {
+      res.render(path.join(__dirname, '../views/edit_product.ejs'));
+    });
+
+    
   }
 
   loginCheck(req, res, next) {

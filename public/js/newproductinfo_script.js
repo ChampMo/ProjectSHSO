@@ -82,10 +82,6 @@ document.querySelector('.submit_seller').addEventListener('click',function (){
 
 
 const product_cate =  document.getElementById('product_cate')
-
-
-
-
 product_cate.addEventListener("change", function() {
     const product_cate_value = product_cate.value;
     const sub_product_cate = document.getElementById('sub_product_cate')

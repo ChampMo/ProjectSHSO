@@ -90,6 +90,21 @@ html, body{
     border: 1px solid#ecb143;
     box-sizing: border-box;
 }
+.product_description{
+ resize: none;
+}
+.product_description::-webkit-scrollbar {
+    width: 10px;
+
+}
+.product_description::-webkit-scrollbar-track {
+    background-color: #fee7ce;
+    border-radius: 10px;
+} 
+.product_description::-webkit-scrollbar-thumb {
+    background-color: #f8bc8b; 
+    border-radius: 10px;
+} 
 .bg_product_cate{
     width: 700px;
     height: 50px;
@@ -109,7 +124,7 @@ html, body{
     color: #626262;
 
 }
-.input_infoproduct input:focus, .input_infoproduct textarea:focus{
+.input_infoproduct input:focus, .input_infoproduct textarea:focus, .product_cost:hover, .sub_product_cost:hover{
     border: 1px solid#ed6a53;
 }
 .product_description{

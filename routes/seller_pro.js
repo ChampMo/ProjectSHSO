@@ -9,6 +9,11 @@ class SellerRouter {
     this.setupRoutes();
   }
 
+  setupRoutes() {
+    this.router.get('/seller', this.getSeller.bind(this));
+    this.router.get('/registerseller', this.getRegisterSeller.bind(this));
+    this.router.get('/newproductinfo', this.getNewProductInfo.bind(this));
+  }
   async getSeller(req, res) {
     if (req.session.isLoggedIn) {
       const isRegistered = await this.db.query("SELECT * FROM seller WHERE customer_id = ?;", [req.session.userId]);
@@ -70,11 +75,7 @@ class SellerRouter {
     }
   }
 
-  setupRoutes() {
-    this.router.get('/seller', this.getSeller.bind(this));
-    this.router.get('/registerseller', this.getRegisterSeller.bind(this));
-    this.router.get('/newproductinfo', this.getNewProductInfo.bind(this));
-  }
+
 }
 
 const sellerRouter = new SellerRouter();

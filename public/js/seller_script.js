@@ -103,7 +103,10 @@ async function createshopElement_seller( product_id) {
                         [ ${sub_type} ]
                         </div>
                     </div>
-                    <button class="del_product" onclick="del_product_sell(${product_id})">ลบสินค้า</button>
+                    <div class="edit_del">
+                        <button class="edit_product" onclick="edit_product_sell(${product_id})">แก้ไข</button>
+                        <button class="del_product" onclick="del_product_sell(${product_id})">ลบสินค้า</button>
+                    </div>
                     <div class="date_selling">
                         Date : ${date.date[0].date}
                     </div>
@@ -225,3 +228,24 @@ function del_product_sell(product_id){
     });
     
 };
+
+
+
+
+async function edit_product_sell(product_id){
+    const shoResponse = await fetch(`/api/edit_product_sellmain/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({product_id}),
+    });
+    if (!shoResponse.ok) {
+        throw new Error(`HTTP error! Status: ${shoResponse.status}`);
+    }
+  
+    const editId = await shoResponse.json();
+    if(editId.success){
+        window.location.href = "/edit_product"
+    }
+}
