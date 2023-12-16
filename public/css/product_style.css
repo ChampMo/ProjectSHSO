@@ -410,11 +410,10 @@ body{
     display: flex;
 }
 .description_head{
-    width: 250px;
+    width: 220px;
 }
 .description_body{
-    margin-left: 50px;
-    width: 1000px;
+    margin-left: 20px;
     height: 500px;
     outline: none;
     resize: none;

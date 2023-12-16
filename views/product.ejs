@@ -195,7 +195,12 @@
                     <div class="description_shop_box"><%= product.description %></div>
                 </div>
                 <div class="type_pro">
-                    <div class="type_productt">Type Product :</div>
+                    <% if (types_product && types_product.length > 0) { %>
+                        <% const types_pro = types_product[0]; %>
+                    <div class="type_productt">Type Product : <%= types_pro.type_name %>   <%= types_pro.sub_type %> ></div>
+                    <% } else { %>
+                        <p>Not Found</p>
+                    <% } %>
                     <div class="address_product">ส่งจาก : <%= product.address_shop %></div>
                 </div>
 

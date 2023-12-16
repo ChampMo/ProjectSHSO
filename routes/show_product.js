@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const Database = require('../routes/db');
+const { Type ,Catelog } = require('./model/type.js');
 const db = new Database();
 db.connect();
 
@@ -62,8 +63,13 @@ class ProductRouter {
 
         const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ');
 
+        const types_info = await Catelog.find({ id_product: id_pro });
+        const typesId = types_info.map(item => item.type_id);
+        const types_product = await Type.find({ type_id: typesId });
+        console.log(types_product)
+
         req.session.checkProduct = id_pro;
-        res.render('product', { products, address, success: false });
+        res.render('product', { products, address, types_product, success: false });
       } catch (err) {
         console.error('Error executing SQL query:', err);
         res.render('error', { error: 'An error occurred while fetching data.' });
@@ -74,7 +80,12 @@ class ProductRouter {
 
         const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ');
 
-        res.render('product', { products, address, success: true });
+        const types_info = await Catelog.find({ id_product: id_pro });
+        const typesId = types_info.map(item => item.type_id);
+        const types_product = await Type.find({ type_id: typesId });
+        console.log(types_product)
+
+        res.render('product', { products, address, types_product, success: true });
       } catch (err) {
         console.error('Error executing SQL query:', err);
         res.render('error', { error: 'An error occurred while fetching data.' });
