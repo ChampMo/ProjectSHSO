@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const util = require('util');
 const Database = require('../routes/db');
+const { Type ,Catelog } = require('./model/type.js');
 
 class SellerRouter {
   constructor() {
@@ -52,7 +53,10 @@ class SellerRouter {
     const { product_id } = req.body;
     try {
       const productInfoCart = await this.db.query('SELECT * FROM Product NATURAL JOIN Picture_product WHERE product_id = ?;', [product_id]);
-      res.json(productInfoCart);
+      const types_info = await Catelog.find({ id_product: product_id });
+      const typesId = types_info.map(item => item.type_id);
+      const types_product = await Type.find({ type_id: typesId });
+      res.json({ productInfoCart, types_product });
     } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });

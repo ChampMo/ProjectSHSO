@@ -60,11 +60,13 @@ async function createshopElement_seller( product_id) {
             body: JSON.stringify({ product_id}),
         });
         const product_info_cart = await shopResponse.json();
-        const name = product_info_cart[0].name
-        const price = product_info_cart[0].price
-        const product_quantity = product_info_cart[0].quantity
-        const picture1 = product_info_cart[0].picture1
-        const detail = product_info_cart[0].detail
+        const name = product_info_cart.productInfoCart[0].name
+        const price = product_info_cart.productInfoCart[0].price
+        const product_quantity = product_info_cart.productInfoCart[0].quantity
+        const picture1 = product_info_cart.productInfoCart[0].picture1
+        const detail = product_info_cart.productInfoCart[0].detail
+        const main_type = product_info_cart.types_product[0].type_name
+        const sub_type = product_info_cart.types_product[0].sub_type
 
         incpro.innerHTML = `
                 <div class="detail_pro">
@@ -94,7 +96,12 @@ async function createshopElement_seller( product_id) {
                 </div>
                 <div class="data_pro">
                     <div class="type_selling">
-                        type
+                        <div class="main_type">
+                            ${main_type}
+                        </div>
+                        <div class="sub_type">
+                        [ ${sub_type} ]
+                        </div>
                     </div>
                     <button class="del_product" onclick="del_product_sell(${product_id})">ลบสินค้า</button>
                     <div class="date_selling">

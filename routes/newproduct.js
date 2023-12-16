@@ -5,6 +5,8 @@ const multer = require('multer');
 const fs = require('fs');
 const util = require('util');
 const Database = require('../routes/db');
+const { Catelog } = require('./model/type.js');
+
 
 class ProductController {
   constructor() {
@@ -89,6 +91,8 @@ class ProductController {
       const costPro = insertProduct.cost;
       const quanPro = insertProduct.quan;
       const descPro = insertProduct.desc;
+      const sub_type = insertProduct.sub_type;
+
       let date = new Date();
       let dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
       const insertphoto1 = req.session.product[0];
@@ -114,6 +118,9 @@ class ProductController {
         } else {
           await this.db.query("INSERT INTO Product (product_id, name, detail, price, quantity, product_date, seller_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [++product_id, namePro, descPro, costPro, quanPro, dateString, seller_id]);
           await this.db.query("INSERT INTO Picture_product (picture_id,product_id, picture1, picture2, picture3, picture4) VALUES (?,?,?, ?, ?, ?)", [product_id, product_id, pic1, pic2, pic3, pic4]);
+          await Catelog.create([
+            {id_product: product_id, type_id: sub_type}
+        ]);
           res.json(status = true);
         }
       }

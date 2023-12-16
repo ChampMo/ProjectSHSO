@@ -80,7 +80,7 @@ html, body{
     width: 800px;
     padding: 10px 0;
 }
-.product_name, .product_cost, .product_description{
+.product_name, .product_description, .product_cost1{
     width: 700px;
     height: 40px;
     font-size: 16px;
@@ -89,6 +89,25 @@ html, body{
     border-radius: 5px;
     border: 1px solid#ecb143;
     box-sizing: border-box;
+}
+.bg_product_cate{
+    width: 700px;
+    height: 50px;
+    display: flex;
+    gap: 20px;
+}
+.product_cost, .sub_product_cost{
+    width: 50%;
+    height: 40px;
+    font-size: 16px;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid#ecb143;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #626262;
+
 }
 .input_infoproduct input:focus, .input_infoproduct textarea:focus{
     border: 1px solid#ed6a53;

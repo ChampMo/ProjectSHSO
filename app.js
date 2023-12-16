@@ -73,6 +73,10 @@ class AppServer {
      const seller_main = require("./routes/seller_main");
      this.app.use("/", seller_main);
 
+     const db__nosql = require("./routes/db_nosql");
+     this.app.use("/", db__nosql);
+
+
     }
 
   startServer() {
