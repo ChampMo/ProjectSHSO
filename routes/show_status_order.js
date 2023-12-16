@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Database = require('../routes/db');
 const db = new Database();
+const { Type ,Catelog } = require('./model/type.js');
 db.connect();
 
 class StatusOrderRouter {
@@ -52,7 +53,10 @@ class StatusOrderRouter {
 
     try {
       const product_info_cart = await db.query('SELECT * FROM Product NATURAL JOIN Picture_product NATURAL JOIN Order_list  WHERE order_id = ? AND product_id = ? ;', [order_id, product_id]);
-      res.json(product_info_cart);
+      const types_info = await Catelog.find({ id_product: product_id });
+      const typesId = types_info.map(item => item.type_id);
+      const types_product = await Type.find({ type_id: typesId });
+      res.json({product_info_cart,types_product});
     } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });

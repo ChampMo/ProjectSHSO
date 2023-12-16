@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Type = require('./model/type.js');
 
-mongoose.connect('mongodb+srv://Champ:ChampMonthol8.@cluster0.jdikoja.mongodb.net/');
+mongoose.connect('mongodb+srv://Project1:1234@shsonosql.mo3fh7g.mongodb.net/');
 
 const connection = mongoose.connection;
 

@@ -217,12 +217,14 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
             body: JSON.stringify({ product_id, order_id }),
         });
         const product_info_cart = await shopResponse.json();
-        const name = product_info_cart[0].name
-        const price = product_info_cart[0].price
-        const product_amount = product_info_cart[0].amount
-        const picture1 = product_info_cart[0].picture1
-        const status_order = product_info_cart[0].status_order
+        console.log(product_info_cart)
+        const name = product_info_cart.product_info_cart[0].name
+        const price = product_info_cart.product_info_cart[0].price
+        const product_amount = product_info_cart.product_info_cart[0].amount
+        const picture1 = product_info_cart.product_info_cart[0].picture1
+        const status_order = product_info_cart.product_info_cart[0].status_order
         const cost = (price*product_amount)
+        const main_type = product_info_cart.types_product[0].type_name
         // Assuming shop_pro is available in the global scope
         
 
@@ -232,7 +234,7 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
                         <img src="${picture1}" alt="Product Image">
                         <div class="bg_product_name">
                             <div class="product_name">${name}</div>
-                            <div class="select_type_pro">Select Type Product</div>
+                            <div class="select_type_pro">${main_type}</div>
                         </div>
                     </a>
 
@@ -262,7 +264,7 @@ async function createProductElementforselling(seller_id, product_id, order_id) {
                         <img src="${picture1}" alt="Product Image">
                         <div class="bg_product_name">
                             <div class="product_name">${name}</div>
-                            <div class="select_type_pro">Select Type Product</div>
+                            <div class="select_type_pro">${main_type}</div>
                         </div>
                     </a>
 
@@ -512,19 +514,20 @@ async function createProductElement(seller_id, product_id, order_id) {
             body: JSON.stringify({ product_id, order_id }),
         });
         const product_info_cart = await shopResponse.json();
-        const name = product_info_cart[0].name
-        const price = product_info_cart[0].price
-        const product_amount = product_info_cart[0].amount
-        const picture1 = product_info_cart[0].picture1
-        const status_order = product_info_cart[0].status_order
+        const name = product_info_cart.product_info_cart[0].name
+        const price = product_info_cart.product_info_cart[0].price
+        const product_amount = product_info_cart.product_info_cart[0].amount
+        const picture1 = product_info_cart.product_info_cart[0].picture1
+        const status_order = product_info_cart.product_info_cart[0].status_order
         const cost = (price*product_amount)
+        const main_type = product_info_cart.types_product[0].type_name
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
                 <a class="click_incpro" href="/product/${product_id}">
                     <img src="${picture1}" alt="Product Image">
                     <div class="bg_product_name">
                         <div class="product_name">${name}</div>
-                        <div class="select_type_pro">Select Type Product</div>
+                        <div class="select_type_pro">${main_type}</div>
                     </div>
                 </a>
 

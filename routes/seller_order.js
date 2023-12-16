@@ -1,5 +1,6 @@
 const express = require('express');
 const Database = require('../routes/db');
+const { Type ,Catelog } = require('./model/type.js');
 
 class OrderRouter {
   constructor() {
@@ -53,7 +54,10 @@ class OrderRouter {
     const { seller_id, product_id, order_id } = req.body;
     try {
       const productInfoCart = await this.db.query('SELECT * FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Customer NATURAL JOIN product NATURAL JOIN Picture_Product WHERE seller_id = ? AND status_order = ? AND product_id = ? AND order_id = ?;', [seller_id, 'Wait', product_id, order_id]);
-      res.json(productInfoCart);
+      const types_info = await Catelog.find({ id_product: product_id });
+      const typesId = types_info.map(item => item.type_id);
+      const types_product = await Type.find({ type_id: typesId });
+      res.json({productInfoCart,types_product});
     } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });
@@ -104,7 +108,10 @@ class OrderRouter {
     const { seller_id, product_id, order_id } = req.body;
     try {
       const productInfoCart = await this.db.query('SELECT * FROM Order_list NATURAL JOIN Order_Product NATURAL JOIN Customer NATURAL JOIN product NATURAL JOIN Picture_Product WHERE seller_id = ? AND product_id = ? AND order_id = ? AND (status_order = ? OR status_order = ? OR status_order = ?);', [seller_id, product_id, order_id, 'Success', 'Sending', 'Cancel']);
-      res.json(productInfoCart);
+      const types_info = await Catelog.find({ id_product: product_id });
+      const typesId = types_info.map(item => item.type_id);
+      const types_product = await Type.find({ type_id: typesId });
+      res.json({productInfoCart,types_product});
     } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });

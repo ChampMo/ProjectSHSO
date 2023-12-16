@@ -150,12 +150,13 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
             body: JSON.stringify({seller_id, product_id, order_id }),
         });
         const product_info_cart = await shopResponse.json();
-        const name = product_info_cart[0].name
-        const price = product_info_cart[0].price
-        const product_amount = product_info_cart[0].amount
-        const picture1 = product_info_cart[0].picture1
-        const status_order = product_info_cart[0].status_order
+        const name = product_info_cart.productInfoCart[0].name
+        const price = product_info_cart.productInfoCart[0].price
+        const product_amount = product_info_cart.productInfoCart[0].amount
+        const picture1 = product_info_cart.productInfoCart[0].picture1
+        const status_order = product_info_cart.productInfoCart[0].status_order
         const cost = (price*product_amount)
+        const main_type = product_info_cart.types_product[0].type_name
 
         console.log('price',price,'product_amount', product_amount,'cost',cost)
         // Assuming shop_pro is available in the global scope
@@ -164,7 +165,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
                     <img src="${picture1}" alt="Product Image">
                     <div class="bg_product_name">
                         <div class="product_name">${name}</div>
-                        <div class="select_type_pro">Select Type Product</div>
+                        <div class="select_type_pro">${main_type}</div>
                     </div>
                 </a>
 
@@ -444,14 +445,13 @@ async function createshopElement(seller_id, product_id, order_id) {
         });
         
         const product_info_cart = await shopResponse.json();
-        const name = product_info_cart[0].name
-        const price = product_info_cart[0].price
-        const product_amount = product_info_cart[0].amount
-        const picture1 = product_info_cart[0].picture1
-        const status_order = product_info_cart[0].status_order
-        console.log(product_info_cart)
+        const name = product_info_cart.productInfoCart[0].name
+        const price = product_info_cart.productInfoCart[0].price
+        const product_amount = product_info_cart.productInfoCart[0].amount
+        const picture1 = product_info_cart.productInfoCart[0].picture1
+        const status_order = product_info_cart.productInfoCart[0].status_order
         const cost = (price*product_amount)
-        console.log(picture1)
+        const main_type = product_info_cart.types_product[0].type_name
         console.log('seller_id, product_id, order_id',seller_id, product_id, order_id,status_order)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
@@ -459,7 +459,7 @@ async function createshopElement(seller_id, product_id, order_id) {
                     <img src="${picture1}" alt="Product Image">
                     <div class="bg_product_name">
                         <div class="product_name">${name}</div>
-                        <div class="select_type_pro">Select Type Product</div>
+                        <div class="select_type_pro">${main_type}</div>
                     </div>
                 </a>
 
