@@ -173,6 +173,7 @@ body{
     font-size: 22px;
     display: flex;
     flex-wrap: wrap;
+    width: 500px;
 }
 .address_data{
     font-size: 22px;
@@ -409,7 +410,7 @@ body{
     display: flex;
 }
 .description_head{
-    width: 200px;
+    width: 250px;
 }
 .description_body{
     margin-left: 50px;
