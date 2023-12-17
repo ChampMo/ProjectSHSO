@@ -19,6 +19,7 @@ class ProductRouter {
     this.router.get('/product/:id', this.getProductById.bind(this));
     this.router.get('/api/count_in_cart/', this.getCountInCart.bind(this));
     this.router.post('/api/product_add_cart/', this.postProductAddCart.bind(this));
+    this.router.post('/select-type-product/', this.postSelectTypeProduct.bind(this));
   }
   
   async getCountProducts(req, res) {
@@ -130,6 +131,71 @@ class ProductRouter {
     } catch (err) {
       console.error('Error executing SQL query:', err);
       res.render('error', { error: 'An error occurred while fetching data.' });
+    }
+  }
+
+
+  async postSelectTypeProduct(req, res) {
+    let type_value = req.body;
+    try {
+      const type_value1 = type_value.type_value
+      if( parseInt(type_value1) >=100 && parseInt(type_value1) <=110){
+        if(parseInt(type_value1) ==100){
+          const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0;');
+          const arrayOfProductIds = productIds.map(item => item.product_id);
+          res.json(arrayOfProductIds);
+        }else if (parseInt(type_value1) ==101){
+          const product_info = await Catelog.find({ type_id: { $in: ["1", "2", "3", "4"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==102){
+          const product_info = await Catelog.find({ type_id: { $in: ["5", "6", "7", "8"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==103){
+          const product_info = await Catelog.find({ type_id: { $in: ["9", "10", "11", "12"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==104){
+          const product_info = await Catelog.find({ type_id: { $in: ["13", "14", "15"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==105){
+          const product_info = await Catelog.find({ type_id: { $in: ["16", "17", "18"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==106){
+          const product_info = await Catelog.find({ type_id: { $in: ["19", "20", "21", "22"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==107){
+          const product_info = await Catelog.find({ type_id: { $in: ["23", "24", "25"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==108){
+          const product_info = await Catelog.find({ type_id: { $in: ["26", "27", "28", "29"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==109){
+          const product_info = await Catelog.find({ type_id: { $in: ["30", "31", "32"] } });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }else if (parseInt(type_value1) ==110){
+          const product_info = await Catelog.find({ type_id: "0" });
+          const productId = product_info.map(item => item.id_product);
+          res.json(productId);
+        }
+      }else{
+        console.log(type_value1)
+        const product_info = await Catelog.find({ type_id: type_value1 });
+        const productId = product_info.map(item => item.id_product);
+    
+        res.json(productId);
+      }
+        
+    } catch (err) {
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
     }
   }
 }

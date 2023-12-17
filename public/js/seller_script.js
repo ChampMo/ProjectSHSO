@@ -67,7 +67,11 @@ async function createshopElement_seller( product_id) {
         const detail = product_info_cart.productInfoCart[0].detail
         const main_type = product_info_cart.types_product[0].type_name
         const sub_type = product_info_cart.types_product[0].sub_type
+        let insub_type = `[ ${sub_type} ]`
 
+        if(sub_type === undefined){
+            insub_type = ''
+        }
         incpro.innerHTML = `
                 <div class="detail_pro">
                     <a class="click_incpro" href="/product/${product_id}">
@@ -99,8 +103,8 @@ async function createshopElement_seller( product_id) {
                         <div class="main_type">
                             ${main_type}
                         </div>
-                        <div class="sub_type">
-                        [ ${sub_type} ]
+                        <div class="sub_type sub_type${product_id}">
+                         ${insub_type} 
                         </div>
                     </div>
                     <div class="edit_del">
@@ -115,6 +119,7 @@ async function createshopElement_seller( product_id) {
 
         
             Iincshop.appendChild(incpro)
+
     } catch (error) {
         console.error('Error fetching product data:', error);
     }

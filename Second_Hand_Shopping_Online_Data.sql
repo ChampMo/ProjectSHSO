@@ -25,7 +25,6 @@ insert into Address values (01,'123/123','5','-','บางมด','ทุ่ง
 insert into Cart values (01,01),(02,02);
 
 insert into Cart_Product values (02,01,01,'2022-12-08') , (02,02,05,'2023-5-06') , (02,03,10,'2023-11-24');
-#insert into Cart_Product values (03,01,01,'2022-12-08'),(03,02,01,'2023-5-06'),(03,03,1,'2023-11-24');
 
 
 

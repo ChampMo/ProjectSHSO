@@ -76,6 +76,8 @@ class AppServer {
      const db__nosql = require("./routes/db_nosql");
      this.app.use("/", db__nosql);
 
+     const edit_product = require("./routes/edit_product");
+     this.app.use("/", edit_product);
 
     }
 

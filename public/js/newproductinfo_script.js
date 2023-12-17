@@ -12,7 +12,8 @@ async function uploadFile(point) {
     const upload = document.getElementById(`photo${point}`)
     const formData = new FormData(); 
     formData.append('productImage', file);
-    console.log(formData)
+    formData.append('point', point);
+    console.log(point,'formData',formData)
     try {
         const response = await fetch('/upload/product_picture/', {
             method: 'POST',
@@ -146,3 +147,8 @@ product_cate.addEventListener("change", function() {
 
 
 
+fetch(`/del/session_product/`)
+    .then(response => response.json())
+    .catch(error => {
+        console.error('Error fetching product data:', error);
+    });

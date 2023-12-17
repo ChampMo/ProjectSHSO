@@ -21,7 +21,6 @@ class SellerRouter {
     this.router.get('/api/count_order2_seller/', this.getCountOrder2Seller.bind(this));
     this.router.put('/api/delete_product_sell/', this.deleteProductSell.bind(this));
     this.router.post('/api/edit_product_sellmain/', this.editProductSell.bind(this));
-    this.router.get('/api/get_old_data/', this.getEdit_Product.bind(this));
     
   }
 
@@ -104,22 +103,7 @@ class SellerRouter {
       res.status(500).json({ success: false, error: 'Internal server error' });
     }
   }
-  
-  async getEdit_Product(req,res){
-    try {
-      const products = await this.db.query('SELECT * FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product WHERE product_id = ? LIMIT 1;', [req.session.editId]);
 
-      const types_info = await Catelog.find({ id_product: req.session.editId });
-      const typesId = types_info.map(item => item.type_id);
-      const types_product = await Type.find({ type_id: typesId });
-      console.log(products,types_product)
-
-      res.json({ products, types_product });
-    } catch (err) {
-      console.error('Error executing SQL query:', err);
-      res.render('error', { error: 'An error occurred while fetching data.' });
-    }
-  }
 
 
 
