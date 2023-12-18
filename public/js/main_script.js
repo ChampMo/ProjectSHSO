@@ -41,6 +41,7 @@ function search_product(){
     if (input1 !== ''){
         //window.location.href = '/main'
             productContainer.innerHTML = '';
+            console.log('input1',input1)
             fetch('/search-product/', {
                 method: 'POST',
                 headers: {
@@ -53,6 +54,7 @@ function search_product(){
             .then(totalProducts => {
                 
                 totalProducts.forEach(element => {
+                    console.log('input1',element)
                     createProductBoxsearch(element.product_id);
                 });
             })

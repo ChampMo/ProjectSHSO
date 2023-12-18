@@ -34,9 +34,9 @@ class ProductRouter {
 
   async postSearchProduct(req, res) {
     let input1 = req.body;
-
+    console.log('input1',input1)
     try {
-      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ? quantity > 0;', [`%${input1.input1}%`]);
+      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ? AND quantity > 0;', [`%${input1.input1}%`]);
       res.json(productIds);
     } catch (err) {
       console.error('Error executing SQL query:', err);

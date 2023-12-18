@@ -82,6 +82,9 @@ class AppServer {
      const edit_shop = require("./routes/edit_shop");
      this.app.use("/", edit_shop);
 
+    //  const datanosql = require('./routes/model/datanosql.js');
+    //  this.app.use("/", datanosql);
+
     }
 
   startServer() {
