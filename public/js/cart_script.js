@@ -84,7 +84,7 @@ async function createshopElement(seller_id, product_id) {
                     <input type="checkbox" class="Ccheck_shop_pro" onclick="checkbox()">
                     <span class="checkmark"></span>
                 </label>
-                <div class="shop_name">${shop_name[0].shop_name}</div>
+                <div class="shop_name" onclick='goshop(${product_id})'>${shop_name[0].shop_name}</div>
             </div>
             <div class="outincpro"  id="shop${seller_id}_Iincpro">
                 

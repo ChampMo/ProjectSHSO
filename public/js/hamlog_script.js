@@ -719,6 +719,33 @@ document.querySelector('.Signinbutton').addEventListener('click', function () {
 
 
 function gotomain(){
+    fetch('/save-register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ Uuserinput_sign, Uusernameinput_sign, Ppassinput_sign }),
+    })
+    .then(response => response.json())
+            .then(data => {
+                if (data.check_mail) {
+                    match_mail.style.visibility = "hidden";
+                    console.log('Data inserted successfully');
+                    setTimeout(() => {
+                        login_click.click()
+                        alert('Register successfully!!!');
+                    }, 500);
+                    
+                } else {
+                    match_mail.style.visibility = "visible";
+                    console.log('Email is already registered');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle the error, for example by displaying a user-friendly message
+            });
+
     window.location.href = '/main'
 }
 
@@ -728,6 +755,31 @@ function gotomain(){
 
 
 //-----------------------------------------------------------------
+
+
+
+function goshop(product_id){
+    fetch('/api/set_session_shop/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ product_id }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data[0].seller_id);
+        window.location.href = '/shop'
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle the error, for example by displaying a user-friendly message
+    });
+
+
+}
+
 
 
 

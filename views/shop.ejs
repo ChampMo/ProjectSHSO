@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/main_style.css" rel="stylesheet">
-    <link href="./css/seller_style.css" rel="stylesheet">
+    <link href="./css/shop_style.css" rel="stylesheet">
 
 
     <script defer src="./js/hamlog_script.js"></script>
-    <script defer src="./js/seller_script.js"></script>
+    <script defer src="./js/shop_script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="images/iconSHSO.png">
     <title>Second Hand Shopping Online</title>
@@ -98,62 +98,25 @@
     </header>
     <div class="bg_all">
         <div class="all">
-            
             <div class="shop_info">
                 <div class="bg_img_shop">
                     <div class="border_img">
                         <img class="img_shop">
                     </div>
-                    <div id="shop_name"></div>
+                    
                 </div>
                 <div class="info_shop">
+                    <div id="shop_name"></div>
                     <div class="address_shop">Address : 
                         <div class="address_shopin"></div>
-                    </div>Description : 
+                    </div>
+                </div>
+                <div class="des">
+                    Description : 
                     <textarea class="description_shop" readonly></textarea>
                 </div>
-                <div class="info_card">
-                    <div class="cart_id">Cart_id :
-                        <input class="incart_id" readonly type="password" value=""></input>
-                    </div>
-                    <div class="bank">Bank : 
-                        <input class="inbank" readonly type="password" value=""></input>
-                    </div>
-                    <div class="bank_number">Bank_number : 
-                        <input class="inbank_number" readonly type="password" value=""></input>
-                    </div>
-                </div>
-                <div class="edit_hidden">
-                    <i class="fa-solid fa-eye eye_icon" id="eye_icon"></i>
-                    <i class="fa-solid fa-eye-slash eyeslash_icon" id="eyeslash_icon"></i>
-                    <a href="../edit_shop" >
-                        <i class="fa-regular fa-pen-to-square edit_icon"></i>
-                    </a>
-                </div>
             </div>
-            <div class="container_orad">
-                <div class="order_pro">
-                    <div class="my_product_add_head">
-                        รายการที่ต้องจัดส่ง
-                        <!-- ลูกค้าของคุณสั่ง Order มาแล้ว -->
-                    </div>
-                    <a class="myproduct_order" href="./seller_order">
-                        <i class="fa-solid fa-bookmark bookmark2"></i>
-                        <i class="fa-solid fa-bookmark bookmark"></i>
-                        <div class="count_order2"></div>
-                        <i class="fa-solid fa-box-open box_open" ></i>
-                        Your order
-                    </a>
-                </div>
-                <div class="order_pro2">
-                    <div class="my_product_add_head2">
-                        เพิ่มรายการสินค้า
-                    </div>
-                    <a class="myproduct_add" href="./newproductinfo">
-                        <i class="fa-solid fa-plus fa-2xl"></i>
-                    </a>
-                </div>
-            </div>
+
             <div class="my_product_head">
                 รายการสินค้าทั้งหมด
             </div>

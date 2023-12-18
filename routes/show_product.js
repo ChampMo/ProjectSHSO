@@ -24,7 +24,7 @@ class ProductRouter {
   
   async getCountProducts(req, res) {
     try {
-      const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0;');
+      const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0 ORDER BY product_id DESC;');
       res.json(productIds);
     } catch (err) {
       console.error('Error executing SQL query:', err);
@@ -36,7 +36,7 @@ class ProductRouter {
     let input1 = req.body;
     console.log('input1',input1)
     try {
-      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ? AND quantity > 0;', [`%${input1.input1}%`]);
+      const productIds = await db.query('SELECT product_id FROM Product WHERE name LIKE ? AND quantity > 0 ORDER BY product_id DESC;', [`%${input1.input1}%`]);
       res.json(productIds);
     } catch (err) {
       console.error('Error executing SQL query:', err);
@@ -141,7 +141,7 @@ class ProductRouter {
       const type_value1 = type_value.type_value
       if( parseInt(type_value1) >=100 && parseInt(type_value1) <=110){
         if(parseInt(type_value1) ==100){
-          const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0;');
+          const productIds = await db.query('SELECT product_id FROM Product WHERE quantity > 0  ORDER BY product_id DESC;');
           const arrayOfProductIds = productIds.map(item => item.product_id);
           res.json(arrayOfProductIds);
         }else if (parseInt(type_value1) ==101){

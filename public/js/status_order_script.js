@@ -169,7 +169,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
         all_intype_order.innerHTML = `
         <div class="shop_pro">
             <div class="detail_shop">
-                <div class="shop_name">${shop_name.shop_name[0].shop_name}</div>
+                <div class="shop_name" onclick='goshop(${product_id})'>${shop_name.shop_name[0].shop_name}</div>
                 <div class="date_order">${shop_name.date[0].date}</div>  
             </div>
             <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">
@@ -466,7 +466,7 @@ async function createshopElement(seller_id, product_id, order_id) {
         all_intype_order.innerHTML = `
         <div class="shop_pro">
             <div class="detail_shop">
-                <div class="shop_name">${shop_name.shop_name[0].shop_name}</div>
+                <div class="shop_name" onclick='goshop(${product_id})'>${shop_name.shop_name[0].shop_name}</div>
                 <div class="date_order">${shop_name.date[0].date}</div>
             </div>
             <section class="inorder" id="${order_id}shop${seller_id}_Iincpro">

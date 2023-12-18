@@ -220,6 +220,7 @@ body{
 .shop_name{
     margin-left: 30px;
     font-size: 20px;
+    cursor: pointer;
 }
 .date_order{
     margin-right: 30px;

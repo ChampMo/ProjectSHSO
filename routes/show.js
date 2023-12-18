@@ -47,6 +47,8 @@ class ShowRouter {
       res.render(path.join(__dirname, '../views/edit_shop.ejs'));
     });
 
+    this.router.get('/shop', this.loginshop, (req, res) => {});
+
     
   }
 
@@ -83,6 +85,15 @@ class ShowRouter {
       res.render('status_order', { success: false });
     } else {
       res.render('status_order', { success: true });
+      next();
+    }
+  }
+
+  loginshop(req, res, next) {
+    if (req.session.isLoggedIn) {
+      res.render('shop', { success: false });
+    } else {
+      res.render('shop', { success: true });
       next();
     }
   }

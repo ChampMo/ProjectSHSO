@@ -72,6 +72,9 @@ class SellerRegistration extends FileUploadershop{
 
     this.router.post('/edit/proshop/', this.editUploadMiddleware(), this.uploadProfileImage.bind(this));
     this.router.post('/api/edit/seller/', this.Eedit_shop.bind(this));
+    this.router.post('/api/set_session_shop/', this.set_session_shop.bind(this));
+    this.router.get('/api/get_infoshop_show/', this.get_InfoShopShow.bind(this));
+    this.router.get('/api/get_infoproduct_show/', this.get_infoproduct_show.bind(this));
   }
 
   async uploadProfileImage(req, res) {
@@ -116,6 +119,47 @@ class SellerRegistration extends FileUploadershop{
       res.status(500).json({ check_seller: false, error: 'Internal Server Error' });
     }
   }
+
+  async set_session_shop(req, res) {
+
+    try {
+        const { product_id } = req.body;
+        console.log(product_id)
+        const seller_id = await this.db.query('SELECT seller_id FROM Product WHERE product_id = ?;', [product_id]);
+        req.session.shopId = seller_id[0].seller_id
+        res.json(seller_id)
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).json({ check_seller: false, error: 'Internal Server Error' });
+    }
+  }
+
+  async get_InfoShopShow(req, res) {
+    try {
+      const seller_info = await this.db.query('SELECT * FROM seller  WHERE seller_id = ?;', [req.session.shopId]);
+      req.session.imgShop = seller_info[0].picture.replace('../uploads/product_picture/','')
+      res.json( seller_info );
+    } catch (err) {
+      console.error('Error in editProductSell:', err);
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+  }
+
+  async get_infoproduct_show(req, res) {
+    try {
+      const countShop = await this.db.query('SELECT * FROM Product WHERE seller_id = ? ORDER BY product_id DESC;', [req.session.shopId]);
+      const data = countShop.map(row => ({
+        product_id: row.product_id,
+        seller_id: row.seller_id
+      }));
+      res.json(data);
+    } catch (err) {
+      console.error('Error executing SQL query:', err);
+      res.status(500).json({ error: 'An error occurred while fetching data.' });
+    }
+  }
+
+
 }
 
 const sellerRegistration = new SellerRegistration();

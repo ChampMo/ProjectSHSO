@@ -189,10 +189,10 @@
             <div class="detail">
                 <div class="Shopbox">
                     <div class="picture_shop_box">
-                        <img src="<%= product.picture %>">
+                        <img src="<%= product.picture %>" onclick='goshop(<%= product.product_id %>)'>
                     </div>
-                    <div class="name_shop_box"><%= product.shop_name %></div>
-                    <div class="description_shop_box"><%= product.description %></div>
+                    <div class="name_shop_box" onclick='goshop(<%= product.product_id %>)'><%= product.shop_name %></div>
+                    <textarea class="description_shop_box"><%= product.description %></textarea>
                 </div>
                 <div class="type_pro">
                     <% if (types_product && types_product.length > 0) { %>

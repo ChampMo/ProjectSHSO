@@ -44,7 +44,6 @@ async function createshopElement_seller( product_id) {
             },
             body: JSON.stringify({product_id}),
         });
-        
         const date = await shoResponse.json();
 
         const incpro = document.createElement('div');
@@ -68,7 +67,6 @@ async function createshopElement_seller( product_id) {
         const main_type = product_info_cart.types_product[0].type_name
         const sub_type = product_info_cart.types_product[0].sub_type
         let insub_type = `[ ${sub_type} ]`
-
         if(sub_type === undefined){
             insub_type = ''
         }
@@ -291,7 +289,7 @@ async function get_infoshop(){
     const incart_id = document.querySelector('.incart_id')
     const inbank = document.querySelector('.inbank')
     const inbank_number = document.querySelector('.inbank_number')
-
+    const shop_name = document.getElementById('shop_name')
 
     const shoResponse = await fetch(`/api/get_infoshop/`);
     if (!shoResponse.ok) {
@@ -299,6 +297,7 @@ async function get_infoshop(){
     }
     const seller_info = await shoResponse.json();
     console.log(seller_info[0])
+    shop_name.innerHTML = seller_info[0].shop_name
     img_shop.src = seller_info[0].picture
     address_shopin.innerHTML = seller_info[0].address_shop
     description_shop.innerHTML = seller_info[0].description

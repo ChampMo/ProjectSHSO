@@ -57,6 +57,7 @@ body{
 }
 .shop_name{
     font-size: 20px;
+    cursor: pointer;
 }
 .check_shop_pro{
     margin-left: 10px;
