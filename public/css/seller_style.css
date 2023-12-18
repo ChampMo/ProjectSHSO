@@ -149,6 +149,7 @@ html, body{
     transition-duration: 0.1s;
     cursor: pointer;
     color: #555555;
+    /* color: #f5a96b; */
 }
 .edit_icon:hover, .eye_icon:hover, .eyeslash_icon:hover{
     transform: scale(1.1);
