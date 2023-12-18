@@ -79,6 +79,9 @@ class AppServer {
      const edit_product = require("./routes/edit_product");
      this.app.use("/", edit_product);
 
+     const edit_shop = require("./routes/edit_shop");
+     this.app.use("/", edit_shop);
+
     }
 
   startServer() {

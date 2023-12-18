@@ -122,7 +122,20 @@ html, body{
 .shop_description{
     height: 200px;
     padding: 10px;
+    resize: none;
 }
+.shop_description::-webkit-scrollbar {
+    width: 12px;
+
+}
+.shop_description::-webkit-scrollbar-track {
+    background-color: #fee7ce;
+    border-radius: 10px;
+} 
+.shop_description::-webkit-scrollbar-thumb {
+    background-color: #f8bc8b; 
+    border-radius: 10px;
+} 
 .input_infoseller input:focus, .input_infoseller textarea:focus{
     border: 1px solid#ed6a53;
 }

@@ -56,7 +56,7 @@ class FileUploadershop {
     }
   }
 
-  getUploadMiddleware() {
+  editUploadMiddleware() {
     return this.upload.single('profileImage');
   }
 
@@ -70,8 +70,8 @@ class SellerRegistration extends FileUploadershop{
     this.db.connect();
 
 
-    this.router.post('/upload/proshop/', this.getUploadMiddleware(), this.uploadProfileImage.bind(this));
-    this.router.post('/api/register/seller/', this.registerSeller.bind(this));
+    this.router.post('/edit/proshop/', this.editUploadMiddleware(), this.uploadProfileImage.bind(this));
+    this.router.post('/api/edit/seller/', this.Eedit_shop.bind(this));
   }
 
   async uploadProfileImage(req, res) {
@@ -86,31 +86,31 @@ class SellerRegistration extends FileUploadershop{
       req.session.filename = filePath;
       console.log('session:', req.session.filename);
       // Respond to the client with the relative path
-      res.status(200).json({ message: 'File uploaded successfully', filePath });
+      res.json({ filePath });
     } catch (error) {
       console.error('Error uploading file:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
 
-  async registerSeller(req, res) {
-    const { card_id, shop_name, shop_address, shop_description, shop_bank, shop_bank_id } = req.body;
+  async Eedit_shop(req, res) {
 
     try {
-      if (req.session.filename !== '') {
-        let maxIdResults = await this.db.query('SELECT max(seller_id) as Max_id FROM Seller limit 1;');
-        let max_id = maxIdResults[0].Max_id;
-        let status_seller = 'unverified';
-        let picfile = `../uploads/profile_shop/${req.session.filename}`;
+        const { shop_name, shop_address, shop_description, shop_bank, shop_bank_id } = req.body;
 
-        await this.db.query('INSERT INTO Seller (seller_id, card_id, bank, bank_number, picture, customer_id, shop_name, description, address_shop, status_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-          [++max_id, card_id, shop_bank, shop_bank_id, picfile, req.session.userId, shop_name, shop_description, shop_address, status_seller]);
+        console.log( shop_name, shop_address, shop_description, shop_bank, shop_bank_id )
+          if (req.session.filename !== '') {
+            req.session.imgShop = req.session.filename;
+            let picfile = `../uploads/profile_shop/${req.session.imgShop}`;
+            console.log(picfile)
+            const seller = await this.db.query('SELECT seller_id FROM seller NATURAL JOIN Customer WHERE customer_id = ?;', [req.session.userId]);
+            const sseller = seller[0].seller_id;
+            await this.db.query('UPDATE SELLER SET picture = ?, shop_name = ?, address_shop = ?, description = ?, bank = ?, bank_number = ? WHERE seller_id = ?;', [picfile, shop_name, shop_address, shop_description, shop_bank, shop_bank_id, sseller]);
+            res.json({ check_seller: true });
+          } else {
+            res.status(500).json({ check_seller: false, error: 'File not found' });
+          }
 
-        console.log('Data inserted successfully');
-        res.json({ check_seller: true });
-      } else {
-        res.status(500).json({ check_seller: false, error: 'File not found' });
-      }
     } catch (err) {
       console.error('Error:', err);
       res.status(500).json({ check_seller: false, error: 'Internal Server Error' });

@@ -43,6 +43,10 @@ class ShowRouter {
       res.render(path.join(__dirname, '../views/edit_product.ejs'));
     });
 
+    this.router.get('/edit_shop', (req, res) => {
+      res.render(path.join(__dirname, '../views/edit_shop.ejs'));
+    });
+
     
   }
 

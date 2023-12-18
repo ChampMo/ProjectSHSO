@@ -110,6 +110,7 @@ class SellerRouter {
       const seller = await this.db.query('SELECT seller_id FROM seller NATURAL JOIN Customer WHERE customer_id = ?;', [req.session.userId]);
       const sseller = seller[0].seller_id;
       const seller_info = await this.db.query('SELECT * FROM seller  WHERE seller_id = ?;', [sseller]);
+      req.session.imgShop = seller_info[0].picture.replace('../uploads/product_picture/','')
       res.json( seller_info );
     } catch (err) {
       console.error('Error in editProductSell:', err);

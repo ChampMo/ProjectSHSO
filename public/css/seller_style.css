@@ -29,12 +29,13 @@ html, body{
     width: 1050px;
     height: 250px;
     margin-top: 40px;
-    background-color: #f4b27c;
+    background-color: #fee7ce;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 25px ;
+    border: 1px solid #d4803c;
 }
 .bg_img_shop{
     width: 200px;
@@ -68,22 +69,23 @@ html, body{
 .description_shop{
     width: 350px;
     height: 100px;
-    background-color: #fee7ce;
+    background-color: #fff1df;
     border-radius: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
     resize: none;
     border: 0;
     outline: none;
     box-sizing: border-box;
     padding: 5px;
     font-size: 16px;
+    border-left:2px solid #f8bc8b;
 }
 .description_shop::-webkit-scrollbar {
     width: 10px;
 
 }
 .description_shop::-webkit-scrollbar-track {
-    background-color: #fee7ce;
+    background-color: #fff1df;
     border-radius: 10px;
 } 
 .description_shop::-webkit-scrollbar-thumb {
@@ -103,7 +105,7 @@ html, body{
 .address_shopin{
     margin-left: 5px;
     width:270px;
-    height: 80px;
+    height: 50px;
 }
 .info_card{
     width: 350px;
@@ -136,7 +138,6 @@ html, body{
     width: 25px;
     height: 200px;
     font-size: 25px;
-    color: #555555;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
@@ -147,6 +148,7 @@ html, body{
     width: 25px;
     transition-duration: 0.1s;
     cursor: pointer;
+    color: #555555;
 }
 .edit_icon:hover, .eye_icon:hover, .eyeslash_icon:hover{
     transform: scale(1.1);
@@ -621,7 +623,7 @@ html, body{
     }
     .shop_info{
         flex-direction: column;
-        height: 1500px;
+        height: 750px;
         width: 400px;
     }
     .bg_img_shop{
@@ -629,7 +631,7 @@ html, body{
     }
     .edit_hidden{
         width: 300px;
-        height: 40px;
+        height: 45px;
         flex-direction: row;
     }
     .edit_icon{
