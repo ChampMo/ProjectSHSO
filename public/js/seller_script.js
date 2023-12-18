@@ -93,7 +93,7 @@ async function createshopElement_seller( product_id) {
                                 </div>
                             </div>
                         </div>
-                        <textarea class="bg_desc">
+                        <textarea class="bg_desc" readonly>
                             detail : ${detail}
                         </textarea>
                     </div>
@@ -254,3 +254,65 @@ async function edit_product_sell(product_id){
         window.location.href = "/edit_product"
     }
 }
+
+document.getElementById('eye_icon').addEventListener('click',()=>{
+    const eye_icon = document.getElementById('eye_icon')
+    const eyeslash_icon = document.getElementById('eyeslash_icon')
+    const incart_id = document.querySelector('.incart_id')
+    const inbank = document.querySelector('.inbank')
+    const inbank_number = document.querySelector('.inbank_number')
+
+    eye_icon.style.display = 'none'
+    eyeslash_icon.style.display = 'flex'
+    incart_id.type = 'text'
+    inbank.type = 'text'
+    inbank_number.type = 'text'
+})
+document.getElementById('eyeslash_icon').addEventListener('click',()=>{
+    const eye_icon = document.getElementById('eye_icon')
+    const eyeslash_icon = document.getElementById('eyeslash_icon')
+    const incart_id = document.querySelector('.incart_id')
+    const inbank = document.querySelector('.inbank')
+    const inbank_number = document.querySelector('.inbank_number')
+
+    eye_icon.style.display = 'flex'
+    eyeslash_icon.style.display = 'none'
+    incart_id.type = 'password'
+    inbank.type = 'password'
+    inbank_number.type = 'password'
+})
+
+
+
+async function get_infoshop(){
+    const img_shop = document.querySelector('.img_shop')
+    const address_shopin = document.querySelector('.address_shopin')
+    const description_shop = document.querySelector('.description_shop')
+    const incart_id = document.querySelector('.incart_id')
+    const inbank = document.querySelector('.inbank')
+    const inbank_number = document.querySelector('.inbank_number')
+
+
+    const shoResponse = await fetch(`/api/get_infoshop/`);
+    if (!shoResponse.ok) {
+        throw new Error(`HTTP error! Status: ${shoResponse.status}`);
+    }
+    const seller_info = await shoResponse.json();
+    console.log(seller_info[0])
+    img_shop.src = seller_info[0].picture
+    address_shopin.innerHTML = seller_info[0].address_shop
+    description_shop.innerHTML = seller_info[0].description
+    incart_id.value = seller_info[0].card_id
+    inbank.value = seller_info[0].bank
+    inbank_number.value = seller_info[0].bank_number
+    
+
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    get_infoshop()
+});
+    
+
+
+
+
