@@ -33,13 +33,13 @@ project
 
 2.run ไฟล์ Database[Second_Hand_Shopping_Online_Data.sql, Second_Hand_Shopping_Online.sql] ใน MySQL Workbench
 
-3.ใส่ข้อมูล NoSQL ใน mongodb ด้วยการ 
+3.npm init
 
-4.npm init
+4.npm install express bcrypt cookie-session express-validator mysql2 ejs multer fs.promises mongoose
 
-5.npm install express bcrypt cookie-session express-validator mysql2 ejs multer fs.promises mongoose
+5.node --watch app.js
 
-6.node --watch app.js
+6.ใส่ข้อมูล NoSQL ใน mongodb ด้วยการ เข้าไปที่ไฟล์ app.js และ uncomment บรรทัดที่ 85-86 เมื่อรันเสร็จให้ comment กลับเหมือนเดิม
 
 7.เข้าถึง localhost:3000 ในเว็บ browser
 
