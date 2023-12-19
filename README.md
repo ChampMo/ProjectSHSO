@@ -31,16 +31,18 @@ project
 วิธีการ run
 1.เปิด code ใน vs code
 
-2.run ไฟล์ Database[Second_Hand_Shopping_Online_Data.sql, Second_Hand_Shopping_Online.sql] ใน MySQL Workbench
+2.เข้าไปเปลี่ยน Your_User_SQL, Your_Password_SQL, Your_Mongodb_Connection ในไฟล์ passdb.js
 
-3.npm init
+3.run ไฟล์ Database[Second_Hand_Shopping_Online_Data.sql, Second_Hand_Shopping_Online.sql] ใน MySQL Workbench
 
-4.npm install express bcrypt cookie-session express-validator mysql2 ejs multer fs.promises mongoose
+4.npm init
 
-5.node --watch app.js
+5.npm install express bcrypt cookie-session express-validator mysql2 ejs multer fs.promises mongoose
 
-6.ใส่ข้อมูล NoSQL ใน mongodb ด้วยการ เข้าไปที่ไฟล์ app.js และ uncomment บรรทัดที่ 85-86 เมื่อรันเสร็จให้ comment กลับเหมือนเดิม
+6.node --watch app.js
 
-7.เข้าถึง localhost:3000 ในเว็บ browser
+7.ใส่ข้อมูล NoSQL ใน mongodb ด้วยการ เข้าไปที่ไฟล์ app.js และ uncomment บรรทัดที่ 85-86 เมื่อรันเสร็จให้ comment กลับเหมือนเดิม
 
-8.เริ่มต้นใช้งานเว็บ
+8.เข้าถึง localhost:3000 ในเว็บ browser
+
+9.เริ่มต้นใช้งานเว็บ
