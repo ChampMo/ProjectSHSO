@@ -34,7 +34,7 @@ create table Seller (
 -- 3
 create table Product (
 	product_id numeric(10) not null primary key,
-    name varchar(20),
+    name varchar(150),
     detail TEXT,
     price numeric(10),
     quantity numeric(10),
