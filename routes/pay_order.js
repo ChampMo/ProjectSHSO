@@ -29,14 +29,18 @@ class PayRouter {
   async countOrder(req, res) {
     try {
       let seller_id = [];
-      const product_id = req.session.checkProduct;
-
+      let product_id = req.session.checkProduct;
+      if (!Array.isArray(product_id)) {
+        product_id = [product_id];
+      }
+      console.log('product_idproduct_idproduct_idproduct_id',product_id);
       for (const element of product_id) {
           try {
               const count_shop = await this.db.query('SELECT seller_id FROM Seller NATURAL JOIN Product NATURAL JOIN  Cart_Product WHERE cart_id = ? AND product_id = ? LIMIT 1;', [req.session.userId, element]);
-
+              console.log('count_shopcount_shopcount_shop',element);
               if (count_shop.length > 0) {
                   seller_id.push(parseInt(count_shop[0].seller_id));
+                  console.log('seller_idseller_idseller_id',seller_id);
               } else {
                   console.log(`No seller_id found for product_id ${element}`);
               }
@@ -88,7 +92,8 @@ class PayRouter {
       // Calculate unique sellers and cost_car outside the loop
       const uniqueSellerIds = [...new Set(seller_id)];
       const cost_car = uniqueSellerIds.length * 50;
-
+      req.session.filename = null
+      console.log('req.session.filename',req.session.filename)
       // Send the response once after all asynchronous operations are complete
       res.json({ check_cost, cost_car });
     } catch (err) {
@@ -143,12 +148,14 @@ class PayRouter {
     this.db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
     try {
         let { date_time_slip } = req.body;
-        if (req.session.filename != "" || req.session.filename != null) {
+        req.session.filename = null
+        console.log("Wait ----------",req.session.filename)
+        if (req.session.filename != null && req.session.filename !== "") {
 
             let status_order = "Wait"
             console.log(max_id)
             const filen = req.session.filename
-            console.log(product_id)
+            console.log(filen)
             product_id.forEach( async element => {
                 let aamount = await this.db.query('SELECT product_amount FROM Cart_Product natural join Product WHERE cart_id = ? AND product_id = ?;', [req.session.userId, element]);
                 let amount = aamount[0].product_amount;

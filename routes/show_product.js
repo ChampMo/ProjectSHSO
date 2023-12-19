@@ -70,6 +70,7 @@ class ProductRouter {
         console.log(types_product)
 
         req.session.checkProduct = id_pro;
+        console.log('req.session.checkProduct',req.session.checkProduct)
         res.render('product', { products, address, types_product, success: false });
       } catch (err) {
         console.error('Error executing SQL query:', err);
@@ -114,7 +115,6 @@ class ProductRouter {
     let amount_pro = req.body;
     const amount_Pro = amount_pro.amount_pro;
     const proId = req.session.checkProduct;
-
     try {
       if (req.session.isLoggedIn) {
         const [rows] = await db.query('SELECT * FROM Cart_Product WHERE cart_id = ? AND product_id = ? ;', [req.session.userId, proId]);

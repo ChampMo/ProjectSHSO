@@ -438,7 +438,7 @@ body{
 }
 .description_body{
     margin-left: 20px;
-    width: 100%;
+    width: 80%;
     height: 500px;
     outline: none;
     resize: none;

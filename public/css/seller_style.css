@@ -45,7 +45,7 @@ html, body{
 }
 .bg_img_shop{
     width: 200px;
-    height: 200px;
+    height: 250px;
     background-color: #fee7ce;
     border-radius: 10px;
     display: flex;
@@ -101,7 +101,7 @@ html, body{
 } 
 
 .address_shop{
-    width: 350px;
+    width: 360px;
     height: 60px;
     background-color: #fee7ce;
     border-radius: 5px;
