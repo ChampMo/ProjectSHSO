@@ -141,8 +141,8 @@
                         <% if (address && address.length > 0) { %>
                             <% const firstAddress = address[0]; %>
                             <div class="product_address">
+                                <div class="address_datah">ที่อยู่ : </div>
                                 <div class="inproduct_address">
-                                    <div class="address_data">ที่อยู่ : </div>
                                     <div class="address_data"><%= firstAddress.village %></div>
                                     <div class="address_data"><%= firstAddress.no_village %></div>
                                     <div class="address_data"><%= firstAddress.road %></div>
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                         <% } else { %>
-                            <p>กรุณากรอกที่อยู่</p>
+                            <div class="product_address">ที่อยู่ : </div>
                         <% } %>
                         <div class="product_quantity">
                             <div class="quantity">

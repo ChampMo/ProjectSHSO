@@ -51,11 +51,12 @@ async function start_order(){
         Iincshop.innerHTML = '';
 
     if(sending_status == 1){
-        await getcreateshopElementforselling();
-    }else{
-        for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
-            await getcreateshopElement(j);
-        }
+        let box = 1
+        await getcreateshopElementforselling(box);
+    }else{  //j < 2  --> shopCount
+        let box = 1
+        await getcreateshopElement(box);
+        
     }
 
 }
@@ -64,34 +65,27 @@ async function start_order(){
 
 
 //สร้าว element order${order_id}
-async function process_orderforselling(seller_id, product_id, order_id) {
+async function process_orderforselling(seller_id, product_id, order_id,box) {
     const Iincshop = document.getElementById("Iincshop")
 
 
     try {
         let all_intype_order = document.createElement('div');
-        all_intype_order.className = 'all_intype_order';
-        all_intype_order.id = `order${order_id}`;
-
+        all_intype_order.className = 'all_intype_order inIincshop';
+        all_intype_order.id = `${box}order${order_id}`;
+        
         
         Iincshop.appendChild(all_intype_order);
-        await processShopProElementsforselling(seller_id, product_id, order_id);
+        await createshopElementforselling(seller_id, product_id, order_id,box);
         
         
     } catch (error) {
         console.error('Error fetching product data:', error);
     }
 }
- 
-// ดูว่ามีร้านที่ถูกสร้างมั้ย
-async function processShopProElementsforselling(seller_id,product_id, order_id) {
-    
-    await createshopElementforselling(seller_id, product_id, order_id);
 
 
-}
-
-async function getcreateshopElementforselling() {
+async function getcreateshopElementforselling(box) {
 
     Iincshop.innerHTML = '';
 
@@ -103,15 +97,29 @@ async function getcreateshopElementforselling() {
         }
 
         const data = await response.json();
-
+        
         for (const item of data) {
             const product_id = item.product_id;
             const seller_id = item.seller_id;
             const order_id = item.order_id;
             
-            await process_orderforselling(seller_id, product_id, order_id);
+                let foundMatch = false;
+                //let shop_pro = document.querySelectorAll('.all_intype_order');
+                // for (const element of shop_pro) {
+                    
+                //     if (element.id === `order${order_id}`) {
+                //         await createshopElementforselling(seller_id, product_id, order_id);
+                //         foundMatch = true;
+                //     }
+                // }
 
-        }
+                // if (!foundMatch) {
+                    await process_orderforselling(seller_id, product_id, order_id,box);
+                // }
+                    box+=1
+                       
+
+                    }
     } catch (error) {
         console.error('Error fetching shop data:', error);
     }
@@ -119,9 +127,9 @@ async function getcreateshopElementforselling() {
 
 
 
-async function createshopElementforselling(seller_id, product_id, order_id) {
+async function createshopElementforselling(seller_id, product_id, order_id,box) {
     // Declare shop_pro here
-    const Iincshop = document.getElementById(`order${order_id}`)
+    const Iincshop = document.getElementById(`${box}order${order_id}`)
 
     try {
         
@@ -157,7 +165,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
         const status_order = product_info_cart.productInfoCart[0].status_order
         const cost = (price*product_amount)
         const main_type = product_info_cart.types_product[0].type_name
-
+        
         console.log('price',price,'product_amount', product_amount,'cost',cost)
         // Assuming shop_pro is available in the global scope
         incpro.innerHTML = `
@@ -186,7 +194,7 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
                     </div>
                 </div>
                 <div class='bg_con_product' >
-                    <button class="customer_info${order_id} customer_info" onclick='custo_info(${seller_id},${product_id},${order_id})'>ข้อมูลลูกค้า</button>
+                    <button class="customer_info${order_id}${box} customer_info" onclick='custo_info(${seller_id},${product_id},${order_id},${box})'>ข้อมูลลูกค้า</button>
                     <button class="xcon_product" onclick='Xconfirm(${product_id},${order_id})'>ยกเลิก order</button>
                     <button class="con_product" onclick='confirm(${product_id},${order_id})'>ส่งสินค้าเรียบร้อย</button>
                 </div>
@@ -255,10 +263,10 @@ async function createshopElementforselling(seller_id, product_id, order_id) {
 }
 
 //-----------------------------------------------
-function custo_info(seller_id, product_id, order_id){
-    const orderbg = document.getElementById(`order${order_id}`);
+function custo_info(seller_id, product_id, order_id,box){
+    const orderbg = document.getElementById(`${box}order${order_id}`);
     const cus_info = document.getElementById(`${order_id}Customer${seller_id}_info${product_id}`);
-    const customer_info = document.querySelector(`.customer_info${order_id}`);
+    const customer_info = document.querySelector(`.customer_info${order_id}${box}`);
     cus_info.classList.toggle('active');
     if (cus_info.classList.contains('active')) {
         customer_info.textContent = 'ปิดข้อมูล'
@@ -359,18 +367,18 @@ async function confirm(product_id,order_id){
 
 
 //สร้าว element order${order_id}
-async function process_order(seller_id, product_id, order_id) {
+async function process_order(seller_id, product_id, order_id, box) {
     const Iincshop = document.getElementById("Iincshop")
 
 
     try {
         let all_intype_order = document.createElement('div');
         all_intype_order.className = 'all_intype_order';
-        all_intype_order.id = `order${order_id}`;
+        all_intype_order.id = `${box}order${order_id}`;
 
         
         Iincshop.appendChild(all_intype_order);
-        await processShopProElements(seller_id, product_id, order_id);
+        await createshopElement(seller_id, product_id, order_id, box);
         
         
     } catch (error) {
@@ -379,14 +387,9 @@ async function process_order(seller_id, product_id, order_id) {
 }
  
 // ดูว่ามีร้านที่ถูกสร้างมั้ย
-async function processShopProElements(seller_id,product_id, order_id) {
-    
-    await createshopElement(seller_id, product_id, order_id);
 
 
-}
-
-async function getcreateshopElement() {
+async function getcreateshopElement(box) {
 
     Iincshop.innerHTML = '';
 
@@ -404,8 +407,8 @@ async function getcreateshopElement() {
             const seller_id = item.seller_id;
             const order_id = item.order_id;
             console.log('prodect - ',product_id,'order - ',order_id)
-            await process_order(seller_id, product_id, order_id);
-
+            await process_order(seller_id, product_id, order_id, box);
+            box+=1
         }
     } catch (error) {
         console.error('Error fetching shop data:', error);
@@ -414,9 +417,9 @@ async function getcreateshopElement() {
 
 
 
-async function createshopElement(seller_id, product_id, order_id) {
+async function createshopElement(seller_id, product_id, order_id, box) {
     // Declare shop_pro here
-    const Iincshop = document.getElementById(`order${order_id}`)
+    const Iincshop = document.getElementById(`${box}order${order_id}`)
 
     try {
         // สร้าง HTML ภายใน .shop_pro

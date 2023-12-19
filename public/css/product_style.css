@@ -167,16 +167,18 @@ body{
     padding: 10px;
     height: 130px;
     display: flex;
-    flex-direction: column;
+}
+.address_datah{
+    padding-top: 5px;
 }
 .inproduct_address{
     font-size: 22px;
     display: flex;
     flex-wrap: wrap;
-    width: 500px;
+    width: 450px;
 }
 .address_data{
-    font-size: 22px;
+    font-size: 18px;
     padding: 10px;
 }
 .product_quantity{

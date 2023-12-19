@@ -190,7 +190,18 @@ body{
 #Iincshop{
     padding-bottom: 150px;
 }
-
+.inIincshop{
+    width: 100%;
+    height: 250px;
+    padding: 10px 0;
+    max-width: 1500px;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    background-color: #fff;
+    transition-duration: 0.3s;
+}
 .bg_order{
     background-color: rgb(240, 170, 113);
     width: 1200px;

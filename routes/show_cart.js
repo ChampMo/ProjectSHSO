@@ -90,11 +90,11 @@ class ShoppingCartRouter {
 
         await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [--bbeforeCountD, req.session.userId, product_id]);
 
-        let countD = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        res.json({ countD: countD[0].product_amount });
+        let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countd: countd[0].product_amount });
       } else {
-        let countD = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        res.json({ countD: countD[0].product_amount });
+        let countd = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ countd: countd[0].product_amount });
       }
     } catch (err) {
       console.error('Error executing SQL query:', err);
@@ -116,11 +116,11 @@ class ShoppingCartRouter {
 
       if (bbeforeCountI < qQuantity) {
         await db.query('UPDATE Cart_Product SET product_amount = ? WHERE cart_id = ? AND product_id = ? ', [++bbeforeCountI, req.session.userId, product_id]);
-        let countI = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        res.json({ countI: countI[0].product_amount, buCount: true });
+        let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ counti: counti[0].product_amount, bucount: true });
       } else {
-        let countI = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
-        res.json({ countI: countI[0].product_amount, buCount: false });
+        let counti = await db.query('SELECT product_amount FROM Cart_Product WHERE cart_id = ? AND product_id = ? ', [req.session.userId, product_id]);
+        res.json({ counti: counti[0].product_amount, bucount: false });
       }
     } catch (err) {
       console.error('Error executing SQL query:', err);

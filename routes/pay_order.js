@@ -148,8 +148,6 @@ class PayRouter {
     this.db.query('INSERT INTO Order_Product VALUES (?, ?);',[++max_id, req.session.userId ] );
     try {
         let { date_time_slip } = req.body;
-        req.session.filename = null
-        console.log("Wait ----------",req.session.filename)
         if (req.session.filename != null && req.session.filename !== "") {
 
             let status_order = "Wait"

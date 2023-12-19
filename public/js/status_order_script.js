@@ -52,10 +52,9 @@ async function start_order(){
 
     if(sending_status == 1){
         await getcreateshopElementforselling();
-    }else{
-        for (let j = 0; j < 2; j++) {   //j < 2  --> shopCount
-            await getcreateshopElement(j);
-        }
+    }else{ //j < 2  --> shopCount
+        await getcreateshopElement();
+        
     }
 
 }

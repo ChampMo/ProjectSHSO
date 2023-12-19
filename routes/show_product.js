@@ -62,7 +62,7 @@ class ProductRouter {
       try {
         const products = await db.query('SELECT * FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product WHERE product_id = ? LIMIT 1;', [id_pro]);
 
-        const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ');
+        const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id WHERE Customer.customer_id = ? LIMIT 1; ', [req.session.userId]);
 
         const types_info = await Catelog.find({ id_product: id_pro });
         const typesId = types_info.map(item => item.type_id);
@@ -80,7 +80,7 @@ class ProductRouter {
       try {
         const products = await db.query('SELECT * FROM Seller NATURAL JOIN Product NATURAL JOIN Picture_product WHERE product_id = ? LIMIT 1;', [id_pro]);
 
-        const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id LIMIT 1; ');
+        const address = await db.query('SELECT * FROM Address JOIN Customer ON Address.customer_id = Customer.customer_id WHERE Customer.customer_id = ? LIMIT 1; ', [req.session.userId]);
 
         const types_info = await Catelog.find({ id_product: id_pro });
         const typesId = types_info.map(item => item.type_id);
