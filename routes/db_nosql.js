@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
 const Type = require('./model/type.js');
+const pass = require('../passdb')
 
-mongoose.connect('mongodb+srv://Project1:1234@shsonosql.mo3fh7g.mongodb.net/');
+mongoose.connect(pass.nosqlconect);
 
 const connection = mongoose.connection;
 
