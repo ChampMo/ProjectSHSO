@@ -37,7 +37,7 @@ project
 
 4.npm init
 
-5.npm install express bcrypt cookie-session express-validator mysql2 ejs multer fs.promises mongoose
+5.npm install
 
 6.node --watch app.js
 
